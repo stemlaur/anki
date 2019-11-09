@@ -1,6 +1,6 @@
 package com.stemlaur.anki.domain;
 
-import com.stemlaur.anki.domain.common.Tuple;
+import com.stemlaur.anki.domain.common.TupleWithMultipleEvents;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -29,20 +29,20 @@ public final class Deck {
         }
     }
 
-    public static Tuple<Deck> create(final String id, final String title) {
-        return new Tuple(singletonList(new DeckCreated(id, title)), new Deck(id, title));
+    public static TupleWithMultipleEvents<Deck> create(final String id, final String title) {
+        return new TupleWithMultipleEvents(singletonList(new DeckCreated(id, title)), new Deck(id, title));
     }
 
     public String title() {
         return this.title;
     }
 
-    public Tuple<Deck> addCard(final CardDetail cardDetail) {
+    public TupleWithMultipleEvents<Deck> addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
         final int id = cardIdCounter;
         this.cards.add(new Card(id, cardDetail));
         cardIdCounter++;
-        return new Tuple(singletonList(new CardAdded(this.id, id, cardDetail.question())), this);
+        return new TupleWithMultipleEvents(singletonList(new CardAdded(this.id, id, cardDetail.question())), this);
     }
 
     public void removeCard(final int id) {
