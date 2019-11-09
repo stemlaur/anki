@@ -1,0 +1,1 @@
+package com.stemlaur.anki.domain;
