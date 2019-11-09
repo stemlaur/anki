@@ -14,4 +14,10 @@ public class DeckTest {
         new Deck("an id", "  ");
     }
 
+
+    @Test(expected = Deck.DeckIdIsRequired.class)
+    public void should_notcreate_deck_when_id_is_null() {
+        new Deck(null, "a title");
+    }
+
 }

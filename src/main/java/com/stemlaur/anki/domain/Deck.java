@@ -9,6 +9,9 @@ public final class Deck {
     public Deck(final String id, final String title) {
         this.id = id;
         this.title = title;
+        if(id == null) {
+            throw new DeckIdIsRequired();
+        }
         if(StringUtils.isBlank(title)) {
             throw new DeckTitleIsRequired();
         }
@@ -22,5 +25,6 @@ public final class Deck {
         return this.id;
     }
 
+    public static class DeckIdIsRequired extends RuntimeException{}
     public static class DeckTitleIsRequired extends RuntimeException{}
 }
