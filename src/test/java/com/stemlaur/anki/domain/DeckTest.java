@@ -73,4 +73,12 @@ public class DeckTest {
         this.deck.removeCard(id + 777);
         assertEquals(1, this.deck.cards().size());
     }
+
+    @Test
+    public void should_have_unique_card_ids() {
+        int id1 = this.deck.addCard(new CardDetail("question 1"));
+        this.deck.removeCard(id1);
+        int id2 = this.deck.addCard(new CardDetail("question 2"));
+        assertNotEquals(id1, id2);
+    }
 }

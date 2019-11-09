@@ -13,6 +13,7 @@ public final class Deck {
     private final String id;
     private final String title;
     private List<Card> cards = new ArrayList<>();
+    private int cardIdCounter = 1;
 
     public Deck(final String id, final String title) {
         this.id = id;
@@ -31,8 +32,9 @@ public final class Deck {
 
     public int addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
-        final int id = this.cards.size() + 1;
+        final int id = cardIdCounter;
         this.cards.add(new Card(id, cardDetail));
+        cardIdCounter++;
         return id;
     }
 
