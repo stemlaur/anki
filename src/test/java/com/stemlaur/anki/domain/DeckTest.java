@@ -24,4 +24,9 @@ public class DeckTest {
         new Deck("  ", "a title");
     }
 
+    @Test
+    public void should_create_deck_with_empty_list_of_card() {
+        assert (new Deck("123", "a title").cards().isEmpty());
+    }
+
 }
