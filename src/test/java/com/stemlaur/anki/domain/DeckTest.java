@@ -1,5 +1,6 @@
 package com.stemlaur.anki.domain;
 
+import com.stemlaur.anki.domain.common.Tuple;
 import com.stemlaur.anki.domain.common.TupleWithMultipleEvents;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,17 +44,16 @@ public class DeckTest {
 
     @Test
     public void should_return_DeckCreated() {
-        final TupleWithMultipleEvents<Deck> deckTuple = Deck.create("123", "a title");
-        assertNotNull(deckTuple.getEvents());
-        assertEquals(1, deckTuple.getEvents().size());
-        assertEquals(new DeckCreated("123", "a title"), deckTuple.getEvents().get(0));
+        final Tuple<DeckCreated, Deck> deckTuple = Deck.create("123", "a title");
+        assertNotNull(deckTuple.getEvent());
+        assertEquals(new DeckCreated("123", "a title"), deckTuple.getEvent());
     }
 
     @Test
     public void should_add_a_card_to_an_empty_deck() {
-        final TupleWithMultipleEvents<Deck> deckTuple = this.deck.addCard(new CardDetail(QUESTION));
+        final Tuple<CardAdded, Deck> deckTuple = this.deck.addCard(new CardDetail(QUESTION));
         assertEquals(new CardDetail(QUESTION), this.deck.cards().get(0).detail());
-        assertEquals(new CardAdded("123", this.deck.cards().get(0).id(), QUESTION), deckTuple.getEvents().get(0));
+        assertEquals(new CardAdded("123", this.deck.cards().get(0).id(), QUESTION), deckTuple.getEvent());
     }
 
     @Test(expected = NullPointerException.class)
@@ -70,7 +70,7 @@ public class DeckTest {
 
     @Test
     public void should_remove_card_when_it_exits() {
-        final TupleWithMultipleEvents<Deck> deckTuple = this.deck.addCard(new CardDetail("question 1"));
+        final Tuple<CardAdded, Deck> deckTuple = this.deck.addCard(new CardDetail("question 1"));
         assertFalse(this.deck.cards().isEmpty());
         this.deck.removeCard(deckTuple.getAggregate().cards().get(0).id());
         assertTrue(this.deck.cards().isEmpty());
@@ -78,7 +78,7 @@ public class DeckTest {
 
     @Test
     public void should_do_nothing_when_removing_card_which_does_not_exist() {
-        final TupleWithMultipleEvents<Deck> deckTuple = this.deck.addCard(new CardDetail("question 1"));
+        final Tuple<CardAdded, Deck> deckTuple = this.deck.addCard(new CardDetail("question 1"));
         assertEquals(1, this.deck.cards().size());
         this.deck.removeCard(deckTuple.getAggregate().cards().get(0).id() + 777);
         assertEquals(1, this.deck.cards().size());
@@ -86,10 +86,10 @@ public class DeckTest {
 
     @Test
     public void should_have_unique_card_ids() {
-        final TupleWithMultipleEvents<Deck> deckTuple1 = this.deck.addCard(new CardDetail("question 1"));
+        final Tuple<CardAdded, Deck> deckTuple1 = this.deck.addCard(new CardDetail("question 1"));
         final int id1 = deckTuple1.getAggregate().cards().get(0).id();
         this.deck.removeCard(id1);
-        final TupleWithMultipleEvents<Deck> deckTuple2 = this.deck.addCard(new CardDetail("question 2"));
+        final Tuple<CardAdded, Deck> deckTuple2 = this.deck.addCard(new CardDetail("question 2"));
         final int id2 = deckTuple2.getAggregate().cards().get(0).id();
         assertNotEquals(id1, id2);
     }
