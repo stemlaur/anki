@@ -51,8 +51,9 @@ public class DeckTest {
 
     @Test
     public void should_add_a_card_to_an_empty_deck() {
-        this.deck.addCard(new CardDetail(QUESTION));
+        final Tuple<Deck> deckTuple = this.deck.addCard(new CardDetail(QUESTION));
         assertEquals(new CardDetail(QUESTION), this.deck.cards().get(0).detail());
+        assertEquals(new CardAdded("123", this.deck.cards().get(0).id(), QUESTION), deckTuple.getEvents().get(0));
     }
 
     @Test(expected = NullPointerException.class)
@@ -69,25 +70,27 @@ public class DeckTest {
 
     @Test
     public void should_remove_card_when_it_exits() {
-        int id = this.deck.addCard(new CardDetail("question 1"));
+        final Tuple<Deck> deckTuple = this.deck.addCard(new CardDetail("question 1"));
         assertFalse(this.deck.cards().isEmpty());
-        this.deck.removeCard(id);
+        this.deck.removeCard(deckTuple.getAggregate().cards().get(0).id());
         assertTrue(this.deck.cards().isEmpty());
     }
 
     @Test
     public void should_do_nothing_when_removing_card_which_does_not_exist() {
-        int id = this.deck.addCard(new CardDetail("question 1"));
+        final Tuple<Deck> deckTuple = this.deck.addCard(new CardDetail("question 1"));
         assertEquals(1, this.deck.cards().size());
-        this.deck.removeCard(id + 777);
+        this.deck.removeCard(deckTuple.getAggregate().cards().get(0).id() + 777);
         assertEquals(1, this.deck.cards().size());
     }
 
     @Test
     public void should_have_unique_card_ids() {
-        int id1 = this.deck.addCard(new CardDetail("question 1"));
+        final Tuple<Deck> deckTuple1 = this.deck.addCard(new CardDetail("question 1"));
+        final int id1 = deckTuple1.getAggregate().cards().get(0).id();
         this.deck.removeCard(id1);
-        int id2 = this.deck.addCard(new CardDetail("question 2"));
+        final Tuple<Deck> deckTuple2 = this.deck.addCard(new CardDetail("question 2"));
+        final int id2 = deckTuple2.getAggregate().cards().get(0).id();
         assertNotEquals(id1, id2);
     }
 }

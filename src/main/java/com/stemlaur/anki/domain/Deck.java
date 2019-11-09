@@ -1,15 +1,16 @@
 package com.stemlaur.anki.domain;
 
-import com.stemlaur.anki.domain.common.AbstractEvent;
 import com.stemlaur.anki.domain.common.Tuple;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.singletonList;
+import static java.util.Collections.unmodifiableList;
 
 public final class Deck {
     private final String id;
@@ -29,19 +30,19 @@ public final class Deck {
     }
 
     public static Tuple<Deck> create(final String id, final String title) {
-        return new Tuple(Collections.singletonList(new DeckCreated(id, title)), new Deck(id, title));
+        return new Tuple(singletonList(new DeckCreated(id, title)), new Deck(id, title));
     }
 
     public String title() {
         return this.title;
     }
 
-    public int addCard(final CardDetail cardDetail) {
+    public Tuple<Deck> addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
         final int id = cardIdCounter;
         this.cards.add(new Card(id, cardDetail));
         cardIdCounter++;
-        return id;
+        return new Tuple(singletonList(new CardAdded(this.id, id, cardDetail.question())), this);
     }
 
     public void removeCard(final int id) {
@@ -53,7 +54,7 @@ public final class Deck {
     }
 
     public List<Card> cards() {
-        return Collections.unmodifiableList(this.cards);
+        return unmodifiableList(this.cards);
     }
 
     @EqualsAndHashCode
