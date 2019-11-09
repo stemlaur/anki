@@ -12,7 +12,7 @@ public class DeckTest {
 
     @Before
     public void setUp() throws Exception {
-        this.deck = Deck.create("123", "a title");
+        this.deck = Deck.create("123", "a title").getAggregate();
     }
 
     @Test(expected = Deck.DeckTitleIsRequired.class)

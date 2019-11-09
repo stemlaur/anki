@@ -1,5 +1,7 @@
 package com.stemlaur.anki.domain;
 
+import com.stemlaur.anki.domain.common.AbstractEvent;
+import com.stemlaur.anki.domain.common.Tuple;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -26,8 +28,8 @@ public final class Deck {
         }
     }
 
-    public static Deck create(final String id, final String title) {
-        return new Deck(id, title);
+    public static Tuple<AbstractEvent, Deck> create(final String id, final String title) {
+        return new Tuple(null, new Deck(id, title));
     }
 
     public String title() {

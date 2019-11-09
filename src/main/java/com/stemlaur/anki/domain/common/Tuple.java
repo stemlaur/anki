@@ -7,10 +7,10 @@ import java.util.List;
 @Getter
 public final class Tuple<EVENT extends AbstractEvent, AGGREGATE> {
     private final List<EVENT> events;
-    private final Object second;
+    private final AGGREGATE aggregate;
 
     public Tuple(final List<EVENT> events, final AGGREGATE aggregate) {
         this.events = events;
-        this.second = aggregate;
+        this.aggregate = aggregate;
     }
 }
