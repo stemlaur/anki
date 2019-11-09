@@ -26,6 +26,10 @@ public final class Deck {
         }
     }
 
+    public static Deck create(final String id, final String title) {
+        return new Deck(id, title);
+    }
+
     public String title() {
         return this.title;
     }
