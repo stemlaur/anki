@@ -28,7 +28,7 @@ public final class Deck {
         }
     }
 
-    public static Tuple<AbstractEvent, Deck> create(final String id, final String title) {
+    public static Tuple<Deck> create(final String id, final String title) {
         return new Tuple(null, new Deck(id, title));
     }
 
