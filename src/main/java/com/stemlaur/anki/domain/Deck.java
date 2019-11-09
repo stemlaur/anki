@@ -7,6 +7,7 @@ import org.apache.commons.lang3.Validate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Deck {
     private final String id;
@@ -28,9 +29,15 @@ public final class Deck {
         return this.title;
     }
 
-    public void addCard(final CardDetail cardDetail) {
+    public int addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
-        this.cards.add(new Card(this.cards.size() + 1, cardDetail));
+        final int id = this.cards.size() + 1;
+        this.cards.add(new Card(id, cardDetail));
+        return id;
+    }
+
+    public void removeCard(final int id) {
+        this.cards = this.cards.stream().filter(c -> c.id != id).collect(Collectors.toList());
     }
 
     public String id() {

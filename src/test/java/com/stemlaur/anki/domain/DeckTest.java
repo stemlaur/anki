@@ -57,4 +57,12 @@ public class DeckTest {
         this.deck.addCard(new CardDetail("question 2"));
         assertNotEquals(this.deck.cards().get(0).id(), this.deck.cards().get(1).id());
     }
+
+    @Test
+    public void should_remove_card_when_it_exits() {
+        int id = this.deck.addCard(new CardDetail("question 1"));
+        assertFalse(this.deck.cards().isEmpty());
+        this.deck.removeCard(id);
+        assertTrue(this.deck.cards().isEmpty());
+    }
 }
