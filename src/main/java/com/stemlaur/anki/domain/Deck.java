@@ -15,7 +15,7 @@ public final class Deck {
     private List<Card> cards = new ArrayList<>();
     private int cardIdCounter = 1;
 
-    public Deck(final String id, final String title) {
+    private Deck(final String id, final String title) {
         this.id = id;
         this.title = title;
         if (StringUtils.isBlank(id)) {

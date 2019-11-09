@@ -12,7 +12,7 @@ public class DeckTest {
 
     @Before
     public void setUp() throws Exception {
-        this.deck = new Deck("123", "a title");
+        this.deck = Deck.create("123", "a title");
     }
 
     @Test(expected = Deck.DeckTitleIsRequired.class)
@@ -22,17 +22,17 @@ public class DeckTest {
 
     @Test(expected = Deck.DeckTitleIsRequired.class)
     public void should_notcreate_deck_when_title_is_blank() {
-        new Deck("an id", "  ");
+        Deck.create("an id", "  ");
     }
 
     @Test(expected = Deck.DeckIdIsRequired.class)
     public void should_notcreate_deck_when_id_is_null() {
-        new Deck(null, "a title");
+        Deck.create(null, "a title");
     }
 
     @Test(expected = Deck.DeckIdIsRequired.class)
     public void should_notcreate_deck_when_id_is_blank() {
-        new Deck("  ", "a title");
+        Deck.create("  ", "a title");
     }
 
     @Test
