@@ -3,8 +3,7 @@ package com.stemlaur.anki.domain;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DeckTest {
 
@@ -44,16 +43,18 @@ public class DeckTest {
     @Test
     public void should_add_a_card_to_an_empty_deck() {
         this.deck.addCard(new CardDetail(QUESTION));
-        assertEquals(new CardDetail(QUESTION), this.deck.cards().get(0));
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void should_not_allow_direct_access_to_adding_a_card_to_a_deck() {
-        this.deck.cards().add(new CardDetail(QUESTION));
+        assertEquals(new CardDetail(QUESTION), this.deck.cards().get(0).detail());
     }
 
     @Test(expected = NullPointerException.class)
     public void should_throw_an_exception_when_added_card_is_null() {
         this.deck.addCard(null);
+    }
+
+    @Test
+    public void should_add_two_cards_with_different_ids() {
+        this.deck.addCard(new CardDetail("question 1"));
+        this.deck.addCard(new CardDetail("question 2"));
+        assertNotEquals(this.deck.cards().get(0).id(), this.deck.cards().get(1).id());
     }
 }

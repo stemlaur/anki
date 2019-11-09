@@ -7,7 +7,6 @@ import org.apache.commons.lang3.Validate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class Deck {
     private final String id;
@@ -31,15 +30,15 @@ public final class Deck {
 
     public void addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
-        this.cards.add(new Card(0, cardDetail));
+        this.cards.add(new Card(this.cards.size() + 1, cardDetail));
     }
 
     public String id() {
         return this.id;
     }
 
-    public List<CardDetail> cards() {
-        return cards.stream().map(c -> c.detail).collect(Collectors.toUnmodifiableList());
+    public List<Card> cards() {
+        return Collections.unmodifiableList(this.cards);
     }
 
     @EqualsAndHashCode
@@ -50,6 +49,14 @@ public final class Deck {
         private Card(final int id, final CardDetail detail) {
             this.id = id;
             this.detail = detail;
+        }
+
+        public int id() {
+            return this.id;
+        }
+
+        public CardDetail detail() {
+            return this.detail;
         }
     }
 
