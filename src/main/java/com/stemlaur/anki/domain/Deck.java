@@ -9,7 +9,7 @@ public final class Deck {
     public Deck(final String id, final String title) {
         this.id = id;
         this.title = title;
-        if(id == null) {
+        if(StringUtils.isBlank(id)) {
             throw new DeckIdIsRequired();
         }
         if(StringUtils.isBlank(title)) {
