@@ -2,12 +2,14 @@ package com.stemlaur.anki.domain;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public final class Deck {
     private final String id;
     private final String title;
+    private List<Card> cards = new ArrayList<>();
 
     public Deck(final String id, final String title) {
         this.id = id;
@@ -28,8 +30,12 @@ public final class Deck {
         return this.id;
     }
 
-    public List cards() {
-        return Collections.emptyList();
+    public List<Card> cards() {
+        return Collections.unmodifiableList(cards);
+    }
+
+    public void addCard(final Card card) {
+        this.cards.add(card);
     }
 
     public static class DeckIdIsRequired extends RuntimeException{}
