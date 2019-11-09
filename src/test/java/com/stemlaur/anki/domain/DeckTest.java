@@ -3,8 +3,7 @@ package com.stemlaur.anki.domain;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DeckTest {
 
@@ -43,17 +42,43 @@ public class DeckTest {
 
     @Test
     public void should_add_a_card_to_an_empty_deck() {
-        this.deck.addCard(new Card(QUESTION));
-        assertEquals(new Card(QUESTION), this.deck.cards().get(0));
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void should_not_allow_direct_access_to_adding_a_card_to_a_deck() {
-        this.deck.cards().add(new Card(QUESTION));
+        this.deck.addCard(new CardDetail(QUESTION));
+        assertEquals(new CardDetail(QUESTION), this.deck.cards().get(0).detail());
     }
 
     @Test(expected = NullPointerException.class)
     public void should_throw_an_exception_when_added_card_is_null() {
         this.deck.addCard(null);
+    }
+
+    @Test
+    public void should_add_two_cards_with_different_ids() {
+        this.deck.addCard(new CardDetail("question 1"));
+        this.deck.addCard(new CardDetail("question 2"));
+        assertNotEquals(this.deck.cards().get(0).id(), this.deck.cards().get(1).id());
+    }
+
+    @Test
+    public void should_remove_card_when_it_exits() {
+        int id = this.deck.addCard(new CardDetail("question 1"));
+        assertFalse(this.deck.cards().isEmpty());
+        this.deck.removeCard(id);
+        assertTrue(this.deck.cards().isEmpty());
+    }
+
+    @Test
+    public void should_do_nothing_when_removing_card_which_does_not_exist() {
+        int id = this.deck.addCard(new CardDetail("question 1"));
+        assertEquals(1, this.deck.cards().size());
+        this.deck.removeCard(id + 777);
+        assertEquals(1, this.deck.cards().size());
+    }
+
+    @Test
+    public void should_have_unique_card_ids() {
+        int id1 = this.deck.addCard(new CardDetail("question 1"));
+        this.deck.removeCard(id1);
+        int id2 = this.deck.addCard(new CardDetail("question 2"));
+        assertNotEquals(id1, id2);
     }
 }

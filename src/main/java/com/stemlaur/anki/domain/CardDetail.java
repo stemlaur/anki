@@ -3,10 +3,10 @@ package com.stemlaur.anki.domain;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
-public final class Card {
+public final class CardDetail {
     private final String question;
 
-    public Card(final String question) {
+    public CardDetail(final String question) {
 
         this.question = question;
     }
