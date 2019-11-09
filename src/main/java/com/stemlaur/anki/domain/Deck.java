@@ -7,11 +7,12 @@ import org.apache.commons.lang3.Validate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Deck {
     private final String id;
     private final String title;
-    private List<CardDetail> cards = new ArrayList<>();
+    private List<Card> cards = new ArrayList<>();
 
     public Deck(final String id, final String title) {
         this.id = id;
@@ -30,7 +31,7 @@ public final class Deck {
 
     public void addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
-        this.cards.add(cardDetail);
+        this.cards.add(new Card(0, cardDetail));
     }
 
     public String id() {
@@ -38,7 +39,7 @@ public final class Deck {
     }
 
     public List<CardDetail> cards() {
-        return Collections.unmodifiableList(cards);
+        return cards.stream().map(c -> c.detail).collect(Collectors.toUnmodifiableList());
     }
 
     @EqualsAndHashCode
