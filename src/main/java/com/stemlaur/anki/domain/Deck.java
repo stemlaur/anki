@@ -10,7 +10,7 @@ import java.util.List;
 public final class Deck {
     private final String id;
     private final String title;
-    private List<Card> cards = new ArrayList<>();
+    private List<CardDetail> cards = new ArrayList<>();
 
     public Deck(final String id, final String title) {
         this.id = id;
@@ -27,16 +27,16 @@ public final class Deck {
         return this.title;
     }
 
-    public void addCard(final Card card) {
-        Validate.notNull(card);
-        this.cards.add(card);
+    public void addCard(final CardDetail cardDetail) {
+        Validate.notNull(cardDetail);
+        this.cards.add(cardDetail);
     }
 
     public String id() {
         return this.id;
     }
 
-    public List<Card> cards() {
+    public List<CardDetail> cards() {
         return Collections.unmodifiableList(cards);
     }
 

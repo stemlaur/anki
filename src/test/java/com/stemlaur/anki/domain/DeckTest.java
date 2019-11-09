@@ -43,13 +43,13 @@ public class DeckTest {
 
     @Test
     public void should_add_a_card_to_an_empty_deck() {
-        this.deck.addCard(new Card(QUESTION));
-        assertEquals(new Card(QUESTION), this.deck.cards().get(0));
+        this.deck.addCard(new CardDetail(QUESTION));
+        assertEquals(new CardDetail(QUESTION), this.deck.cards().get(0));
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void should_not_allow_direct_access_to_adding_a_card_to_a_deck() {
-        this.deck.cards().add(new Card(QUESTION));
+        this.deck.cards().add(new CardDetail(QUESTION));
     }
 
     @Test(expected = NullPointerException.class)
