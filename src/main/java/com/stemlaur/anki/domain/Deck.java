@@ -1,5 +1,6 @@
 package com.stemlaur.anki.domain;
 
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -38,6 +39,17 @@ public final class Deck {
 
     public List<CardDetail> cards() {
         return Collections.unmodifiableList(cards);
+    }
+
+    @EqualsAndHashCode
+    public static class Card {
+        private final int id;
+        private final CardDetail detail;
+
+        public Card(final int id, final CardDetail detail) {
+            this.id = id;
+            this.detail = detail;
+        }
     }
 
     public static class DeckIdIsRequired extends RuntimeException {
