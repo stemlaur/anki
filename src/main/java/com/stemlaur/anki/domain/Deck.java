@@ -27,17 +27,17 @@ public final class Deck {
         return this.title;
     }
 
+    public void addCard(final Card card) {
+        Validate.notNull(card);
+        this.cards.add(card);
+    }
+
     public String id() {
         return this.id;
     }
 
     public List<Card> cards() {
         return Collections.unmodifiableList(cards);
-    }
-
-    public void addCard(final Card card) {
-        Validate.notNull(card);
-        this.cards.add(card);
     }
 
     public static class DeckIdIsRequired extends RuntimeException {
