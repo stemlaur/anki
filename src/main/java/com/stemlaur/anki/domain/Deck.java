@@ -47,7 +47,7 @@ public final class Deck {
         private final int id;
         private final CardDetail detail;
 
-        public Card(final int id, final CardDetail detail) {
+        private Card(final int id, final CardDetail detail) {
             this.id = id;
             this.detail = detail;
         }
