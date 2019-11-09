@@ -1,5 +1,6 @@
 package com.stemlaur.anki.domain;
 
+import com.stemlaur.anki.domain.common.Tuple;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,6 +39,14 @@ public class DeckTest {
     @Test
     public void should_create_deck_with_empty_list_of_card() {
         assertTrue(this.deck.cards().isEmpty());
+    }
+
+    @Test
+    public void should_return_DeckCreated() {
+        final Tuple<Deck> deckTuple = Deck.create("123", "a title");
+        assertNotNull(deckTuple.getEvents());
+        assertEquals(1, deckTuple.getEvents().size());
+        assertEquals(new DeckCreated("123", "a title"), deckTuple.getEvents().get(0));
     }
 
     @Test
