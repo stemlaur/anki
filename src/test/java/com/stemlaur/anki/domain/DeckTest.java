@@ -65,4 +65,12 @@ public class DeckTest {
         this.deck.removeCard(id);
         assertTrue(this.deck.cards().isEmpty());
     }
+
+    @Test
+    public void should_do_nothing_when_removing_card_which_does_not_exist() {
+        int id = this.deck.addCard(new CardDetail("question 1"));
+        assertEquals(1, this.deck.cards().size());
+        this.deck.removeCard(id + 777);
+        assertEquals(1, this.deck.cards().size());
+    }
 }
