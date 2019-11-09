@@ -1,6 +1,5 @@
 package com.stemlaur.anki.domain;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,5 +50,10 @@ public class DeckTest {
     @Test(expected = UnsupportedOperationException.class)
     public void should_not_allow_direct_access_to_adding_a_card_to_a_deck() {
         this.deck.cards().add(new Card(QUESTION));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void should_throw_an_exception_when_added_card_is_null() {
+        this.deck.addCard(null);
     }
 }
