@@ -19,4 +19,8 @@ public final class Decks {
         this.deckRepository.save(deck);
         return generatedId;
     }
+
+    public void remove(final String deckId) {
+        this.deckRepository.delete(deckId);
+    }
 }

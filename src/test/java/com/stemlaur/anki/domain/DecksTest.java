@@ -24,7 +24,7 @@ public final class DecksTest {
 
     @Test
     public void should_create_an_empty_deck() {
-        final String id = decks.create("My first deck");
+        final String id = this.decks.create("My first deck");
         assertNotNull(id);
         verify(this.deckRepository, times(1))
                 .save(any());
@@ -32,8 +32,16 @@ public final class DecksTest {
 
     @Test
     public void should_create_decks_with_different_id() {
-        final String firstDeckId = decks.create("My first deck");
-        final String secondDeckId = decks.create("My first deck");
+        final String firstDeckId = this.decks.create("My first deck");
+        final String secondDeckId = this.decks.create("My first deck");
         assertNotEquals(firstDeckId, secondDeckId);
+    }
+
+    @Test
+    public void should_remove_a_deck_when_it_exists() {
+        final String deckId = this.decks.create("My first deck");
+        this.decks.remove(deckId);
+        verify(this.deckRepository, times(1))
+                .delete(any());
     }
 }
