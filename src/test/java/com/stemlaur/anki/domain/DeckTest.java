@@ -73,8 +73,10 @@ public class DeckTest {
     public void should_remove_card_when_it_exits() {
         final Tuple<CardAdded, Deck> deckTuple = this.deck.addCard(new CardDetail(QUESTION_1));
         assertFalse(this.deck.cards().isEmpty());
-        this.deck.removeCard(deckTuple.getAggregate().cards().get(0).id());
+        final Tuple<CardRemoved, Deck> tuple =  this.deck.removeCard(deckTuple.getAggregate().cards().get(0).id());
         assertTrue(this.deck.cards().isEmpty());
+        assertEquals(new CardRemoved("123", deckTuple.getEvent().getCardId()), tuple.getEvent());
+
     }
 
     @Test

@@ -44,8 +44,9 @@ public final class Deck {
         return new Tuple<>(new CardAdded(this.id, id, cardDetail.question()), this);
     }
 
-    public void removeCard(final int id) {
+    public Tuple<CardRemoved, Deck> removeCard(final int id) {
         this.cards = this.cards.stream().filter(c -> c.id != id).collect(Collectors.toList());
+        return new Tuple<>(new CardRemoved(this.id, id), this);
     }
 
     public String id() {
