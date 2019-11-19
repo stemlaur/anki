@@ -26,7 +26,7 @@ public class SimpleCardStudyFeature {
     }
 
     @Test
-    public void studentCanStudyADeck() {
+    public void studentCanStudyACardFromADeck() {
         final String contributorId = this.userService.addContributor();
         final String studentId = this.userService.addStudent();
         final String deckId = this.deckService.create(contributorId, "My first Deck !");
@@ -34,9 +34,7 @@ public class SimpleCardStudyFeature {
 
         final String sessionId = this.deckStudyService.startStudySession(studentId, deckId);
         final CardToStudy firstStudyCard = this.deckStudyService.nextCardToStudy(studentId, sessionId);
-        this.deckStudyService.study(studentId, sessionId, firstStudyCard.id(), Opinion.RED);
-        final CardToStudy secondStudyCard = this.deckStudyService.nextCardToStudy(studentId, sessionId);
 
-        assertEquals(firstStudyCard.id(), secondStudyCard.id());
+        assertEquals(firstStudyCard.question(), "Who is Uncle Bob ?");
     }
 }
