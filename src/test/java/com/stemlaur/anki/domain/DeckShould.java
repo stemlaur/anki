@@ -5,61 +5,61 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DeckTest {
+public class DeckShould {
 
-    public static final String QUESTION = "question";
+    private static final String QUESTION = "question";
     private Deck deck;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.deck = new Deck("123", "a title");
     }
 
     @Test(expected = Deck.DeckTitleIsRequired.class)
-    public void should_notcreate_deck_when_title_is_null() {
+    public void notCreateDeck_when_titleIsNull() {
         new Deck("an id", null);
     }
 
     @Test(expected = Deck.DeckTitleIsRequired.class)
-    public void should_notcreate_deck_when_title_is_blank() {
+    public void notCreateDeck_when_titleIsblank() {
         new Deck("an id", "  ");
     }
 
     @Test(expected = Deck.DeckIdIsRequired.class)
-    public void should_notcreate_deck_when_id_is_null() {
+    public void notCreateDeck_when_idIsNull() {
         new Deck(null, "a title");
     }
 
     @Test(expected = Deck.DeckIdIsRequired.class)
-    public void should_notcreate_deck_when_id_is_blank() {
+    public void notCreateDeck_when_idIsBlank() {
         new Deck("  ", "a title");
     }
 
     @Test
-    public void should_create_deck_with_empty_list_of_card() {
+    public void createDeckWithEmptyListOfCard() {
         assertTrue(this.deck.cards().isEmpty());
     }
 
     @Test
-    public void should_add_a_card_to_an_empty_deck() {
+    public void addACardToAnEmptyDeck() {
         this.deck.addCard(new CardDetail(QUESTION));
         assertEquals(new CardDetail(QUESTION), this.deck.cards().get(0).detail());
     }
 
     @Test(expected = NullPointerException.class)
-    public void should_throw_an_exception_when_added_card_is_null() {
+    public void throwAnException_when_addedCardIsNull() {
         this.deck.addCard(null);
     }
 
     @Test
-    public void should_add_two_cards_with_different_ids() {
+    public void addTwoCardsWithDifferentIds() {
         this.deck.addCard(new CardDetail("question 1"));
         this.deck.addCard(new CardDetail("question 2"));
         assertNotEquals(this.deck.cards().get(0).id(), this.deck.cards().get(1).id());
     }
 
     @Test
-    public void should_remove_card_when_it_exits() {
+    public void removeCard_when_itExits() {
         int id = this.deck.addCard(new CardDetail("question 1"));
         assertFalse(this.deck.cards().isEmpty());
         this.deck.removeCard(id);
@@ -67,7 +67,7 @@ public class DeckTest {
     }
 
     @Test
-    public void should_do_nothing_when_removing_card_which_does_not_exist() {
+    public void doNothing_when_removingCardWhichDoesNotExist() {
         int id = this.deck.addCard(new CardDetail("question 1"));
         assertEquals(1, this.deck.cards().size());
         this.deck.removeCard(id + 777);
@@ -75,7 +75,7 @@ public class DeckTest {
     }
 
     @Test
-    public void should_have_unique_card_ids() {
+    public void haveUniqueCardIds() {
         int id1 = this.deck.addCard(new CardDetail("question 1"));
         this.deck.removeCard(id1);
         int id2 = this.deck.addCard(new CardDetail("question 2"));

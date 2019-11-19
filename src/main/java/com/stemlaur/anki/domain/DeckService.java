@@ -5,10 +5,10 @@ import java.util.UUID;
 /**
  * Domain service allowing to create a deck of card.
  */
-public final class Decks {
+public final class DeckService {
     private final DeckRepository deckRepository;
 
-    public Decks(final DeckRepository deckRepository) {
+    public DeckService(final DeckRepository deckRepository) {
 
         this.deckRepository = deckRepository;
     }

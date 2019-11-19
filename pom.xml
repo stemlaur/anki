@@ -54,6 +54,13 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
+                <configuration>
+                    <includes>
+                        <include>**Test.java</include>
+                        <include>**Should.java</include>
+                        <include>**Feature.java</include>
+                    </includes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
