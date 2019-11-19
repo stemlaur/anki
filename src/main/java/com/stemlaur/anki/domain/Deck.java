@@ -1,6 +1,5 @@
 package com.stemlaur.anki.domain;
 
-import com.stemlaur.anki.domain.common.Tuple;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -28,25 +27,23 @@ public final class Deck {
         }
     }
 
-    public static Tuple<DeckCreated, Deck> create(final String id, final String title) {
-        return new Tuple<>(new DeckCreated(id, title), new Deck(id, title));
+    public static Deck create(final String id, final String title) {
+        return new Deck(id, title);
     }
 
     public String title() {
         return this.title;
     }
 
-    public Tuple<CardAdded, Deck> addCard(final CardDetail cardDetail) {
+    public void addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
         final int id = cardIdCounter;
         this.cards.add(new Card(id, cardDetail));
         cardIdCounter++;
-        return new Tuple<>(new CardAdded(this.id, id, cardDetail.question()), this);
     }
 
-    public Tuple<CardRemoved, Deck> removeCard(final int id) {
+    public void removeCard(final int id) {
         this.cards = this.cards.stream().filter(c -> c.id != id).collect(Collectors.toList());
-        return new Tuple<>(new CardRemoved(this.id, id), this);
     }
 
     public String id() {
