@@ -1,5 +1,7 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.catalog;
 
+import com.stemlaur.anki.domain.catalog.CardDetail;
+import com.stemlaur.anki.domain.catalog.Deck;
 import org.junit.Before;
 import org.junit.Test;
 

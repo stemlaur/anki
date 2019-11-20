@@ -1,7 +1,7 @@
 package com.stemlaur.anki.infrastructure;
 
-import com.stemlaur.anki.domain.Session;
-import com.stemlaur.anki.domain.SessionRepository;
+import com.stemlaur.anki.domain.study.Session;
+import com.stemlaur.anki.domain.study.SessionRepository;
 
 import java.util.ArrayList;
 import java.util.List;

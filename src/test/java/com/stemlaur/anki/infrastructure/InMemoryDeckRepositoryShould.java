@@ -1,6 +1,6 @@
 package com.stemlaur.anki.infrastructure;
 
-import com.stemlaur.anki.domain.Deck;
+import com.stemlaur.anki.domain.catalog.Deck;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,5 +1,8 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.study;
 
+import com.stemlaur.anki.domain.catalog.Deck;
+import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 
 import java.util.Optional;

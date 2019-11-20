@@ -1,4 +1,4 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.study;
 
 public final class CardToStudy {
     private final String id;

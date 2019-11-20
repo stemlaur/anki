@@ -1,6 +1,9 @@
 package com.stemlaur.anki.feature;
 
-import com.stemlaur.anki.domain.*;
+import com.stemlaur.anki.domain.catalog.CardDetail;
+import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.common.Clock;
+import com.stemlaur.anki.domain.study.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

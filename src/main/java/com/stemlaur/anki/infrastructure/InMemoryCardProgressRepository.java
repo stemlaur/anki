@@ -1,7 +1,7 @@
 package com.stemlaur.anki.infrastructure;
 
-import com.stemlaur.anki.domain.CardProgress;
-import com.stemlaur.anki.domain.CardProgressRepository;
+import com.stemlaur.anki.domain.study.CardProgress;
+import com.stemlaur.anki.domain.study.CardProgressRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.catalog;
 
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;

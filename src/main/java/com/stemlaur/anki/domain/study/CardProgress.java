@@ -1,4 +1,4 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.study;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -27,10 +27,6 @@ public final class CardProgress {
 
     public LocalDateTime lastEvaluationAt() {
         return this.lastEvaluationAt;
-    }
-
-    public Duration durationBeforeNextEvaluation() {
-        return this.durationBeforeNextEvaluation;
     }
 
     public String id() {

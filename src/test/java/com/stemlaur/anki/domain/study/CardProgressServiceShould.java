@@ -1,5 +1,8 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.study;
 
+import com.stemlaur.anki.domain.study.CardProgress;
+import com.stemlaur.anki.domain.study.CardProgressRepository;
+import com.stemlaur.anki.domain.study.CardProgressService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

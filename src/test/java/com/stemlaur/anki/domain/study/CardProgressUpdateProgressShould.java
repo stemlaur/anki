@@ -1,5 +1,7 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.study;
 
+import com.stemlaur.anki.domain.study.CardProgress;
+import com.stemlaur.anki.domain.study.Opinion;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
