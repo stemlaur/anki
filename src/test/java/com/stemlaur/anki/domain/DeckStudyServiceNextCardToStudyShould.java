@@ -30,7 +30,7 @@ public class DeckStudyServiceNextCardToStudyShould {
     @Before
     public void setUp() {
         this.deckStudyService = new DeckStudyService(
-                this.deckService, null, this.sessionRepository);
+                this.deckService, null, null, this.sessionRepository, null);
     }
 
     @Test(expected = DeckStudyService.SessionDoesNotExist.class)
