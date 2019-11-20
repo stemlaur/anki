@@ -12,7 +12,7 @@ public class InMemoryDeckRepositoryShould {
     private InMemoryDeckRepository inMemoryDeckRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.inMemoryDeckRepository = new InMemoryDeckRepository();
     }
 

@@ -20,7 +20,7 @@ public class DeckService {
         this.deckRepository = deckRepository;
     }
 
-    public String create(final String contributorId, final String title) {
+    public String create(final String title) {
         final String generatedId = UUID.randomUUID().toString();
         final Deck deck = new Deck(generatedId, title);
         this.deckRepository.save(deck);
@@ -32,7 +32,7 @@ public class DeckService {
         this.deckRepository.delete(deckId);
     }
 
-    public void addCard(final String contributorId, final String deckId, final CardDetail cardDetail) {
+    public void addCard(final String deckId, final CardDetail cardDetail) {
         final Deck deck = this.deckRepository.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);
         deck.addCard(cardDetail);
         this.deckRepository.save(deck);

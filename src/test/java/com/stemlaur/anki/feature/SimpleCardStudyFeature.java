@@ -9,33 +9,30 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleCardStudyFeature {
 
     private DeckService deckService;
-    private UserService userService;
     private DeckStudyService deckStudyService;
-    private SessionIdFactory sessionIdFactory;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.deckService = new DeckService();
-        this.sessionIdFactory = new SessionIdFactory();
-        this.deckStudyService = new DeckStudyService(this.deckService, this.sessionIdFactory);
-        this.userService = new UserService();
+        this.deckStudyService = new DeckStudyService(this.deckService, new SessionIdFactory());
     }
 
     @Test
-    public void studentCanStudyACardFromADeck() {
-        final String contributorId = this.userService.addContributor();
-        final String studentId = this.userService.addStudent();
-        final String deckId = this.deckService.create(contributorId, "My first Deck !");
-        this.deckService.addCard(contributorId, deckId, new CardDetail("Who is Uncle Bob ?"));
+    public void userCanStudyACardFromADeck() {
+        final String deckId = this.deckService.create("My first Deck !");
+        this.deckService.addCard(deckId, new CardDetail("Who is Uncle Bob ?"));
 
-        final String sessionId = this.deckStudyService.startStudySession(studentId, deckId);
-        final Optional<CardToStudy> firstStudyCard = this.deckStudyService.nextCardToStudy(studentId, sessionId);
+        final String sessionId = this.deckStudyService.startStudySession(deckId);
+        final Optional<CardToStudy> firstStudyCard = this.deckStudyService.nextCardToStudy(sessionId);
 
-        assertEquals("Who is Uncle Bob ?", firstStudyCard.get().question());
+        final CardToStudy actual = firstStudyCard.orElseThrow();
+        assertNotNull(actual.id());
+        assertEquals("Who is Uncle Bob ?", actual.question());
     }
 }

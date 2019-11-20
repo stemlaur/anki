@@ -16,9 +16,8 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public final class DeckServiceShould {
-    private static final String CONTRIBUTOR_ID = "ANYID";
-    public static final String DECK_ID = "12341234";
-    public static final String NON_EXISTING_DECK_ID = "ANYID";
+    private static final String DECK_ID = "12341234";
+    private static final String NON_EXISTING_DECK_ID = "ANYID";
     private DeckService deckService;
     @Mock
     private DeckRepository deckRepository;
@@ -30,7 +29,7 @@ public final class DeckServiceShould {
 
     @Test
     public void createAnEmptyDeck() {
-        final String id = this.deckService.create(CONTRIBUTOR_ID, "My first deck");
+        final String id = this.deckService.create("My first deck");
         assertNotNull(id);
         verify(this.deckRepository, times(1))
                 .save(any());
@@ -38,8 +37,8 @@ public final class DeckServiceShould {
 
     @Test
     public void createDecksWithDifferentId() {
-        final String firstDeckId = this.deckService.create(CONTRIBUTOR_ID, "My first deck");
-        final String secondDeckId = this.deckService.create(CONTRIBUTOR_ID, "My first deck");
+        final String firstDeckId = this.deckService.create("My first deck");
+        final String secondDeckId = this.deckService.create("My first deck");
         assertNotEquals(firstDeckId, secondDeckId);
     }
 
@@ -59,13 +58,13 @@ public final class DeckServiceShould {
     @Test(expected = DeckService.DeckDoesNotExist.class)
     public void throwAnException_when_addingCardToANonExistingDeck() {
         when(deckRepository.findDeckById(NON_EXISTING_DECK_ID)).thenReturn(empty());
-        this.deckService.addCard(CONTRIBUTOR_ID, NON_EXISTING_DECK_ID, new CardDetail("hello world ?"));
+        this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail("hello world ?"));
     }
 
     @Test
     public void addACard_when_deckExists() {
         when(this.deckRepository.findDeckById(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, "The deck")));
-        this.deckService.addCard(CONTRIBUTOR_ID, DECK_ID, new CardDetail("hello world ?"));
+        this.deckService.addCard(DECK_ID, new CardDetail("hello world ?"));
         verify(this.deckRepository, times(1)).save(any());
     }
 }

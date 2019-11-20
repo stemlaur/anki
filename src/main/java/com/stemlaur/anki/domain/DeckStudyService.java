@@ -27,8 +27,7 @@ public class DeckStudyService {
         this.sessionRepository = new InMemorySessionRepository();
     }
 
-    public String startStudySession(final String studentId,
-                                    final String deckId) {
+    public String startStudySession(final String deckId) {
         final String sessionId = this.sessionIdFactory.create();
         final Deck deck = this.deckService.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);
         if (deck.cards().isEmpty()) {
@@ -36,7 +35,7 @@ public class DeckStudyService {
         }
 
         this.sessionRepository.save(new Session(sessionId,
-                studentId, this.convertCardsToCardsToStudy(deck)));
+                this.convertCardsToCardsToStudy(deck)));
         return sessionId;
     }
 
@@ -46,12 +45,12 @@ public class DeckStudyService {
                 .collect(Collectors.toSet());
     }
 
-    public Optional<CardToStudy> nextCardToStudy(final String studentId, final String sessionId) {
+    public Optional<CardToStudy> nextCardToStudy(final String sessionId) {
         final Session session = this.sessionRepository.findById(sessionId).orElseThrow(SessionDoesNotExist::new);
         return session.cardsToStudy().stream().findFirst();
     }
 
-    public void study(final String studentId, final String sessionId, final String cardId, final Opinion opinion) {
+    public void study(final String sessionId, final String cardId, final Opinion opinion) {
 
     }
 

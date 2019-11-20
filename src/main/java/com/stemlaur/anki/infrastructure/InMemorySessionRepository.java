@@ -1,6 +1,5 @@
 package com.stemlaur.anki.infrastructure;
 
-import com.stemlaur.anki.domain.Deck;
 import com.stemlaur.anki.domain.Session;
 import com.stemlaur.anki.domain.SessionRepository;
 

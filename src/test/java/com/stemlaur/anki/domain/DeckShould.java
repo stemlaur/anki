@@ -8,11 +8,13 @@ import static org.junit.Assert.*;
 public class DeckShould {
 
     private static final String QUESTION = "question";
+    private static final String A_TITLE = "a title";
+    private static final String DECK_ID = "123";
     private Deck deck;
 
     @Before
     public void setUp() {
-        this.deck = new Deck("123", "a title");
+        this.deck = new Deck(DECK_ID, A_TITLE);
     }
 
     @Test(expected = Deck.DeckTitleIsRequired.class)
@@ -38,6 +40,11 @@ public class DeckShould {
     @Test
     public void createDeckWithEmptyListOfCard() {
         assertTrue(this.deck.cards().isEmpty());
+    }
+
+    @Test
+    public void createDeckWithTitle() {
+        assertEquals(A_TITLE, this.deck.title());
     }
 
     @Test

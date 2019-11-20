@@ -46,6 +46,10 @@ public final class Deck {
         return Collections.unmodifiableList(this.cards);
     }
 
+    public String title() {
+        return this.title;
+    }
+
     @EqualsAndHashCode
     public static class Card {
         private final int id;
