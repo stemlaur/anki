@@ -30,7 +30,7 @@ public class DeckStudyServiceStartStudySessionShould {
     @Before
     public void setUp() {
         this.deckStudyService = new DeckStudyService(
-                this.deckService, this.sessionIdFactory, this.sessionRepository);
+                this.deckService, null, this.sessionIdFactory, this.sessionRepository, null);
         when(this.sessionIdFactory.create()).thenReturn(SESSION_ID);
     }
 

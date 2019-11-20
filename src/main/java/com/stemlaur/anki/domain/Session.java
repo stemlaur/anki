@@ -2,6 +2,7 @@ package com.stemlaur.anki.domain;
 
 import lombok.EqualsAndHashCode;
 
+import java.util.Optional;
 import java.util.Set;
 
 @EqualsAndHashCode
@@ -21,5 +22,11 @@ public final class Session {
 
     public Set<CardToStudy> cardsToStudy() {
         return this.cardsToStudy;
+    }
+
+    public Optional<CardToStudy> findCard(final String cardId) {
+        return this.cardsToStudy.stream()
+                .filter(cardToStudy -> cardToStudy.id().equals(cardId))
+                .findFirst();
     }
 }
