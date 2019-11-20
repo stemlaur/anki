@@ -26,10 +26,6 @@ public final class Deck {
         }
     }
 
-    public String title() {
-        return this.title;
-    }
-
     public int addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
         final int id = cardIdCounter;
@@ -48,6 +44,10 @@ public final class Deck {
 
     public List<Card> cards() {
         return Collections.unmodifiableList(this.cards);
+    }
+
+    public String title() {
+        return this.title;
     }
 
     @EqualsAndHashCode
