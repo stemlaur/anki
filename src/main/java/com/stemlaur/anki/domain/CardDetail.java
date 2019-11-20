@@ -10,4 +10,8 @@ public final class CardDetail {
 
         this.question = question;
     }
+
+    public String question() {
+        return this.question;
+    }
 }

@@ -1,4 +1,4 @@
-package com.stemlaur.anki.domain.feature;
+package com.stemlaur.anki.domain;
 
 public class UserService {
     public String addContributor() {

@@ -1,13 +1,12 @@
-package com.stemlaur.anki.domain.feature;
+package com.stemlaur.anki.feature;
 
-import com.stemlaur.anki.domain.CardDetail;
-import com.stemlaur.anki.domain.DeckService;
-import com.stemlaur.anki.domain.Opinion;
+import com.stemlaur.anki.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,11 +16,13 @@ public class SimpleCardStudyFeature {
     private DeckService deckService;
     private UserService userService;
     private DeckStudyService deckStudyService;
+    private SessionIdFactory sessionIdFactory;
 
     @Before
     public void setUp() throws Exception {
         this.deckService = new DeckService();
-        this.deckStudyService = new DeckStudyService();
+        this.sessionIdFactory = new SessionIdFactory();
+        this.deckStudyService = new DeckStudyService(this.deckService, this.sessionIdFactory);
         this.userService = new UserService();
     }
 
@@ -33,8 +34,8 @@ public class SimpleCardStudyFeature {
         this.deckService.addCard(contributorId, deckId, new CardDetail("Who is Uncle Bob ?"));
 
         final String sessionId = this.deckStudyService.startStudySession(studentId, deckId);
-        final CardToStudy firstStudyCard = this.deckStudyService.nextCardToStudy(studentId, sessionId);
+        final Optional<CardToStudy> firstStudyCard = this.deckStudyService.nextCardToStudy(studentId, sessionId);
 
-        assertEquals(firstStudyCard.question(), "Who is Uncle Bob ?");
+        assertEquals("Who is Uncle Bob ?", firstStudyCard.get().question());
     }
 }

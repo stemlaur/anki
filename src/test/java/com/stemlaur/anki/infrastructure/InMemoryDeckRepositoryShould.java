@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class InMemoryDeckRepositoryShould {
 
-    public static final String DECKID = "1234";
+    private static final String DECKID = "1234";
     private InMemoryDeckRepository inMemoryDeckRepository;
 
     @Before
