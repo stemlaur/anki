@@ -20,14 +20,14 @@ import static org.mockito.Mockito.*;
 public class CardProgressServiceShould {
     private static final String CARD_TO_STUDY_ID = "1234";
     private static final LocalDateTime NOW = LocalDateTime.now();
-    public static final CardProgress CARD_PROGRESS = new CardProgress(CARD_TO_STUDY_ID, NOW, Duration.ZERO);
+    private static final CardProgress CARD_PROGRESS = new CardProgress(CARD_TO_STUDY_ID, NOW, Duration.ZERO);
     private CardProgressService cardProgressService;
 
     @Mock
     private CardProgressRepository cardProgressRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.cardProgressService = new CardProgressService(this.cardProgressRepository);
     }
 

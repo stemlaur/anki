@@ -14,22 +14,20 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleCardStudyFeature {
 
-    private DeckService deckService;
     private DeckStudyService deckStudyService;
     private CardProgressService cardProgressService;
-    private String deckId;
     private String sessionId;
-    private Clock clock;
     private LocalDateTime now;
 
     @Before
     public void setUp() {
-        this.clock = new Clock();
-        this.deckService = new DeckService();
+        final Clock clock = new Clock();
+        final DeckService deckService = new DeckService();
         this.cardProgressService = new CardProgressService();
-        this.deckStudyService = new DeckStudyService(this.deckService, this.cardProgressService, new Clock());
-        this.deckId = this.deckService.create("My first Deck !");
-        this.deckService.addCard(deckId, new CardDetail("Who is Uncle Bob ?"));
+        this.deckStudyService = new DeckStudyService(deckService, this.cardProgressService, new Clock());
+
+        final String deckId = deckService.create("My first Deck !");
+        deckService.addCard(deckId, new CardDetail("Who is Uncle Bob ?"));
         this.sessionId = this.deckStudyService.startStudySession(deckId);
         this.now = clock.now();
     }

@@ -6,9 +6,11 @@ import java.time.LocalDateTime;
 public final class CardProgress {
     private final String cardId;
     private LocalDateTime lastEvaluationAt;
-    private Duration durationBeforeNextEvaluation;
+    private final Duration durationBeforeNextEvaluation;
 
-    CardProgress(final String cardId, final LocalDateTime lastEvaluationAt, final Duration durationBeforeNextEvaluation) {
+    CardProgress(final String cardId,
+                 final LocalDateTime lastEvaluationAt,
+                 final Duration durationBeforeNextEvaluation) {
         this.cardId = cardId;
         this.lastEvaluationAt = lastEvaluationAt;
         this.durationBeforeNextEvaluation = durationBeforeNextEvaluation;
