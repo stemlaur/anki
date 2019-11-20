@@ -1,7 +1,7 @@
 package com.stemlaur.anki.infrastructure;
 
-import com.stemlaur.anki.domain.Deck;
-import com.stemlaur.anki.domain.DeckRepository;
+import com.stemlaur.anki.domain.catalog.Deck;
+import com.stemlaur.anki.domain.catalog.DeckRepository;
 
 import java.util.ArrayList;
 import java.util.List;

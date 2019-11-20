@@ -1,4 +1,4 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.catalog;
 
 import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
 

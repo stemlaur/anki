@@ -1,5 +1,8 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.study;
 
+import com.stemlaur.anki.domain.catalog.CardDetail;
+import com.stemlaur.anki.domain.catalog.Deck;
+import com.stemlaur.anki.domain.catalog.DeckService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
