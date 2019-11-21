@@ -16,10 +16,11 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeckStudyServiceStudyShould {
-    private static final String SESSION_ID = "1349234";
-    private static final String SOME_CARD_TO_STUDY_ID = "24942394";
-    private static final String CARD_TO_STUDY_ID = "92400234";
-    private static final String QUESTION = "Who are you ?";
+    private static final String SESSION_ID = "d62c203f-3eeb-4b4a-b493-52e590ad340a";
+    private static final String SOME_CARD_TO_STUDY_ID = "7d0424be-6a80-4e3c-9adc-d86eddd6815d";
+    private static final String CARD_TO_STUDY_ID = "0fd60c6d-7239-42a4-a445-d7e37ccf975a";
+    private static final String A_QUESTION = "Which lobe is positioned above the temporal lobe and behind the frontal lobe ?";
+    private static final String AN_ANSWER = "The parietal lobe.";
 
     private DeckStudyService deckStudyService;
     @Mock
@@ -50,14 +51,14 @@ public class DeckStudyServiceStudyShould {
     @Test(expected = DeckStudyService.CardDoesNotExistInTheSession.class)
     public void throwAnException_when_CardDoesNotExistInTheSession() {
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
-                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION, "Here is the answer")))));
+                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
         this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN);
     }
 
     @Test
     public void saveCardProgress_when_doesNotAlreadyExist() {
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
-                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION, "Here is the answer")))));
+                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
         when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
         verify(this.cardProgressService, times(1)).save(any(CardProgress.class));
@@ -66,7 +67,7 @@ public class DeckStudyServiceStudyShould {
     @Test
     public void saveCardProgress_when_alreadyExist() {
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
-                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION, "Here is the answer")))));
+                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
         when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
 
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);

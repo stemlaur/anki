@@ -7,8 +7,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class InMemoryDeckRepositoryShould {
+    private static final String DECKID = "58545437-85df-4cc7-af62-17659ca9d3ec";
 
-    private static final String DECKID = "1234";
     private InMemoryDeckRepository inMemoryDeckRepository;
 
     @Before
@@ -22,6 +22,7 @@ public class InMemoryDeckRepositoryShould {
         this.inMemoryDeckRepository.save(new Deck(DECKID, "title"));
         assertTrue(this.inMemoryDeckRepository.findDeckById(DECKID).isPresent());
     }
+
     @Test
     public void deleteADeck() {
         this.inMemoryDeckRepository.save(new Deck(DECKID, "title"));

@@ -20,11 +20,11 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CardProgressServiceShould {
-    private static final String CARD_TO_STUDY_ID = "1234";
+    private static final String CARD_TO_STUDY_ID = "f0a29b14-a5c7-4dae-8b9f-f3ca7b7c9b2a";
     private static final LocalDateTime NOW = LocalDateTime.now();
     private static final CardProgress CARD_PROGRESS = new CardProgress(CARD_TO_STUDY_ID, NOW, Duration.ZERO);
-    private CardProgressService cardProgressService;
 
+    private CardProgressService cardProgressService;
     @Mock
     private CardProgressRepository cardProgressRepository;
 

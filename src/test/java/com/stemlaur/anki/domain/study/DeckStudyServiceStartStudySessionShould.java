@@ -20,7 +20,9 @@ public class DeckStudyServiceStartStudySessionShould {
 
     private static final String DECK_ID = "1234";
     private static final String SESSION_ID = "901240234";
-    private static final String TECH_QUESTION = "??";
+    private static final String DECK_TITLE = "The lobes we love.";
+    private static final String A_QUESTION = "Which lobe is the largest of the four major lobes of the brain in mammals ?";
+    private static final String AN_ANSWER = "The frontal lobe.";
 
     private DeckStudyService deckStudyService;
     @Mock
@@ -52,18 +54,18 @@ public class DeckStudyServiceStartStudySessionShould {
     @Test
     public void saveCardProgress() {
         when(this.deckService.findDeckById(DECK_ID))
-                .thenReturn(of(aDeck(new CardDetail(TECH_QUESTION, "The answer"))));
+                .thenReturn(of(aDeck(new CardDetail(A_QUESTION, AN_ANSWER))));
 
         this.deckStudyService.startStudySession(DECK_ID);
 
         verify(this.sessionRepository, times(1))
                 .save(new Session(
                         SESSION_ID,
-                        Collections.singleton(new CardToStudy(any(), TECH_QUESTION, "Here is the answer"))));
+                        Collections.singleton(new CardToStudy(any(), A_QUESTION, AN_ANSWER))));
     }
 
     private Deck aDeck(final CardDetail... cardDetails) {
-        final Deck deck = new Deck(DeckStudyServiceStartStudySessionShould.DECK_ID, "My first deck");
+        final Deck deck = new Deck(DeckStudyServiceStartStudySessionShould.DECK_ID, DECK_TITLE);
         for (CardDetail cardDetail : cardDetails) {
             deck.addCard(cardDetail);
         }

@@ -19,6 +19,9 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleCardStudyFeature {
+    private static final String DECK_TITLE = "Brain and its mysteries";
+    private static final String A_QUESTION = "What part of the brain is primarily involved in visual perception ?";
+    private static final String AN_ANSWER = "Occipital lobe";
 
     private DeckStudyService deckStudyService;
     private CardProgressService cardProgressService;
@@ -30,8 +33,8 @@ public class SimpleCardStudyFeature {
         this.cardProgressService = new CardProgressService();
         this.deckStudyService = new DeckStudyService(deckService, this.cardProgressService, new SessionIdFactory(), new InMemorySessionRepository(), new Clock());
 
-        final String deckId = deckService.create("My first Deck !");
-        deckService.addCard(deckId, new CardDetail("Who is Uncle Bob ?", "The answer"));
+        final String deckId = deckService.create(DECK_TITLE);
+        deckService.addCard(deckId, new CardDetail(A_QUESTION, AN_ANSWER));
         this.sessionId = this.deckStudyService.startStudySession(deckId);
     }
 
@@ -40,7 +43,8 @@ public class SimpleCardStudyFeature {
         final Optional<CardToStudy> firstStudyCard = this.deckStudyService.nextCardToStudy(sessionId);
         final CardToStudy actual = firstStudyCard.orElseThrow();
         assertNotNull(actual.id());
-        assertEquals("Who is Uncle Bob ?", actual.question());
+        assertEquals(A_QUESTION, actual.question());
+        assertEquals(AN_ANSWER, actual.answer());
     }
 
     @Test

@@ -18,9 +18,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeckStudyServiceNextCardToStudyShould {
-
-    private static final String SESSION_ID = "901240234";
-    private static final String TECH_QUESTION = "??";
+    private static final String SESSION_ID = "8c250114-fab1-465d-936b-739bc57ff33d";
+    private static final String A_QUESTION = "What lobe is involved in processing sensory input ?";
+    private static final String AN_ANSWER = "The temporal lobe.";
 
     private DeckStudyService deckStudyService;
     @Mock
@@ -42,13 +42,11 @@ public class DeckStudyServiceNextCardToStudyShould {
 
     @Test
     public void returnACardToStudy_when_sessionContainsOne() {
-        final Session session = new Session(
-                SESSION_ID,
-                Collections.singleton(new CardToStudy(any(), TECH_QUESTION, "Here is the answer")));
+        final Session session = new Session(SESSION_ID,
+                Collections.singleton(new CardToStudy(any(), A_QUESTION, AN_ANSWER)));
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(of(session));
 
-        final Optional<CardToStudy> cardToStudy =
-                this.deckStudyService.nextCardToStudy(SESSION_ID);
+        final Optional<CardToStudy> cardToStudy = this.deckStudyService.nextCardToStudy(SESSION_ID);
         assertFalse(cardToStudy.isEmpty());
     }
 }
