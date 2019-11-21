@@ -29,10 +29,6 @@ public class DeckStudyService {
         this.clock = clock;
     }
 
-    public DeckStudyService(final DeckService deckService, final CardProgressService cardProgressService, final Clock clock) {
-        this(deckService, cardProgressService, new SessionIdFactory(), new InMemorySessionRepository(), clock);
-    }
-
     public String startStudySession(final String deckId) {
         final String sessionId = this.sessionIdFactory.create();
         final Deck deck = this.deckService.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);

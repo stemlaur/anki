@@ -52,7 +52,7 @@ public class DeckStudyServiceStartStudySessionShould {
     @Test
     public void saveCardProgress() {
         when(this.deckService.findDeckById(DECK_ID))
-                .thenReturn(of(aDeck(new CardDetail(TECH_QUESTION))));
+                .thenReturn(of(aDeck(new CardDetail(TECH_QUESTION, "The answer"))));
 
         this.deckStudyService.startStudySession(DECK_ID);
 

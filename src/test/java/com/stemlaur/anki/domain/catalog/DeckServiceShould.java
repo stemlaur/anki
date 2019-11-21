@@ -58,13 +58,13 @@ public final class DeckServiceShould {
     @Test(expected = DeckService.DeckDoesNotExist.class)
     public void throwAnException_when_addingCardToANonExistingDeck() {
         when(deckRepository.findDeckById(NON_EXISTING_DECK_ID)).thenReturn(empty());
-        this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail("hello world ?"));
+        this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail("hello world ?", "The answer"));
     }
 
     @Test
     public void addACard_when_deckExists() {
         when(this.deckRepository.findDeckById(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, "The deck")));
-        this.deckService.addCard(DECK_ID, new CardDetail("hello world ?"));
+        this.deckService.addCard(DECK_ID, new CardDetail("hello world ?", "The answer"));
         verify(this.deckRepository, times(1)).save(any());
     }
 }

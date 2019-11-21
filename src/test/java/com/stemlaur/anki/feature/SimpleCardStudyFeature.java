@@ -4,6 +4,7 @@ import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.*;
+import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,13 +26,12 @@ public class SimpleCardStudyFeature {
 
     @Before
     public void setUp() {
-        final Clock clock = new Clock();
         final DeckService deckService = new DeckService();
         this.cardProgressService = new CardProgressService();
-        this.deckStudyService = new DeckStudyService(deckService, this.cardProgressService, new Clock());
+        this.deckStudyService = new DeckStudyService(deckService, this.cardProgressService, new SessionIdFactory(), new InMemorySessionRepository(), new Clock());
 
         final String deckId = deckService.create("My first Deck !");
-        deckService.addCard(deckId, new CardDetail("Who is Uncle Bob ?"));
+        deckService.addCard(deckId, new CardDetail("Who is Uncle Bob ?", "The answer"));
         this.sessionId = this.deckStudyService.startStudySession(deckId);
     }
 
