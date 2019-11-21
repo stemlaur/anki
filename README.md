@@ -17,6 +17,17 @@ To use the service, please run the following commands:
 
 This usage paragraph will of course change as the project evolves.
 
+## The modules
+The modules are splitted into two:
+
+ - a module [domain](./domain/README.md) agnostic of any infrastructure concerns, exposing:
+    - the value objects and entities
+    - the domain services
+    - interfaces for the infrastruture
+ - a module [application](./application/README.md) where are gathered 
+    - the entry point Main.java 
+    - in-memory or fake infrastructure related classes
+
  ## Contribute
  - keep the domain free of any infrastructure related details
     - in order to be able to log and/or publish metrics [domain probe](https://martinfowler.com/articles/domain-oriented-observability.html)
