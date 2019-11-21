@@ -1,10 +1,6 @@
 package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.domain.study.CardToStudy;
-import com.stemlaur.anki.domain.study.DeckStudyService;
-import com.stemlaur.anki.domain.study.Session;
-import com.stemlaur.anki.domain.study.SessionRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +44,7 @@ public class DeckStudyServiceNextCardToStudyShould {
     public void returnACardToStudy_when_sessionContainsOne() {
         final Session session = new Session(
                 SESSION_ID,
-                Collections.singleton(new CardToStudy(any(), TECH_QUESTION)));
+                Collections.singleton(new CardToStudy(any(), TECH_QUESTION, "Here is the answer")));
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(of(session));
 
         final Optional<CardToStudy> cardToStudy =

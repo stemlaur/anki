@@ -3,7 +3,6 @@ package com.stemlaur.anki.domain.study;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
-import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 
 import java.util.Optional;
 import java.util.Set;
@@ -29,25 +28,24 @@ public class DeckStudyService {
         this.clock = clock;
     }
 
-    public DeckStudyService(final DeckService deckService, final CardProgressService cardProgressService, final Clock clock) {
-        this(deckService, cardProgressService, new SessionIdFactory(), new InMemorySessionRepository(), clock);
-    }
-
     public String startStudySession(final String deckId) {
         final String sessionId = this.sessionIdFactory.create();
+        final Deck deck = this.findDeck(deckId);
+        this.sessionRepository.save(new Session(sessionId, this.convertCardsToCardsToStudy(deck)));
+        return sessionId;
+    }
+
+    private Deck findDeck(final String deckId) {
         final Deck deck = this.deckService.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);
         if (deck.cards().isEmpty()) {
             throw new DeckDoesNotContainAnyCards();
         }
-
-        this.sessionRepository.save(new Session(sessionId,
-                this.convertCardsToCardsToStudy(deck)));
-        return sessionId;
+        return deck;
     }
 
     private Set<CardToStudy> convertCardsToCardsToStudy(final Deck deck) {
         return deck.cards().stream()
-                .map(c -> new CardToStudy(UUID.randomUUID().toString(), c.detail().question()))
+                .map(c -> new CardToStudy(UUID.randomUUID().toString(), c.detail().question(), c.detail().answer()))
                 .collect(Collectors.toSet());
     }
 
@@ -59,8 +57,7 @@ public class DeckStudyService {
     public void study(final String sessionId, final String cardId, final Opinion opinion) {
         final Session session = this.sessionRepository.findById(sessionId).orElseThrow(SessionDoesNotExist::new);
         final CardToStudy card = session.findCard(cardId).orElseThrow(CardDoesNotExistInTheSession::new);
-        final CardProgress cardProgress =
-                this.cardProgressService.findByCardToStudyId(card.id()).orElse(CardProgress.init(card.id()));
+        final CardProgress cardProgress = this.cardProgressService.findByCardToStudyId(card.id());
         cardProgress.updateProgress(opinion, this.clock.now());
         this.cardProgressService.save(cardProgress);
     }

@@ -15,8 +15,7 @@ import java.util.Optional;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,18 +34,18 @@ public class CardProgressServiceShould {
     }
 
     @Test
-    public void returnEmpty_when_CardToStudyDoesNotExist() {
+    public void returnNewCardProgress_when_CardToStudyDoesNotExist() {
         when(this.cardProgressRepository.findCardProgressById(CARD_TO_STUDY_ID)).thenReturn(empty());
-        Optional<CardProgress> actual = this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID);
-        assertTrue(actual.isEmpty());
+        CardProgress actual = this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID);
+        assertNotNull(actual);
     }
 
     @Test
     public void returnCardProgress_when_ItExists() {
         when(this.cardProgressRepository.findCardProgressById(CARD_TO_STUDY_ID))
                 .thenReturn(of(CARD_PROGRESS));
-        Optional<CardProgress> actual = this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID);
-        assertEquals(CARD_PROGRESS, actual.orElseThrow());
+        CardProgress actual = this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID);
+        assertEquals(CARD_PROGRESS, actual);
     }
 
     @Test

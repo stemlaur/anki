@@ -2,8 +2,6 @@ package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
 
-import java.util.Optional;
-
 public class CardProgressService {
     private final CardProgressRepository cardProgressRepository;
 
@@ -16,9 +14,8 @@ public class CardProgressService {
         this.cardProgressRepository = cardProgressRepository;
     }
 
-    public Optional<CardProgress> findByCardToStudyId(final String id) {
-
-        return this.cardProgressRepository.findCardProgressById(id);
+    public CardProgress findByCardToStudyId(final String id) {
+        return this.cardProgressRepository.findCardProgressById(id).orElse(CardProgress.init(id));
     }
 
     public void save(final CardProgress cardProgress) {

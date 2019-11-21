@@ -52,14 +52,14 @@ public class DeckStudyServiceStartStudySessionShould {
     @Test
     public void saveCardProgress() {
         when(this.deckService.findDeckById(DECK_ID))
-                .thenReturn(of(aDeck(new CardDetail(TECH_QUESTION))));
+                .thenReturn(of(aDeck(new CardDetail(TECH_QUESTION, "The answer"))));
 
         this.deckStudyService.startStudySession(DECK_ID);
 
         verify(this.sessionRepository, times(1))
                 .save(new Session(
                         SESSION_ID,
-                        Collections.singleton(new CardToStudy(any(), TECH_QUESTION))));
+                        Collections.singleton(new CardToStudy(any(), TECH_QUESTION, "Here is the answer"))));
     }
 
     private Deck aDeck(final CardDetail... cardDetails) {
