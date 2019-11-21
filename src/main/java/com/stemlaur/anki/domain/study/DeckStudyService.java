@@ -57,8 +57,7 @@ public class DeckStudyService {
     public void study(final String sessionId, final String cardId, final Opinion opinion) {
         final Session session = this.sessionRepository.findById(sessionId).orElseThrow(SessionDoesNotExist::new);
         final CardToStudy card = session.findCard(cardId).orElseThrow(CardDoesNotExistInTheSession::new);
-        final CardProgress cardProgress =
-                this.cardProgressService.findByCardToStudyId(card.id()).orElse(CardProgress.init(card.id()));
+        final CardProgress cardProgress = this.cardProgressService.findByCardToStudyId(card.id());
         cardProgress.updateProgress(opinion, this.clock.now());
         this.cardProgressService.save(cardProgress);
     }

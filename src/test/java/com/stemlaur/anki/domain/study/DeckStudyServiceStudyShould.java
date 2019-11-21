@@ -59,6 +59,7 @@ public class DeckStudyServiceStudyShould {
     public void saveCardProgress_when_doesNotAlreadyExist() {
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION)))));
+        when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
         verify(this.cardProgressService, times(1)).save(any(CardProgress.class));
     }
@@ -67,6 +68,8 @@ public class DeckStudyServiceStudyShould {
     public void saveCardProgress_when_alreadyExist() {
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION)))));
+        when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
+
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
         verify(this.cardProgressService, times(2)).save(any(CardProgress.class));

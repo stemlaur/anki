@@ -51,7 +51,7 @@ public class SimpleCardStudyFeature {
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.ORANGE);
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.GREEN);
 
-        CardProgress actual = this.cardProgressService.findByCardToStudyId(cartToStudy.id()).orElseThrow();
+        CardProgress actual = this.cardProgressService.findByCardToStudyId(cartToStudy.id());
         assertEquals(Duration.of(10, SECONDS), actual.durationBeforeNextEvaluation());
     }
 }
