@@ -26,7 +26,7 @@ public class InMemorySessionRepositoryShould {
 
         this.inMemorySessionRepository.save(new Session(
                 SESSION_ID,
-                Collections.singleton(new CardToStudy("1234", TECH_QUESTION))));
+                Collections.singleton(new CardToStudy("1234", TECH_QUESTION, "Here is the answer"))));
 
         assertTrue(this.inMemorySessionRepository.findById(SESSION_ID).isPresent());
     }

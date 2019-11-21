@@ -15,4 +15,8 @@ public final class CardDetail {
     public String question() {
         return this.question;
     }
+
+    public String answer() {
+        return this.answer;
+    }
 }

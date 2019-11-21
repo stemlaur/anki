@@ -59,7 +59,7 @@ public class DeckStudyServiceStartStudySessionShould {
         verify(this.sessionRepository, times(1))
                 .save(new Session(
                         SESSION_ID,
-                        Collections.singleton(new CardToStudy(any(), TECH_QUESTION))));
+                        Collections.singleton(new CardToStudy(any(), TECH_QUESTION, "Here is the answer"))));
     }
 
     private Deck aDeck(final CardDetail... cardDetails) {

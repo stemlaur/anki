@@ -45,7 +45,7 @@ public class DeckStudyService {
 
     private Set<CardToStudy> convertCardsToCardsToStudy(final Deck deck) {
         return deck.cards().stream()
-                .map(c -> new CardToStudy(UUID.randomUUID().toString(), c.detail().question()))
+                .map(c -> new CardToStudy(UUID.randomUUID().toString(), c.detail().question(), c.detail().answer()))
                 .collect(Collectors.toSet());
     }
 

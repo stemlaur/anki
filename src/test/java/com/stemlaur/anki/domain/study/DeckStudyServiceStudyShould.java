@@ -2,7 +2,6 @@ package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
-import com.stemlaur.anki.domain.study.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,14 +50,14 @@ public class DeckStudyServiceStudyShould {
     @Test(expected = DeckStudyService.CardDoesNotExistInTheSession.class)
     public void throwAnException_when_CardDoesNotExistInTheSession() {
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
-                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION)))));
+                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION, "Here is the answer")))));
         this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN);
     }
 
     @Test
     public void saveCardProgress_when_doesNotAlreadyExist() {
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
-                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION)))));
+                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION, "Here is the answer")))));
         when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
         verify(this.cardProgressService, times(1)).save(any(CardProgress.class));
@@ -67,7 +66,7 @@ public class DeckStudyServiceStudyShould {
     @Test
     public void saveCardProgress_when_alreadyExist() {
         when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
-                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION)))));
+                of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, QUESTION, "Here is the answer")))));
         when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
 
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
