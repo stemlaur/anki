@@ -1,13 +1,7 @@
 package com.stemlaur.anki.domain.study;
 
-import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
-
 public class CardProgressService {
     private final CardProgressRepository cardProgressRepository;
-
-    public CardProgressService() {
-        this.cardProgressRepository = new InMemoryCardProgressRepository();
-    }
 
     public CardProgressService(final CardProgressRepository cardProgressRepository) {
 

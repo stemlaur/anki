@@ -4,7 +4,10 @@ import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.*;
+import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
+import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
 import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,8 +32,8 @@ public class SimpleCardStudyFeature {
 
     @Before
     public void setUp() {
-        final DeckService deckService = new DeckService();
-        this.cardProgressService = new CardProgressService();
+        final DeckService deckService = new DeckService(new InMemoryDeckRepository());
+        this.cardProgressService = new CardProgressService(new InMemoryCardProgressRepository());
         this.deckStudyService = new DeckStudyService(deckService, this.cardProgressService, new SessionIdFactory(), new InMemorySessionRepository(), new Clock());
 
         final String deckId = deckService.create(DECK_TITLE);
@@ -43,8 +46,8 @@ public class SimpleCardStudyFeature {
         final Optional<CardToStudy> firstStudyCard = this.deckStudyService.nextCardToStudy(sessionId);
         final CardToStudy actual = firstStudyCard.orElseThrow();
         assertNotNull(actual.id());
-        assertEquals(A_QUESTION, actual.question());
-        assertEquals(AN_ANSWER, actual.answer());
+        Assert.assertEquals(A_QUESTION, actual.question());
+        Assert.assertEquals(AN_ANSWER, actual.answer());
     }
 
     @Test
@@ -56,6 +59,6 @@ public class SimpleCardStudyFeature {
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.GREEN);
 
         CardProgress actual = this.cardProgressService.findByCardToStudyId(cartToStudy.id());
-        assertEquals(Duration.of(10, SECONDS), actual.durationBeforeNextEvaluation());
+        Assert.assertEquals(Duration.of(10, SECONDS), actual.durationBeforeNextEvaluation());
     }
 }

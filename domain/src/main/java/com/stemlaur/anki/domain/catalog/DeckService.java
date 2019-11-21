@@ -1,7 +1,5 @@
 package com.stemlaur.anki.domain.catalog;
 
-import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
-
 import java.util.Optional;
 import java.util.UUID;
 
@@ -10,10 +8,6 @@ import java.util.UUID;
  */
 public class DeckService {
     private final DeckRepository deckRepository;
-
-    public DeckService() {
-        this(new InMemoryDeckRepository());
-    }
 
     public DeckService(final DeckRepository deckRepository) {
 
