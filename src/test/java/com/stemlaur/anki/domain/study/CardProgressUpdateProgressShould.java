@@ -27,11 +27,11 @@ public class CardProgressUpdateProgressShould {
     public void multiplyDurationBeforeNextEvaluationBy10_when_opinionIsGreen() {
         final Duration durationBeforeStudy = DURATION_OF_10_SECONDS;
 
-        final CardProgress cardProgress = new CardProgress(CARD_ID, NOW, durationBeforeStudy);
-        cardProgress.updateProgress(Opinion.GREEN, NOW);
+        final CardProgress cardProgress = new CardProgress(CARD_ID, NOW, durationBeforeStudy)
+                .updateProgress(Opinion.GREEN, NOW);
 
         final Duration actual = cardProgress.durationBeforeNextEvaluation();
-        assertEquals(actual.toMillis(), durationBeforeStudy.toMillis() * 10);
+        assertEquals(actual, durationBeforeStudy.multipliedBy(10));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class CardProgressUpdateProgressShould {
         cardProgress.updateProgress(Opinion.ORANGE, NOW);
 
         final Duration actual = cardProgress.durationBeforeNextEvaluation();
-        assertEquals(actual.toMillis(), durationBeforeStudy.toMillis() / 2);
+        assertEquals(actual, durationBeforeStudy.dividedBy(2));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CardProgressUpdateProgressShould {
         cardProgress.updateProgress(Opinion.RED, NOW);
 
         final Duration actual = cardProgress.durationBeforeNextEvaluation();
-        assertEquals(actual.toMillis(), durationBeforeStudy.toMillis() / 5);
+        assertEquals(actual, durationBeforeStudy.dividedBy(5));
     }
 
     @Test
@@ -64,6 +64,6 @@ public class CardProgressUpdateProgressShould {
 
         final CardProgress cardProgressOrange = new CardProgress(CARD_ID, NOW, DURATION_OF_1_SECOND)
                 .updateProgress(Opinion.ORANGE, NOW);
-        assertEquals(cardProgressOrange.durationBeforeNextEvaluation().toMillis(), DURATION_OF_1_SECOND.toMillis());
+        assertEquals(cardProgressOrange.durationBeforeNextEvaluation(), DURATION_OF_1_SECOND);
     }
 }
