@@ -12,8 +12,9 @@ import static org.junit.Assert.assertNotNull;
 public class CardProgressUpdateProgressShould {
 
     private static final String CARD_ID = "435466";
-    public static final Duration DURATION_OF_10_SECONDS = Duration.of(10, SECONDS);
-    public static final LocalDateTime NOW = LocalDateTime.now();
+    private static final Duration DURATION_OF_10_SECONDS = Duration.of(10, SECONDS);
+    private static final Duration DURATION_OF_1_SECOND = Duration.of(1, SECONDS);
+    private static final LocalDateTime NOW = LocalDateTime.now();
 
     @Test
     public void updateLastEvaluationAt() {
@@ -53,5 +54,16 @@ public class CardProgressUpdateProgressShould {
 
         final Duration actual = cardProgress.durationBeforeNextEvaluation();
         assertEquals(actual.toMillis(), durationBeforeStudy.toMillis() / 5);
+    }
+
+    @Test
+    public void neverSetDurationBeforeNextEvaluationUnderOneSecond() {
+        final CardProgress cardProgressRed = new CardProgress(CARD_ID, NOW, DURATION_OF_1_SECOND)
+                .updateProgress(Opinion.RED, NOW);
+        assertEquals(cardProgressRed.durationBeforeNextEvaluation().toMillis(), DURATION_OF_1_SECOND.toMillis());
+
+        final CardProgress cardProgressOrange = new CardProgress(CARD_ID, NOW, DURATION_OF_1_SECOND)
+                .updateProgress(Opinion.ORANGE, NOW);
+        assertEquals(cardProgressOrange.durationBeforeNextEvaluation().toMillis(), DURATION_OF_1_SECOND.toMillis());
     }
 }

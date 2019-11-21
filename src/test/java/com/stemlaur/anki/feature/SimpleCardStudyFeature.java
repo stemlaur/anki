@@ -11,6 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
@@ -47,9 +48,11 @@ public class SimpleCardStudyFeature {
     public void studyingACardWithAGreenOpinionChangesItsProgress() {
         final CardToStudy cartToStudy = this.deckStudyService.nextCardToStudy(sessionId).orElseThrow();
 
+        this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.RED);
+        this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.ORANGE);
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.GREEN);
 
         CardProgress actual = this.cardProgressService.findByCardToStudyId(cartToStudy.id()).orElseThrow();
-        assertTrue(now.isBefore(actual.lastEvaluationAt()));
+        assertTrue(actual.durationBeforeNextEvaluation().toMillis() == TimeUnit.SECONDS.toMillis(10L));
     }
 }

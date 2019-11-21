@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
 public final class CardProgress {
+    private static final Duration MINIMUM_DURATION = Duration.of(1, SECONDS);
     private final String cardId;
     private LocalDateTime lastEvaluationAt;
     private Duration durationBeforeNextEvaluation;
@@ -19,11 +20,11 @@ public final class CardProgress {
     }
 
     public static CardProgress init(String cardId) {
-        return new CardProgress(cardId, null, Duration.of(1, SECONDS));
+        return new CardProgress(cardId, null, MINIMUM_DURATION);
     }
 
-    public void updateProgress(final Opinion opinion,
-                               LocalDateTime now) {
+    public CardProgress updateProgress(final Opinion opinion,
+                               final LocalDateTime now) {
         this.lastEvaluationAt = now;
         if (opinion == Opinion.GREEN) {
             this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.multipliedBy(10);
@@ -32,6 +33,11 @@ public final class CardProgress {
         } else {
             this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.dividedBy(5);
         }
+
+        if (durationBeforeNextEvaluation.toMillis() < MINIMUM_DURATION.toMillis()) {
+            this.durationBeforeNextEvaluation = MINIMUM_DURATION;
+        }
+        return this;
     }
 
     public LocalDateTime lastEvaluationAt() {
