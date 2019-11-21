@@ -3,7 +3,6 @@ package com.stemlaur.anki.domain.study;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
-import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 
 import java.util.Optional;
 import java.util.Set;
@@ -31,14 +30,17 @@ public class DeckStudyService {
 
     public String startStudySession(final String deckId) {
         final String sessionId = this.sessionIdFactory.create();
+        final Deck deck = this.findDeck(deckId);
+        this.sessionRepository.save(new Session(sessionId, this.convertCardsToCardsToStudy(deck)));
+        return sessionId;
+    }
+
+    private Deck findDeck(final String deckId) {
         final Deck deck = this.deckService.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);
         if (deck.cards().isEmpty()) {
             throw new DeckDoesNotContainAnyCards();
         }
-
-        this.sessionRepository.save(new Session(sessionId,
-                this.convertCardsToCardsToStudy(deck)));
-        return sessionId;
+        return deck;
     }
 
     private Set<CardToStudy> convertCardsToCardsToStudy(final Deck deck) {
