@@ -8,12 +8,11 @@ The card will be shown again in the future depending on the last self-evaluation
 
 
 ## Usage
-For the moment, the service does not contain any executable. 
-
-You can run the tests using:
+To use the service, please run the following commands:
 
 ```bash
-> mvn clean test
+> mvn clean package
+> java -jar application/target/application-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 This usage paragraph will of course change as the project evolves.
