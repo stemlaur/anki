@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class InMemoryCardProgressRepositoryShould {
-    private static final String CARD_ID = "901240234";
+    private static final String CARD_ID = "b56a78e1-cd2a-4b6b-b7af-d38cfdaef557";
     private InMemoryCardProgressRepository inMemoryCardProgressRepository;
 
     @Before

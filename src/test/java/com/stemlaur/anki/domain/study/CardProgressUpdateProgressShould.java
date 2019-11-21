@@ -10,8 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class CardProgressUpdateProgressShould {
-
-    private static final String CARD_ID = "435466";
+    private static final String CARD_ID = "d8394206-2f05-4177-b6c5-495dcc94fbd3";
     private static final Duration DURATION_OF_10_SECONDS = Duration.of(10, SECONDS);
     private static final Duration DURATION_OF_1_SECOND = Duration.of(1, SECONDS);
     private static final LocalDateTime NOW = LocalDateTime.now();
