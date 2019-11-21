@@ -9,10 +9,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleCardStudyFeature {
@@ -20,7 +22,6 @@ public class SimpleCardStudyFeature {
     private DeckStudyService deckStudyService;
     private CardProgressService cardProgressService;
     private String sessionId;
-    private LocalDateTime now;
 
     @Before
     public void setUp() {
@@ -32,7 +33,6 @@ public class SimpleCardStudyFeature {
         final String deckId = deckService.create("My first Deck !");
         deckService.addCard(deckId, new CardDetail("Who is Uncle Bob ?"));
         this.sessionId = this.deckStudyService.startStudySession(deckId);
-        this.now = clock.now();
     }
 
     @Test
@@ -47,9 +47,11 @@ public class SimpleCardStudyFeature {
     public void studyingACardWithAGreenOpinionChangesItsProgress() {
         final CardToStudy cartToStudy = this.deckStudyService.nextCardToStudy(sessionId).orElseThrow();
 
+        this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.RED);
+        this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.ORANGE);
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.GREEN);
 
         CardProgress actual = this.cardProgressService.findByCardToStudyId(cartToStudy.id()).orElseThrow();
-        assertTrue(now.isBefore(actual.lastEvaluationAt()));
+        assertEquals(Duration.of(10, SECONDS), actual.durationBeforeNextEvaluation());
     }
 }

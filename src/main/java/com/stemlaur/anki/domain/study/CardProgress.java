@@ -6,6 +6,11 @@ import java.time.LocalDateTime;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
 public final class CardProgress {
+    private static final Duration MINIMUM_DURATION = Duration.of(1, SECONDS);
+    private static final int GREEN_MULTIPLICAND = 10;
+    private static final int ORANGE_DIVISOR = 2;
+    private static final int RED_DIVISOR = 5;
+
     private final String cardId;
     private LocalDateTime lastEvaluationAt;
     private Duration durationBeforeNextEvaluation;
@@ -19,19 +24,28 @@ public final class CardProgress {
     }
 
     public static CardProgress init(String cardId) {
-        return new CardProgress(cardId, null, Duration.of(1, SECONDS));
+        return new CardProgress(cardId, null, MINIMUM_DURATION);
     }
 
-    public void updateProgress(final Opinion opinion,
-                               LocalDateTime now) {
+    public CardProgress updateProgress(final Opinion opinion,
+                                       final LocalDateTime now) {
         this.lastEvaluationAt = now;
-        if (opinion == Opinion.GREEN) {
-            this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.multipliedBy(10);
-        } else if (opinion == Opinion.ORANGE) {
-            this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.dividedBy(2);
-        } else {
-            this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.dividedBy(5);
+        switch (opinion) {
+            case GREEN:
+                this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.multipliedBy(GREEN_MULTIPLICAND);
+                break;
+            case ORANGE:
+                this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.dividedBy(ORANGE_DIVISOR);
+                break;
+            default:
+                this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.dividedBy(RED_DIVISOR);
+                break;
         }
+
+        if (durationBeforeNextEvaluation.toMillis() < MINIMUM_DURATION.toMillis()) {
+            this.durationBeforeNextEvaluation = MINIMUM_DURATION;
+        }
+        return this;
     }
 
     public LocalDateTime lastEvaluationAt() {
