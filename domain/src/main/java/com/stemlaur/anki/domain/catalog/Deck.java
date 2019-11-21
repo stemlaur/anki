@@ -1,6 +1,7 @@
 package com.stemlaur.anki.domain.catalog;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -9,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ToString
 public final class Deck {
     private final String id;
     private final String title;
@@ -50,6 +52,7 @@ public final class Deck {
         return this.title;
     }
 
+    @ToString
     @EqualsAndHashCode
     public static class Card {
         private final int id;
