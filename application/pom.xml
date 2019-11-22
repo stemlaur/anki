@@ -41,7 +41,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.stemlaur.anki.application.Demo</mainClass>
+                            <mainClass>com.stemlaur.anki.application.demo.Demo</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
