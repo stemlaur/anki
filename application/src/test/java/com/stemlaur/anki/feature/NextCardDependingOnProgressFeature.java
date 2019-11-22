@@ -28,14 +28,13 @@ public class NextCardDependingOnProgressFeature {
     private static final String ANOTHER_ANSWER = "A fissure in the occipital lobe.";
 
     private DeckStudyService deckStudyService;
-    private CardProgressService cardProgressService;
     private String sessionId;
 
     @Before
     public void setUp() {
         final DeckService deckService = new DeckService(new InMemoryDeckRepository());
-        this.cardProgressService = new CardProgressService(new InMemoryCardProgressRepository());
-        this.deckStudyService = new DeckStudyService(deckService, this.cardProgressService, new SessionIdFactory(), new InMemorySessionRepository(), new Clock());
+        final CardProgressService cardProgressService = new CardProgressService(new InMemoryCardProgressRepository());
+        this.deckStudyService = new DeckStudyService(deckService, cardProgressService, new SessionIdFactory(), new InMemorySessionRepository(), new Clock());
 
         final String deckId = deckService.create(DECK_TITLE);
         deckService.addCard(deckId, new CardDetail(A_QUESTION, AN_ANSWER));

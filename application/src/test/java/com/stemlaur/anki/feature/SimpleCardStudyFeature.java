@@ -51,7 +51,7 @@ public class SimpleCardStudyFeature {
     }
 
     @Test
-    public void studyingACardWithAGreenOpinionChangesItsProgress() {
+    public void studyingACardWithAGreenOpinionChangesItsScore() {
         final CardToStudy cartToStudy = this.deckStudyService.nextCardToStudy(sessionId).orElseThrow();
 
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.RED);
@@ -59,6 +59,6 @@ public class SimpleCardStudyFeature {
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.GREEN);
 
         CardProgress actual = this.cardProgressService.findByCardToStudyId(cartToStudy.id());
-        Assert.assertEquals(Duration.of(10, SECONDS), actual.durationBeforeNextEvaluation());
+        Assert.assertEquals(new Score(10), actual.score());
     }
 }

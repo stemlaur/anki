@@ -13,6 +13,7 @@ public class CardProgressUpdateProgressShould {
     private static final String CARD_ID = "d8394206-2f05-4177-b6c5-495dcc94fbd3";
     private static final Duration DURATION_OF_10_SECONDS = Duration.of(10, SECONDS);
     private static final Duration DURATION_OF_1_SECOND = Duration.of(1, SECONDS);
+    private static final Score SCORE_OF_1 = new Score(1);
     private static final LocalDateTime NOW = LocalDateTime.now();
 
     @Test
@@ -23,46 +24,46 @@ public class CardProgressUpdateProgressShould {
     }
 
     @Test
-    public void multiplyDurationBeforeNextEvaluationBy10_when_opinionIsGreen() {
-        final Duration durationBeforeStudy = DURATION_OF_10_SECONDS;
+    public void multiplyScoreBy10_when_opinionIsGreen() {
+        final Score scoreBefore = new Score(1);
 
-        final CardProgress cardProgress = new CardProgress(CARD_ID, NOW, durationBeforeStudy)
+        final CardProgress cardProgress = new CardProgress(CARD_ID, NOW, scoreBefore)
                 .updateProgress(Opinion.GREEN, NOW);
 
-        final Duration actual = cardProgress.durationBeforeNextEvaluation();
-        assertEquals(actual, durationBeforeStudy.multipliedBy(10));
+        final Score actual = cardProgress.score();
+        assertEquals(actual, new Score(10));
     }
 
     @Test
-    public void divideDurationBeforeNextEvaluationBy2_when_opinionIsOrange() {
-        final Duration durationBeforeStudy = DURATION_OF_10_SECONDS;
+    public void divideScoreBy2_when_opinionIsOrange() {
+        final Score scoreBefore = new Score(10);
 
-        final CardProgress cardProgress = new CardProgress(CARD_ID, NOW, durationBeforeStudy);
+        final CardProgress cardProgress = new CardProgress(CARD_ID, NOW, scoreBefore);
         cardProgress.updateProgress(Opinion.ORANGE, NOW);
 
-        final Duration actual = cardProgress.durationBeforeNextEvaluation();
-        assertEquals(actual, durationBeforeStudy.dividedBy(2));
+        final Score actual = cardProgress.score();
+        assertEquals(actual, new Score(5));
     }
 
     @Test
-    public void divideDurationBeforeNextEvaluationBy5_when_opinionIsRed() {
-        final Duration durationBeforeStudy = DURATION_OF_10_SECONDS;
+    public void divideScoreBy5_when_opinionIsRed() {
+        final Score scoreBefore = new Score(10);
 
-        final CardProgress cardProgress = new CardProgress(CARD_ID, NOW, durationBeforeStudy);
+        final CardProgress cardProgress = new CardProgress(CARD_ID, NOW, scoreBefore);
         cardProgress.updateProgress(Opinion.RED, NOW);
 
-        final Duration actual = cardProgress.durationBeforeNextEvaluation();
-        assertEquals(actual, durationBeforeStudy.dividedBy(5));
+        final Score actual = cardProgress.score();
+        assertEquals(actual, new Score(2));
     }
 
     @Test
-    public void neverSetDurationBeforeNextEvaluationUnderOneSecond() {
-        final CardProgress cardProgressRed = new CardProgress(CARD_ID, NOW, DURATION_OF_1_SECOND)
+    public void neverSetScoreUnder1() {
+        final CardProgress cardProgressRed = new CardProgress(CARD_ID, NOW, SCORE_OF_1)
                 .updateProgress(Opinion.RED, NOW);
-        assertEquals(cardProgressRed.durationBeforeNextEvaluation().toMillis(), DURATION_OF_1_SECOND.toMillis());
+        assertEquals(cardProgressRed.score(), SCORE_OF_1);
 
-        final CardProgress cardProgressOrange = new CardProgress(CARD_ID, NOW, DURATION_OF_1_SECOND)
+        final CardProgress cardProgressOrange = new CardProgress(CARD_ID, NOW, SCORE_OF_1)
                 .updateProgress(Opinion.ORANGE, NOW);
-        assertEquals(cardProgressOrange.durationBeforeNextEvaluation(), DURATION_OF_1_SECOND);
+        assertEquals(cardProgressOrange.score(), SCORE_OF_1);
     }
 }
