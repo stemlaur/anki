@@ -45,9 +45,23 @@ public class Demo implements BiConsumer<TextIO, RunnerData> {
         final String deckId = deckService.create("Brain and its mysteries");
         System.out.println("Deck id = " + deckId);
         deckService.addCard(deckId,
-                new CardDetail("What lobe is involved in processing sensory input ?", "The temporal lobe."));
+                new CardDetail("What lobe is involved in processing sensory input ?",
+                        "The temporal lobe."));
         deckService.addCard(deckId,
-                new CardDetail("What is the lunate sulcus ?", "A fissure in the occipital lobe."));
+                new CardDetail("What is the lunate sulcus ?",
+                        "A fissure in the occipital lobe."));
+        deckService.addCard(deckId,
+                new CardDetail("What part of the brain is primarily involved in visual perception ?",
+                        "Occipital lobe."));
+        deckService.addCard(deckId,
+                new CardDetail("What is the name of the standard used to order the human brain anatomical regions ?",
+                        "The neuroanatomy hierarchies."));
+        deckService.addCard(deckId,
+                new CardDetail( "Which lobe is the largest of the four major lobes of the brain in mammals ?",
+                        "The frontal lobe."));
+        deckService.addCard(deckId,
+                new CardDetail( "Which lobe is positioned above the temporal lobe and behind the frontal lobe ?",
+                        "The parietal lobe."));
     }
 
     public static void main(String[] args) {
