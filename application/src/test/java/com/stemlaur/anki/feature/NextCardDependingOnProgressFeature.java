@@ -7,17 +7,12 @@ import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.*;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.time.Duration;
-import java.util.Optional;
-
-import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NextCardDependingOnProgressFeature {
@@ -43,7 +38,7 @@ public class NextCardDependingOnProgressFeature {
     }
 
     @Test
-    public void nextCardShouldDependOnTheProgress() {
+    public void nextCardShouldDependOnItsScore() {
         final CardToStudy firstCard = this.deckStudyService.nextCardToStudy(sessionId).orElseThrow();
         this.deckStudyService.study(sessionId, firstCard.id(), Opinion.GREEN);
         final CardToStudy secondCard = this.deckStudyService.nextCardToStudy(sessionId).orElseThrow();

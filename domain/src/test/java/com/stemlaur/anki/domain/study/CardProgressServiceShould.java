@@ -1,21 +1,17 @@
 package com.stemlaur.anki.domain.study;
 
-import com.stemlaur.anki.domain.study.CardProgress;
-import com.stemlaur.anki.domain.study.CardProgressRepository;
-import com.stemlaur.anki.domain.study.CardProgressService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

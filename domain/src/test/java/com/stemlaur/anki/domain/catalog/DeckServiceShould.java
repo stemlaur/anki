@@ -36,7 +36,7 @@ public final class DeckServiceShould {
     public void createAnEmptyDeck() {
         final String id = this.deckService.create(DECK_TITLE);
         assertNotNull(id);
-        verify(this.deckRepository, times(1)).save(any());
+        verify(this.deckRepository, times(1)).save(any(Deck.class));
     }
 
     @Test
@@ -50,7 +50,7 @@ public final class DeckServiceShould {
     public void removeADeck_when_itExists() {
         when(this.deckRepository.findDeckById(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
         this.deckService.remove(DECK_ID);
-        verify(this.deckRepository, times(1)).delete(any());
+        verify(this.deckRepository, times(1)).delete(DECK_ID);
     }
 
     @Test(expected = DeckService.DeckDoesNotExist.class)
@@ -69,6 +69,6 @@ public final class DeckServiceShould {
     public void addACard_when_deckExists() {
         when(this.deckRepository.findDeckById(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
         this.deckService.addCard(DECK_ID, new CardDetail(A_QUESTION, A_ANSWER));
-        verify(this.deckRepository, times(1)).save(any());
+        verify(this.deckRepository, times(1)).save(any(Deck.class));
     }
 }
