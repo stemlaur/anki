@@ -4,11 +4,11 @@ import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
 
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
+
+import static java.util.Optional.empty;
 
 public class DeckStudyService {
     private final DeckService deckService;
@@ -52,13 +52,43 @@ public class DeckStudyService {
 
     public Optional<CardToStudy> nextCardToStudy(final String sessionId) {
         final Session session = this.sessionRepository.findById(sessionId).orElseThrow(SessionDoesNotExist::new);
-        final CardProgress cardProgressWithMinimalScore = session.cardsToStudy().stream()
-                .map(cardToStudy -> this.cardProgressService.findByCardToStudyId(cardToStudy.id()))
-                .min(Comparator.comparingInt(o -> o.score().value()))
-                .orElseThrow();
-        return session.cardsToStudy().stream()
-                .filter(cardToStudy -> cardProgressWithMinimalScore.id().equals(cardToStudy.id()))
+        final Optional<CardProgress> randomCardProgressWithMinimalScore =
+                this.findRadomCardProgressWithLowestScore(session.cardsToStudy());
+        if (randomCardProgressWithMinimalScore.isEmpty()) {
+            return empty();
+        }
+        return getCardToStudyById(session.cardsToStudy(), randomCardProgressWithMinimalScore.orElseThrow().id());
+    }
+
+    private Optional<CardProgress> findRadomCardProgressWithLowestScore(final Set<CardToStudy> cardsToStudy) {
+        final List<CardProgress> cardProgressesSortedByScoreAsc = this.findCardProgressesSortedByScoreAsc(cardsToStudy);
+        if (cardProgressesSortedByScoreAsc.isEmpty()) {
+            return empty();
+        }
+        return Optional.of(this.findRandomCardProgressWithScore(cardProgressesSortedByScoreAsc,
+                cardProgressesSortedByScoreAsc.get(0).score()));
+    }
+
+    private Optional<CardToStudy> getCardToStudyById(final Set<CardToStudy> cardsToStudy,
+                                                     final String cardId) {
+        return cardsToStudy.stream()
+                .filter(c -> cardId.equals(c.id()))
                 .findFirst();
+    }
+
+    private CardProgress findRandomCardProgressWithScore(final List<CardProgress> progresses,
+                                                         final Score score) {
+        return progresses.stream()
+                .filter(cardProgress -> cardProgress.score().equals(score))
+                .min((o1, o2) -> ThreadLocalRandom.current().nextInt(-1, 2))
+                .orElseThrow();
+    }
+
+    private List<CardProgress> findCardProgressesSortedByScoreAsc(final Set<CardToStudy> cardsToStudy) {
+        return cardsToStudy.stream()
+                .map(c -> this.cardProgressService.findByCardToStudyId(c.id()))
+                .sorted(Comparator.comparingInt(o -> o.score().value()))
+                .collect(Collectors.toList());
     }
 
     public void study(final String sessionId, final String cardId, final Opinion opinion) {
