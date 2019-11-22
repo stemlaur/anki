@@ -4,6 +4,7 @@ import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
 
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -51,7 +52,13 @@ public class DeckStudyService {
 
     public Optional<CardToStudy> nextCardToStudy(final String sessionId) {
         final Session session = this.sessionRepository.findById(sessionId).orElseThrow(SessionDoesNotExist::new);
-        return session.cardsToStudy().stream().findFirst();
+        final CardProgress cardProgressWithMinimalScore = session.cardsToStudy().stream()
+                .map(cardToStudy -> this.cardProgressService.findByCardToStudyId(cardToStudy.id()))
+                .min(Comparator.comparingInt(o -> o.score().value()))
+                .orElseThrow();
+        return session.cardsToStudy().stream()
+                .filter(cardToStudy -> cardProgressWithMinimalScore.id().equals(cardToStudy.id()))
+                .findFirst();
     }
 
     public void study(final String sessionId, final String cardId, final Opinion opinion) {

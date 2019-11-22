@@ -1,23 +1,20 @@
 package com.stemlaur.anki.feature;
 
+import com.stemlaur.anki.application.infrastructure.InMemoryCardProgressRepository;
+import com.stemlaur.anki.application.infrastructure.InMemoryDeckRepository;
+import com.stemlaur.anki.application.infrastructure.InMemorySessionRepository;
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.*;
-import com.stemlaur.anki.application.infrastructure.InMemoryCardProgressRepository;
-import com.stemlaur.anki.application.infrastructure.InMemoryDeckRepository;
-import com.stemlaur.anki.application.infrastructure.InMemorySessionRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.time.Duration;
 import java.util.Optional;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -51,7 +48,7 @@ public class SimpleCardStudyFeature {
     }
 
     @Test
-    public void studyingACardWithAGreenOpinionChangesItsProgress() {
+    public void studyingACardWithAGreenOpinionChangesItsScore() {
         final CardToStudy cartToStudy = this.deckStudyService.nextCardToStudy(sessionId).orElseThrow();
 
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.RED);
@@ -59,6 +56,6 @@ public class SimpleCardStudyFeature {
         this.deckStudyService.study(sessionId, cartToStudy.id(), Opinion.GREEN);
 
         CardProgress actual = this.cardProgressService.findByCardToStudyId(cartToStudy.id());
-        Assert.assertEquals(Duration.of(10, SECONDS), actual.durationBeforeNextEvaluation());
+        Assert.assertEquals(new Score(10), actual.score());
     }
 }

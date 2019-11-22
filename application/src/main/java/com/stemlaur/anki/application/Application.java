@@ -44,7 +44,7 @@ public final class Application {
                         STDOUT.println("========== You want to add a card to a deck ==========");
                         givenDeckId = askUserForTheDeckId();
                         final Optional<Deck> optionalDeck = deckService.findDeckById(givenDeckId);
-                        if(optionalDeck.isEmpty()) {
+                        if (optionalDeck.isEmpty()) {
                             STDOUT.println("========== The deck not exist ==========");
                         } else {
                             STDOUT.println(optionalDeck.orElseThrow());
@@ -83,7 +83,7 @@ public final class Application {
     }
 
     private static void displayMenu() {
-        System.out.println("");
+        System.out.println();
         System.out.println("1 - to create a deck");
         System.out.println("2 - to add a card to a deck");
         System.out.println("3 - to view a deck");

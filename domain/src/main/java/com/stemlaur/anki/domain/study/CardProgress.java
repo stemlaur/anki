@@ -1,30 +1,25 @@
 package com.stemlaur.anki.domain.study;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
-
 public final class CardProgress {
-    private static final Duration MINIMUM_DURATION = Duration.of(1, SECONDS);
+    private static final Score MINIMUM_SCORE = new Score(1);
     private static final int GREEN_MULTIPLICAND = 10;
     private static final int ORANGE_DIVISOR = 2;
     private static final int RED_DIVISOR = 5;
 
     private final String cardId;
+    private Score score;
     private LocalDateTime lastEvaluationAt;
-    private Duration durationBeforeNextEvaluation;
 
-    CardProgress(final String cardId,
-                 final LocalDateTime lastEvaluationAt,
-                 final Duration durationBeforeNextEvaluation) {
+    public CardProgress(final String cardId, final LocalDateTime lastEvaluationAt, final Score score) {
         this.cardId = cardId;
         this.lastEvaluationAt = lastEvaluationAt;
-        this.durationBeforeNextEvaluation = durationBeforeNextEvaluation;
+        this.score = score;
     }
 
     public static CardProgress init(String cardId) {
-        return new CardProgress(cardId, null, MINIMUM_DURATION);
+        return new CardProgress(cardId, null, MINIMUM_SCORE);
     }
 
     public CardProgress updateProgress(final Opinion opinion,
@@ -32,23 +27,22 @@ public final class CardProgress {
         this.lastEvaluationAt = now;
         switch (opinion) {
             case GREEN:
-                this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.multipliedBy(GREEN_MULTIPLICAND);
+                this.score = this.score.multipliedBy(GREEN_MULTIPLICAND);
                 break;
             case ORANGE:
-                this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.dividedBy(ORANGE_DIVISOR);
+                this.score = this.score.dividedBy(ORANGE_DIVISOR);
                 break;
             default:
-                this.durationBeforeNextEvaluation = this.durationBeforeNextEvaluation.dividedBy(RED_DIVISOR);
+                this.score = this.score.dividedBy(RED_DIVISOR);
                 break;
         }
-
-        if (durationBeforeNextEvaluation.toMillis() < MINIMUM_DURATION.toMillis()) {
-            this.durationBeforeNextEvaluation = MINIMUM_DURATION;
+        if (score.value() < MINIMUM_SCORE.value()) {
+            this.score = MINIMUM_SCORE;
         }
         return this;
     }
 
-    public LocalDateTime lastEvaluationAt() {
+    LocalDateTime lastEvaluationAt() {
         return this.lastEvaluationAt;
     }
 
@@ -56,7 +50,7 @@ public final class CardProgress {
         return this.cardId;
     }
 
-    public Duration durationBeforeNextEvaluation() {
-        return this.durationBeforeNextEvaluation;
+    public Score score() {
+        return this.score;
     }
 }
