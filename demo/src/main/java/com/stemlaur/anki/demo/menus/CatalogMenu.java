@@ -1,11 +1,10 @@
-package com.stemlaur.anki.application.demo.menus;
+package com.stemlaur.anki.demo.menus;
 
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextTerminal;
-import org.beryx.textio.web.RunnerData;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;

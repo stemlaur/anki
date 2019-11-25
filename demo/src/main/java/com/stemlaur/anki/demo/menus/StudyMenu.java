@@ -1,4 +1,4 @@
-package com.stemlaur.anki.application.demo.menus;
+package com.stemlaur.anki.demo.menus;
 
 import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.DeckStudyService;

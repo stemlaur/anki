@@ -12,7 +12,7 @@ To use the service, please run the following commands:
 
 ```bash
 > mvn clean package
-> java -jar application/target/application-1.0-SNAPSHOT-jar-with-dependencies.jar
+> java -jar demo/target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 This usage paragraph will of course change as the project evolves.

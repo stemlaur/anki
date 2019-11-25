@@ -1,10 +1,9 @@
-package com.stemlaur.anki.application.demo.menus;
+package com.stemlaur.anki.demo.menus;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextTerminal;
-import org.beryx.textio.web.RunnerData;
 
 public final class MainMenu {
     private final DeckService deckService;
