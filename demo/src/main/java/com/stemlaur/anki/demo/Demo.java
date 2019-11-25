@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.stemlaur.anki.application.demo;
+package com.stemlaur.anki.demo;
 
-import com.stemlaur.anki.application.demo.menus.MainMenu;
+import com.stemlaur.anki.demo.menus.MainMenu;
 import com.stemlaur.anki.application.infrastructure.InMemoryCardProgressRepository;
 import com.stemlaur.anki.application.infrastructure.InMemoryDeckRepository;
 import com.stemlaur.anki.application.infrastructure.InMemorySessionRepository;
