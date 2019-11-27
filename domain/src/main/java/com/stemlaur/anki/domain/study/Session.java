@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.util.Optional;
 import java.util.Set;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"id"})
 public final class Session {
     private final String id;
     private final Set<CardToStudy> cardsToStudy;
