@@ -3,7 +3,6 @@ package com.stemlaur.anki.domain.catalog;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@ToString
 @EqualsAndHashCode
 public final class CardDetail {
     private final String question;

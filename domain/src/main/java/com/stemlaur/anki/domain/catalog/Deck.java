@@ -1,7 +1,6 @@
 package com.stemlaur.anki.domain.catalog;
 
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -10,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ToString
+@EqualsAndHashCode(of = {"id"})
 public final class Deck {
     private final String id;
     private final String title;
@@ -37,7 +36,7 @@ public final class Deck {
     }
 
     public void removeCard(final int id) {
-        this.cards = this.cards.stream().filter(c -> c.id != id).collect(Collectors.toList());
+        this.cards = this.cards.stream().filter(c -> c.id() != id).collect(Collectors.toList());
     }
 
     public String id() {
@@ -50,26 +49,6 @@ public final class Deck {
 
     public String title() {
         return this.title;
-    }
-
-    @ToString
-    @EqualsAndHashCode
-    public static class Card {
-        private final int id;
-        private final CardDetail detail;
-
-        private Card(final int id, final CardDetail detail) {
-            this.id = id;
-            this.detail = detail;
-        }
-
-        public int id() {
-            return this.id;
-        }
-
-        public CardDetail detail() {
-            return this.detail;
-        }
     }
 
     public static class DeckIdIsRequired extends RuntimeException {

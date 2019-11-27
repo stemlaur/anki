@@ -9,7 +9,8 @@ public class DeckShould {
 
     private static final String QUESTION = "question";
     private static final String A_TITLE = "a title";
-    private static final String DECK_ID = "123";
+    private static final String DECK_ID = "dbf2a115-ac6c-4873-9d7a-65c8d4ab704c";
+    private static final String ANOTHER_DECK_ID = "38327e20-b7d8-40c5-8bf7-eeaacd002367";
     private Deck deck;
 
     @Before
@@ -87,5 +88,15 @@ public class DeckShould {
         this.deck.removeCard(id1);
         int id2 = this.deck.addCard(new CardDetail("question 2", "The answer"));
         assertNotEquals(id1, id2);
+    }
+
+    @Test
+    public void beIdentifiedByItsId() {
+        final Deck firstDeck = new Deck(DECK_ID, "A deck title");
+        final Deck secondDeck = new Deck(DECK_ID, "Another deck title");
+        final Deck differentDeck = new Deck(ANOTHER_DECK_ID, "Another deck title");
+
+        assertEquals(firstDeck, secondDeck);
+        assertNotEquals(firstDeck, differentDeck);
     }
 }
