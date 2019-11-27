@@ -15,11 +15,11 @@
  */
 package com.stemlaur.anki.demo;
 
-import com.stemlaur.anki.demo.menus.MainMenu;
 import com.stemlaur.anki.application.infrastructure.InMemoryCardProgressRepository;
 import com.stemlaur.anki.application.infrastructure.InMemoryDeckRepository;
 import com.stemlaur.anki.application.infrastructure.InMemorySessionRepository;
-import com.stemlaur.anki.domain.catalog.CardDetail;
+import com.stemlaur.anki.demo.importing.ImportDeck;
+import com.stemlaur.anki.demo.menus.MainMenu;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.CardProgressService;
@@ -30,42 +30,34 @@ import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 import org.beryx.textio.web.RunnerData;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.function.BiConsumer;
 
 public class Demo implements BiConsumer<TextIO, RunnerData> {
     private final DeckService deckService;
     private final DeckStudyService deckStudyService;
 
-    private Demo(final DeckService deckService, final DeckStudyService deckStudyService) {
+    private Demo(final DeckService deckService, final DeckStudyService deckStudyService) throws IOException, URISyntaxException {
         this.deckService = deckService;
         this.deckStudyService = deckStudyService;
         initData(deckService);
     }
 
-    private static void initData(final DeckService deckService) {
-        final String deckId = deckService.create("Brain and its mysteries");
-        System.out.println("Deck id = " + deckId);
-        deckService.addCard(deckId,
-                new CardDetail("What lobe is involved in processing sensory input ?",
-                        "The temporal lobe."));
-        deckService.addCard(deckId,
-                new CardDetail("What is the lunate sulcus ?",
-                        "A fissure in the occipital lobe."));
-        deckService.addCard(deckId,
-                new CardDetail("What part of the brain is primarily involved in visual perception ?",
-                        "Occipital lobe."));
-        deckService.addCard(deckId,
-                new CardDetail("What is the name of the standard used to order the human brain anatomical regions ?",
-                        "The neuroanatomy hierarchies."));
-        deckService.addCard(deckId,
-                new CardDetail("Which lobe is the largest of the four major lobes of the brain in mammals ?",
-                        "The frontal lobe."));
-        deckService.addCard(deckId,
-                new CardDetail("Which lobe is positioned above the temporal lobe and behind the frontal lobe ?",
-                        "The parietal lobe."));
+    private static void initData(final DeckService deckService) throws IOException, URISyntaxException {
+        importCSV(deckService, "Chinese", "chinese.csv");
+        importCSV(deckService, "French", "french.csv");
+        importCSV(deckService, "European capitals", "geography.csv");
+        importCSV(deckService, "Periodic Table of Elements", "chemistry.csv");
     }
 
-    public static void main(String[] args) {
+    private static void importCSV(final DeckService deckService, final String title, final String csvFilePath) throws IOException, URISyntaxException {
+        final String deckId = new ImportDeck(deckService, title, csvFilePath)
+                .ofResource();
+        System.out.println("'" + title + "' deck created with id = " + deckId);
+    }
+
+    public static void main(String[] args) throws IOException, URISyntaxException {
         TextIO textIO = TextIoFactory.getTextIO();
 
         final DeckService deckService = new DeckService(new InMemoryDeckRepository());
