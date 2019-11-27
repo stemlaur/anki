@@ -71,4 +71,10 @@ public final class DeckServiceShould {
         this.deckService.addCard(DECK_ID, new CardDetail(A_QUESTION, A_ANSWER));
         verify(this.deckRepository, times(1)).save(any(Deck.class));
     }
+
+    @Test
+    public void findAllDecks() {
+        this.deckService.findAll();
+        verify(this.deckRepository, times(1)).findAll();
+    }
 }

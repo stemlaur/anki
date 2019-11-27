@@ -21,6 +21,7 @@ public final class CatalogMenu {
         CREATE_A_DECK("Create a deck"),
         ADD_A_CARD("Add a card to a deck"),
         VIEW_A_DECK("View a deck"),
+        LIST_ALL_DECKS("List all decks"),
         EXIT("Go back to main menu");
         private final String title;
 
@@ -75,6 +76,10 @@ public final class CatalogMenu {
                         terminal.println("========================================");
                     }
                     break;
+                case LIST_ALL_DECKS:
+                    terminal.println("========== You want to list all decks ==========");
+                    this.deckService.findAll()
+                            .forEach(deck -> terminal.println("Deck with title '" + deck.title() + "' and id " + deck.id()));
                 case EXIT:
                     return;
             }

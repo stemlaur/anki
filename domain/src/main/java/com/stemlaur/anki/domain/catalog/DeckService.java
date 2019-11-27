@@ -1,5 +1,6 @@
 package com.stemlaur.anki.domain.catalog;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,6 +35,10 @@ public class DeckService {
 
     public Optional<Deck> findDeckById(final String deckId) {
         return this.deckRepository.findDeckById(deckId);
+    }
+
+    public Collection<Deck> findAll() {
+        return this.deckRepository.findAll();
     }
 
     //@formatter:off
