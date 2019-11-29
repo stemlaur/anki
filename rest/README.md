@@ -1,3 +1,11 @@
+# Swagger
+
+Swagger documentation can be accessed here:
+
+http://localhost:8080/swagger-ui.html#/
+
+## Catalog APIs example
+
 ### Be able to find all decks
 ```bash
 > curl -X GET 'http://localhost:8080/decks/'

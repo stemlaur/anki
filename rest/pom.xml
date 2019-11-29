@@ -13,6 +13,7 @@
 
     <properties>
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencyManagement>
@@ -45,6 +46,22 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
             <version>2.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-bean-validators</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <dependency>
