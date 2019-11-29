@@ -6,7 +6,6 @@ The student then gives its self-evaluation about its knowledge in the form
 of colors (GREEN, ORANGE and RED).
 The card will be shown again in the future depending on the last self-evaluation.
 
-
 ## Usage
 To use the service, please run the following commands:
 
@@ -20,16 +19,11 @@ This usage paragraph will of course change as the project evolves.
 ## The modules
 The modules are splitted into two:
 
- - a module [domain](./domain/README.md) agnostic of any infrastructure concerns, exposing:
-    - the value objects and entities
-    - the domain services
-    - interfaces for the infrastruture
- - a module [application](./application/README.md) where are gathered 
-    - in-memory or fake infrastructure related classes
- - a module demo
-    - the entry point Demo.java, serving as a simple CLI demo
+ - a module [domain](./domain/README.md) 
+ - a module [application](./application/README.md)
+ - a module [demo](./demo/README.md)
  - a module [rest](./rest/README.md) 
-    - spring application serving REST API managing the deck catalog 
+ - a module [inmemorypersistence](./inmemorypersistence/README.md)
 
  ## Contribute
  - keep the domain free of any infrastructure related details

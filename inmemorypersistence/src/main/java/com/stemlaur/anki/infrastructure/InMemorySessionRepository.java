@@ -1,4 +1,4 @@
-package com.stemlaur.anki.application.infrastructure;
+package com.stemlaur.anki.infrastructure;
 
 import com.stemlaur.anki.domain.study.Session;
 import com.stemlaur.anki.domain.study.SessionRepository;

@@ -1,4 +1,4 @@
-package com.stemlaur.anki.application.infrastructure;
+package com.stemlaur.anki.infrastructure;
 
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckRepository;

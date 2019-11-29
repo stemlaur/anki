@@ -15,9 +15,9 @@
  */
 package com.stemlaur.anki.demo;
 
-import com.stemlaur.anki.application.infrastructure.InMemoryCardProgressRepository;
-import com.stemlaur.anki.application.infrastructure.InMemoryDeckRepository;
-import com.stemlaur.anki.application.infrastructure.InMemorySessionRepository;
+import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
+import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
+import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 import com.stemlaur.anki.demo.importing.ImportDeck;
 import com.stemlaur.anki.demo.menus.MainMenu;
 import com.stemlaur.anki.domain.catalog.DeckService;
