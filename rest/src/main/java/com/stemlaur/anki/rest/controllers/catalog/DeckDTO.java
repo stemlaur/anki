@@ -1,4 +1,4 @@
-package com.stemlaur.anki.rest.controllers;
+package com.stemlaur.anki.rest.controllers.catalog;
 
 import lombok.Value;
 

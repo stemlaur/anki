@@ -1,4 +1,4 @@
-package com.stemlaur.anki.rest.controllers;
+package com.stemlaur.anki.rest.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.Deck;

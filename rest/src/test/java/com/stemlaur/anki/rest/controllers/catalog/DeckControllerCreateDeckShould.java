@@ -1,6 +1,8 @@
-package com.stemlaur.anki.rest.controllers;
+package com.stemlaur.anki.rest.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.rest.controllers.catalog.CreateDeckRequest;
+import com.stemlaur.anki.rest.controllers.catalog.DeckController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
