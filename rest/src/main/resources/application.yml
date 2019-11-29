@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: anki
+logging:
+  level:
+    root: INFO
+    com.stemlaur.anki: DEBUG
