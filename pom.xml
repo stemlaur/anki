@@ -13,6 +13,7 @@
         <module>application</module>
         <module>demo</module>
         <module>rest</module>
+        <module>inmemorypersistence</module>
     </modules>
 
     <properties>
@@ -22,7 +23,21 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <mockito-core.version>3.0.0</mockito-core.version>
         <junit.version>4.12</junit.version>
+        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>

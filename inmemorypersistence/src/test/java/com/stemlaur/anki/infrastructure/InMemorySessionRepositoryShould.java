@@ -1,7 +1,8 @@
-package com.stemlaur.anki.application.infrastructure;
+package com.stemlaur.anki.infrastructure;
 
 import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.Session;
+import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,8 +1,8 @@
 package com.stemlaur.anki.feature;
 
-import com.stemlaur.anki.application.infrastructure.InMemoryCardProgressRepository;
-import com.stemlaur.anki.application.infrastructure.InMemoryDeckRepository;
-import com.stemlaur.anki.application.infrastructure.InMemorySessionRepository;
+import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
+import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
+import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
