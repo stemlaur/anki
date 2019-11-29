@@ -25,8 +25,11 @@ The modules are splitted into two:
     - the domain services
     - interfaces for the infrastruture
  - a module [application](./application/README.md) where are gathered 
-    - the entry point Main.java 
     - in-memory or fake infrastructure related classes
+ - a module demo
+    - the entry point Demo.java, serving as a simple CLI demo
+ - a module [rest](./rest/README.md) 
+    - spring application serving REST API managing the deck catalog 
 
  ## Contribute
  - keep the domain free of any infrastructure related details

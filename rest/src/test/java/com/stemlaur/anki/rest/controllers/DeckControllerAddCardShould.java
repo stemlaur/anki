@@ -1,5 +1,6 @@
 package com.stemlaur.anki.rest.controllers;
 
+import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,12 +13,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DeckControllerCreateDeckShould {
+public class DeckControllerAddCardShould {
     private static final String DECK_ID = "2132a2a8-ca3f-4b3a-bc6f-9f1248944f2d";
     private static final String DECK_TITLE = "ANY TITLE";
+
     private DeckController deckController;
 
     @Mock
@@ -31,18 +33,28 @@ public class DeckControllerCreateDeckShould {
     }
 
     @Test
-    public void createDeck() {
-        when(this.deckService.create(DECK_TITLE)).thenReturn(DECK_ID);
-        ResponseEntity<String> responseEntity = deckController.createDeck(new CreateDeckRequest(DECK_TITLE));
-        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
-        assertThat(responseEntity.getHeaders().getLocation().getPath()).isEqualTo("/" + DECK_ID);
-        assertThat(responseEntity.getBody()).isEqualTo(DECK_ID);
+    public void return200Code_when_DeckExists() {
+        ResponseEntity<?> responseEntity =
+                deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
+        verify(this.deckService, times(1)).addCard(DECK_ID, new CardDetail("question", "answer"));
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    }
+
+    @Test
+    public void return404Code_when_DeckDoesNotExists() {
+        doThrow(new DeckService.DeckDoesNotExist()).when(this.deckService)
+                .addCard(DECK_ID, new CardDetail("question", "answer"));
+        ResponseEntity<?> responseEntity =
+                deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
     }
 
     @Test
     public void return500Code_when_ExceptionOccured() {
-        when(this.deckService.create(DECK_TITLE)).thenThrow(new RuntimeException());
-        ResponseEntity<String> responseEntity = deckController.createDeck(new CreateDeckRequest(DECK_TITLE));
+        doThrow(new RuntimeException()).when(this.deckService)
+                .addCard(DECK_ID, new CardDetail("question", "answer"));
+        ResponseEntity<?> responseEntity =
+                deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 }
