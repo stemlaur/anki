@@ -51,4 +51,11 @@ public class DeckControllerFindByIdShould {
         final DeckDTO actual = (DeckDTO) this.deckController.findDeckById(DECK_ID).getBody();
         assertThat(actual).isEqualTo(new DeckDTO(DECK_ID, DECK_TITLE));
     }
+
+    @Test
+    public void return500Code_when_ExceptionOccured() {
+        when(deckService.findDeckById(DECK_ID)).thenThrow(new RuntimeException());
+        ResponseEntity responseEntity = this.deckController.findDeckById(DECK_ID);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
 }
