@@ -4,7 +4,9 @@ import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.DeckStudyService.CardDoesNotExistInTheSession;
 import com.stemlaur.anki.domain.study.DeckStudyService.SessionDoesNotExist;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -12,7 +14,10 @@ import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
-final class StudyController {
+@RestController
+@RequestMapping(path = "/studies")
+@Slf4j
+class StudyController {
     private final DeckStudyService deckStudyService;
 
     StudyController(final DeckStudyService deckStudyService) {
@@ -20,7 +25,8 @@ final class StudyController {
         this.deckStudyService = deckStudyService;
     }
 
-    ResponseEntity<String> createStudySession(final CreateStudySessionRequest request) {
+    @PostMapping(path = "/", consumes = "application/json", produces = "application/json")
+    ResponseEntity<String> createStudySession(@RequestBody final CreateStudySessionRequest request) {
         try {
             final String id = this.deckStudyService.startStudySession(request.getDeckId());
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -33,7 +39,8 @@ final class StudyController {
         }
     }
 
-    ResponseEntity<?> nextCardToStudy(final String sessionId) {
+    @GetMapping(path = "/{id}/nextCard", produces = "application/json")
+    ResponseEntity<?> nextCardToStudy(@PathVariable("id") final String sessionId) {
         try {
             final Optional<CardToStudy> optionalCardToStudy = this.deckStudyService.nextCardToStudy(sessionId);
             if (optionalCardToStudy.isEmpty()) {
@@ -49,7 +56,8 @@ final class StudyController {
         }
     }
 
-    ResponseEntity<?> studyCard(final StudyCardRequest request) {
+    @PostMapping(path = "/{id}/opinion", consumes = "application/json", produces = "application/json")
+    ResponseEntity<?> studyCard(@RequestBody final StudyCardRequest request) {
         try {
             this.deckStudyService.study(request.getSessionId(), request.getCardId(), request.getOpinion());
             return ResponseEntity.ok().build();
