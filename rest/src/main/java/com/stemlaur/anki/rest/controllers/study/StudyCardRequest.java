@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 final class StudyCardRequest {
-    private String sessionId;
     private String cardId;
     private Opinion opinion;
 }

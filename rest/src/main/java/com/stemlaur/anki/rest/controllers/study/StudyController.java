@@ -4,18 +4,22 @@ import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.DeckStudyService.CardDoesNotExistInTheSession;
 import com.stemlaur.anki.domain.study.DeckStudyService.SessionDoesNotExist;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestController
-@RequestMapping(path = "/studies")
+@RequestMapping(path = "/api")
 @Slf4j
 class StudyController {
     private final DeckStudyService deckStudyService;
@@ -25,7 +29,12 @@ class StudyController {
         this.deckStudyService = deckStudyService;
     }
 
-    @PostMapping(path = "/", consumes = "application/json", produces = "application/json")
+    @ApiOperation(value = "Webservice to create a study session", response = String.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successfully created and id returned"),
+            @ApiResponse(code = 500, message = "An internal server error occured")
+    })
+    @PostMapping(path = "/sessions", consumes = "application/json", produces = "application/json")
     ResponseEntity<String> createStudySession(@RequestBody final CreateStudySessionRequest request) {
         try {
             final String id = this.deckStudyService.startStudySession(request.getDeckId());
@@ -39,7 +48,13 @@ class StudyController {
         }
     }
 
-    @GetMapping(path = "/{id}/nextCard", produces = "application/json")
+    @ApiOperation(value = "Webservice to get next card to study", response = CardToStudy.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 404, message = "Session or deck not found"),
+            @ApiResponse(code = 500, message = "An internal server error occured")
+    })
+    @GetMapping(path = "/sessions/{id}/nextCard", produces = "application/json")
     ResponseEntity<?> nextCardToStudy(@PathVariable("id") final String sessionId) {
         try {
             final Optional<CardToStudy> optionalCardToStudy = this.deckStudyService.nextCardToStudy(sessionId);
@@ -56,10 +71,16 @@ class StudyController {
         }
     }
 
-    @PostMapping(path = "/{id}/opinion", consumes = "application/json", produces = "application/json")
-    ResponseEntity<?> studyCard(@RequestBody final StudyCardRequest request) {
+    @ApiOperation(value = "Webservice to give it's opinion about a card", response = String.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully gave opinion"),
+            @ApiResponse(code = 404, message = "Session or card not found"),
+            @ApiResponse(code = 500, message = "An internal server error occured")
+    })
+    @PostMapping(path = "/sessions/{id}/opinion", consumes = "application/json", produces = "application/json")
+    ResponseEntity<?> studyCard(@PathVariable("id") final String sessionId, @RequestBody final StudyCardRequest request) {
         try {
-            this.deckStudyService.study(request.getSessionId(), request.getCardId(), request.getOpinion());
+            this.deckStudyService.study(sessionId, request.getCardId(), request.getOpinion());
             return ResponseEntity.ok().build();
         } catch (SessionDoesNotExist | CardDoesNotExistInTheSession e) {
             return ResponseEntity.notFound().build();
