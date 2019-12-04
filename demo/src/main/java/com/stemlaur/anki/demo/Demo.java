@@ -34,24 +34,24 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.function.BiConsumer;
 
-public class Demo implements BiConsumer<TextIO, RunnerData> {
+class Demo implements BiConsumer<TextIO, RunnerData> {
     private final DeckService deckService;
     private final DeckStudyService deckStudyService;
 
-    private Demo(final DeckService deckService, final DeckStudyService deckStudyService) throws IOException, URISyntaxException {
+    private Demo(final DeckService deckService, final DeckStudyService deckStudyService) throws IOException {
         this.deckService = deckService;
         this.deckStudyService = deckStudyService;
         initData(deckService);
     }
 
-    private static void initData(final DeckService deckService) throws IOException, URISyntaxException {
+    private static void initData(final DeckService deckService) throws IOException {
         importCSV(deckService, "Chinese", "chinese.csv");
         importCSV(deckService, "French", "french.csv");
         importCSV(deckService, "European capitals", "geography.csv");
         importCSV(deckService, "Periodic Table of Elements", "chemistry.csv");
     }
 
-    private static void importCSV(final DeckService deckService, final String title, final String csvFilePath) throws IOException, URISyntaxException {
+    private static void importCSV(final DeckService deckService, final String title, final String csvFilePath) throws IOException {
         final String deckId = new ImportDeck(deckService, title, csvFilePath)
                 .ofResource();
         System.out.println("'" + title + "' deck created with id = " + deckId);

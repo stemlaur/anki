@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/api")
 @Slf4j
-public class DeckController {
+class DeckController {
     private final DeckService deckService;
 
     DeckController(final DeckService deckService) {

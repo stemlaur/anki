@@ -52,13 +52,4 @@ public final class MainMenu {
             terminal.println();
         }
     }
-
-    private static void printMenu(TextTerminal<?> terminal) {
-        terminal.println("#####################################");
-        terminal.println("# 1 - to create a deck");
-        terminal.println("# 2 - to add a card to a deck");
-        terminal.println("# 3 - to view a deck");
-        terminal.println("# 4 - to exit");
-        terminal.println("#####################################");
-    }
 }

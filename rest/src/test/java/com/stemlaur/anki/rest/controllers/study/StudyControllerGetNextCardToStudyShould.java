@@ -10,8 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Optional;
-
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,6 +54,7 @@ public class StudyControllerGetNextCardToStudyShould {
         ResponseEntity<?> responseEntity = studyController.nextCardToStudy(SESSION_ID);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
     }
+
     @Test
     public void return404_when_sessionDoesNotExist() {
         when(this.deckStudyService.nextCardToStudy(SESSION_ID)).thenThrow(new SessionDoesNotExist());

@@ -3,9 +3,7 @@ package com.stemlaur.anki.demo.importing;
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckService;
 
-import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
