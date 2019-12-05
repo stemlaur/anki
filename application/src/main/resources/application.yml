@@ -3,5 +3,5 @@ spring:
     name: anki
 logging:
   level:
-    root: DEBUG
+    root: INFO
     com.stemlaur.anki: DEBUG
