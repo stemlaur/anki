@@ -1,7 +1,6 @@
 package com.stemlaur.anki.domain.catalog;
 
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @EqualsAndHashCode
 public final class CardDetail {

@@ -20,7 +20,6 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class DeckControllerAddCardShould {
     private static final String DECK_ID = "2132a2a8-ca3f-4b3a-bc6f-9f1248944f2d";
-    private static final String DECK_TITLE = "ANY TITLE";
 
     private DeckController deckController;
 

@@ -2,8 +2,6 @@ package com.stemlaur.anki.rest.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.rest.controllers.catalog.DeckController;
-import com.stemlaur.anki.rest.controllers.catalog.DeckDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +9,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 
-import static java.util.Optional.*;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)

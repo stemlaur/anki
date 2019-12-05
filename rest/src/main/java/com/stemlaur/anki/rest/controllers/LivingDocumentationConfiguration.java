@@ -26,7 +26,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withClass
         BeanValidatorPluginsConfiguration.class
 })
 @Configuration
-public class LivingDocumentationConfiguration {
+class LivingDocumentationConfiguration {
 
     @Bean
     Docket api() {

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(RestConfiguration.class)
-public class ApplicationConfiguration {
+class ApplicationConfiguration {
     @Bean
     DeckService deckService() {
         return new DeckService(new InMemoryDeckRepository());
