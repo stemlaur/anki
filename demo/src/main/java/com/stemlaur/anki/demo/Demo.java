@@ -57,7 +57,7 @@ class Demo implements BiConsumer<TextIO, RunnerData> {
         System.out.println("'" + title + "' deck created with id = " + deckId);
     }
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws IOException {
         TextIO textIO = TextIoFactory.getTextIO();
 
         final DeckService deckService = new DeckService(new InMemoryDeckRepository());
