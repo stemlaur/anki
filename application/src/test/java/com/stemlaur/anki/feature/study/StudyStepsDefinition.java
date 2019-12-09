@@ -17,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 
 @SpringBootTest(classes = {Application.class, TestConfiguration.class})
