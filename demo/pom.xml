@@ -12,7 +12,7 @@
     <artifactId>demo</artifactId>
 
     <properties>
-        <slf4j-simple.version>1.7.29</slf4j-simple.version>
+        <slf4j-simple.version>1.7.30</slf4j-simple.version>
         <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>org.beryx</groupId>
             <artifactId>text-io</artifactId>
-            <version>3.3.0</version>
+            <version>3.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.beryx</groupId>

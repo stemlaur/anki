@@ -21,8 +21,8 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <commons-lang3.version>3.9</commons-lang3.version>
-        <mockito-core.version>3.0.0</mockito-core.version>
-        <junit.version>4.12</junit.version>
+        <mockito-core.version>3.2.4</mockito-core.version>
+        <junit.version>4.13</junit.version>
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
         <swagger.version>2.9.2</swagger.version>
         <cucumber.version>4.8.1</cucumber.version>
