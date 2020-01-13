@@ -15,9 +15,6 @@
  */
 package com.stemlaur.anki.demo;
 
-import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
-import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
-import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 import com.stemlaur.anki.demo.importing.ImportDeck;
 import com.stemlaur.anki.demo.menus.MainMenu;
 import com.stemlaur.anki.domain.catalog.DeckService;
@@ -25,13 +22,15 @@ import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.CardProgressService;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionIdFactory;
+import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
+import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
+import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 import org.beryx.textio.web.RunnerData;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.function.BiConsumer;
 
 class Demo implements BiConsumer<TextIO, RunnerData> {
