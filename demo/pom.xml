@@ -52,7 +52,7 @@
         <dependency>
             <groupId>org.beryx</groupId>
             <artifactId>text-io-web</artifactId>
-            <version>3.3.0</version>
+            <version>3.4.0</version>
         </dependency>
     </dependencies>
 
