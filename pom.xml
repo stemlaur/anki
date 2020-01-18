@@ -23,7 +23,7 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <mockito-core.version>3.2.4</mockito-core.version>
         <junit.version>4.13</junit.version>
-        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.2.3.RELEASE</spring-boot.version>
         <swagger.version>2.9.2</swagger.version>
         <cucumber.version>4.8.1</cucumber.version>
     </properties>
