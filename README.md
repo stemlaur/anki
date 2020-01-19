@@ -1,4 +1,4 @@
-# Anki [![Build Status](https://travis-ci.org/stemlaur/anki.svg?branch=master)](https://travis-ci.org/stemlaur/anki)
+# Anki [![Actions Status](https://github.com/stemlaur/anki/workflows/Build/badge.svg)](https://github.com/stemlaur/anki/actions)
 ## Description
 Anki is a flashcard program that utilizes spaced repetition.
 A student can study a deck, therefore cards will be shown with questions.
