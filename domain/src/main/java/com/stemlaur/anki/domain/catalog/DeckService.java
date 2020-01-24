@@ -8,37 +8,37 @@ import java.util.UUID;
  * Domain service allowing to create a deck of card.
  */
 public class DeckService {
-    private final DeckRepository deckRepository;
+    private final Decks decks;
 
-    public DeckService(final DeckRepository deckRepository) {
+    public DeckService(final Decks decks) {
 
-        this.deckRepository = deckRepository;
+        this.decks = decks;
     }
 
     public String create(final String title) {
         final String generatedId = UUID.randomUUID().toString();
         final Deck deck = new Deck(generatedId, title);
-        this.deckRepository.save(deck);
+        this.decks.save(deck);
         return generatedId;
     }
 
     public void remove(final String deckId) {
-        this.deckRepository.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);
-        this.deckRepository.delete(deckId);
+        this.decks.find(deckId).orElseThrow(DeckDoesNotExist::new);
+        this.decks.delete(deckId);
     }
 
     public void addCard(final String deckId, final CardDetail cardDetail) {
-        final Deck deck = this.deckRepository.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);
+        final Deck deck = this.decks.find(deckId).orElseThrow(DeckDoesNotExist::new);
         deck.addCard(cardDetail);
-        this.deckRepository.save(deck);
+        this.decks.save(deck);
     }
 
     public Optional<Deck> findDeckById(final String deckId) {
-        return this.deckRepository.findDeckById(deckId);
+        return this.decks.find(deckId);
     }
 
     public Collection<Deck> findAll() {
-        return this.deckRepository.findAll();
+        return this.decks.findAll();
     }
 
     //@formatter:off

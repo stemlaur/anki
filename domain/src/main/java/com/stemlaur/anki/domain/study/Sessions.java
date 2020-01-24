@@ -2,8 +2,8 @@ package com.stemlaur.anki.domain.study;
 
 import java.util.Optional;
 
-public interface SessionRepository {
+public interface Sessions {
     void save(Session session);
 
-    Optional<Session> findById(String sessionId);
+    Optional<Session> find(String sessionId);
 }

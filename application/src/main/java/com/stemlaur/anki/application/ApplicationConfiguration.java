@@ -6,8 +6,8 @@ import com.stemlaur.anki.domain.study.CardProgressService;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionIdFactory;
 import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
-import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
-import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
+import com.stemlaur.anki.infrastructure.InMemoryDecks;
+import com.stemlaur.anki.infrastructure.InMemorySessions;
 import com.stemlaur.anki.rest.controllers.RestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 class ApplicationConfiguration {
     @Bean
     DeckService deckService() {
-        return new DeckService(new InMemoryDeckRepository());
+        return new DeckService(new InMemoryDecks());
     }
 
     @Bean
@@ -33,7 +33,7 @@ class ApplicationConfiguration {
                 deckService,
                 cardProgressService,
                 new SessionIdFactory(),
-                new InMemorySessionRepository(),
+                new InMemorySessions(),
                 new Clock());
     }
 }

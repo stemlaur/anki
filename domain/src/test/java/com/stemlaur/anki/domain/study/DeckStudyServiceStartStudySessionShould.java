@@ -28,14 +28,14 @@ public class DeckStudyServiceStartStudySessionShould {
     @Mock
     private DeckService deckService;
     @Mock
-    private SessionRepository sessionRepository;
+    private Sessions sessions;
     @Mock
     private SessionIdFactory sessionIdFactory;
 
     @Before
     public void setUp() {
         this.deckStudyService = new DeckStudyService(
-                this.deckService, null, this.sessionIdFactory, this.sessionRepository, null);
+                this.deckService, null, this.sessionIdFactory, this.sessions, null);
         when(this.sessionIdFactory.create()).thenReturn(SESSION_ID);
     }
 
@@ -58,7 +58,7 @@ public class DeckStudyServiceStartStudySessionShould {
 
         this.deckStudyService.startStudySession(DECK_ID);
 
-        verify(this.sessionRepository, times(1))
+        verify(this.sessions, times(1))
                 .save(new Session(
                         SESSION_ID,
                         Collections.singleton(new CardToStudy(any(), A_QUESTION, AN_ANSWER))));

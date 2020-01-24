@@ -1,11 +1,11 @@
 package com.stemlaur.anki.infrastructure;
 
 import com.stemlaur.anki.domain.catalog.Deck;
-import com.stemlaur.anki.domain.catalog.DeckRepository;
+import com.stemlaur.anki.domain.catalog.Decks;
 
 import java.util.*;
 
-public final class InMemoryDeckRepository implements DeckRepository {
+public final class InMemoryDecks implements Decks {
     private final List<Deck> decks = new ArrayList<>();
 
     @Override
@@ -16,12 +16,12 @@ public final class InMemoryDeckRepository implements DeckRepository {
 
     @Override
     public void delete(final String id) {
-        findDeck(id).ifPresent(this.decks::remove);
+        findDeckImpl(id).ifPresent(this.decks::remove);
     }
 
     @Override
-    public Optional<Deck> findDeckById(final String id) {
-        return findDeck(id);
+    public Optional<Deck> find(final String id) {
+        return findDeckImpl(id);
     }
 
     @Override
@@ -29,7 +29,7 @@ public final class InMemoryDeckRepository implements DeckRepository {
         return Collections.unmodifiableCollection(decks);
     }
 
-    private Optional<Deck> findDeck(final String id) {
+    private Optional<Deck> findDeckImpl(final String id) {
         return this.decks.stream().filter(deck -> deck.id().equals(id))
                 .findFirst();
     }

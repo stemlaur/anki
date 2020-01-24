@@ -24,18 +24,18 @@ public final class DeckServiceShould {
 
     private DeckService deckService;
     @Mock
-    private DeckRepository deckRepository;
+    private Decks decks;
 
     @Before
     public void setUp() {
-        this.deckService = new DeckService(this.deckRepository);
+        this.deckService = new DeckService(this.decks);
     }
 
     @Test
     public void createAnEmptyDeck() {
         final String id = this.deckService.create(DECK_TITLE);
         assertNotNull(id);
-        verify(this.deckRepository, times(1)).save(any(Deck.class));
+        verify(this.decks, times(1)).save(any(Deck.class));
     }
 
     @Test
@@ -47,33 +47,33 @@ public final class DeckServiceShould {
 
     @Test
     public void removeADeck_when_itExists() {
-        when(this.deckRepository.findDeckById(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
+        when(this.decks.find(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
         this.deckService.remove(DECK_ID);
-        verify(this.deckRepository, times(1)).delete(DECK_ID);
+        verify(this.decks, times(1)).delete(DECK_ID);
     }
 
     @Test(expected = DeckService.DeckDoesNotExist.class)
     public void throwAnException_when_deckDoesNotExist() {
-        when(deckRepository.findDeckById(NON_EXISTING_DECK_ID)).thenReturn(empty());
+        when(decks.find(NON_EXISTING_DECK_ID)).thenReturn(empty());
         this.deckService.remove(NON_EXISTING_DECK_ID);
     }
 
     @Test(expected = DeckService.DeckDoesNotExist.class)
     public void throwAnException_when_addingCardToANonExistingDeck() {
-        when(deckRepository.findDeckById(NON_EXISTING_DECK_ID)).thenReturn(empty());
+        when(decks.find(NON_EXISTING_DECK_ID)).thenReturn(empty());
         this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail(A_QUESTION, A_ANSWER));
     }
 
     @Test
     public void addACard_when_deckExists() {
-        when(this.deckRepository.findDeckById(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
+        when(this.decks.find(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
         this.deckService.addCard(DECK_ID, new CardDetail(A_QUESTION, A_ANSWER));
-        verify(this.deckRepository, times(1)).save(any(Deck.class));
+        verify(this.decks, times(1)).save(any(Deck.class));
     }
 
     @Test
     public void findAllDecks() {
         this.deckService.findAll();
-        verify(this.deckRepository, times(1)).findAll();
+        verify(this.decks, times(1)).findAll();
     }
 }
