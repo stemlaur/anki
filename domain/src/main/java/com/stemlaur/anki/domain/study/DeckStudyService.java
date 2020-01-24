@@ -13,18 +13,18 @@ import static java.util.Optional.empty;
 public class DeckStudyService {
     private final DeckService deckService;
     private final SessionIdFactory sessionIdFactory;
-    private final SessionRepository sessionRepository;
+    private final Sessions sessions;
     private final CardProgressService cardProgressService;
     private final Clock clock;
 
     public DeckStudyService(final DeckService deckService,
                             final CardProgressService cardProgressService,
                             final SessionIdFactory sessionIdFactory,
-                            final SessionRepository sessionRepository,
+                            final Sessions sessions,
                             final Clock clock) {
         this.deckService = deckService;
         this.sessionIdFactory = sessionIdFactory;
-        this.sessionRepository = sessionRepository;
+        this.sessions = sessions;
         this.cardProgressService = cardProgressService;
         this.clock = clock;
     }
@@ -32,7 +32,7 @@ public class DeckStudyService {
     public String startStudySession(final String deckId) {
         final String sessionId = this.sessionIdFactory.create();
         final Deck deck = this.findDeck(deckId);
-        this.sessionRepository.save(new Session(sessionId, this.convertCardsToCardsToStudy(deck)));
+        this.sessions.save(new Session(sessionId, this.convertCardsToCardsToStudy(deck)));
         return sessionId;
     }
 
@@ -51,7 +51,7 @@ public class DeckStudyService {
     }
 
     public Optional<CardToStudy> nextCardToStudy(final String sessionId) {
-        final Session session = this.sessionRepository.findById(sessionId).orElseThrow(SessionDoesNotExist::new);
+        final Session session = this.sessions.find(sessionId).orElseThrow(SessionDoesNotExist::new);
         final Optional<CardProgress> randomCardProgressWithMinimalScore =
                 this.findRadomCardProgressWithLowestScore(session.cardsToStudy());
         if (randomCardProgressWithMinimalScore.isEmpty()) {
@@ -92,7 +92,7 @@ public class DeckStudyService {
     }
 
     public void study(final String sessionId, final String cardId, final Opinion opinion) {
-        final Session session = this.sessionRepository.findById(sessionId).orElseThrow(SessionDoesNotExist::new);
+        final Session session = this.sessions.find(sessionId).orElseThrow(SessionDoesNotExist::new);
         final CardToStudy card = session.findCard(cardId).orElseThrow(CardDoesNotExistInTheSession::new);
         final CardProgress cardProgress = this.cardProgressService.findByCardToStudyId(card.id());
         cardProgress.updateProgress(opinion, this.clock.now());

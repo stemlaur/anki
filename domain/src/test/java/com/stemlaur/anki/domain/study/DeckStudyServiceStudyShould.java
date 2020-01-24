@@ -26,7 +26,7 @@ public class DeckStudyServiceStudyShould {
     @Mock
     private DeckService deckService;
     @Mock
-    private SessionRepository sessionRepository;
+    private Sessions sessions;
     @Mock
     private CardProgressService cardProgressService;
     @Mock
@@ -38,26 +38,26 @@ public class DeckStudyServiceStudyShould {
                 this.deckService,
                 this.cardProgressService,
                 null,
-                this.sessionRepository,
+                this.sessions,
                 this.clock);
     }
 
     @Test(expected = DeckStudyService.SessionDoesNotExist.class)
     public void throwAnException_when_SessionDoesNotExist() {
-        when(this.sessionRepository.findById(SESSION_ID)).thenReturn(empty());
+        when(this.sessions.find(SESSION_ID)).thenReturn(empty());
         this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN);
     }
 
     @Test(expected = DeckStudyService.CardDoesNotExistInTheSession.class)
     public void throwAnException_when_CardDoesNotExistInTheSession() {
-        when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
+        when(this.sessions.find(SESSION_ID)).thenReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
         this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN);
     }
 
     @Test
     public void saveCardProgress_when_doesNotAlreadyExist() {
-        when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
+        when(this.sessions.find(SESSION_ID)).thenReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
         when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
@@ -66,7 +66,7 @@ public class DeckStudyServiceStudyShould {
 
     @Test
     public void saveCardProgress_when_alreadyExist() {
-        when(this.sessionRepository.findById(SESSION_ID)).thenReturn(
+        when(this.sessions.find(SESSION_ID)).thenReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
         when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
 

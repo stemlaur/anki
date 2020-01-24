@@ -34,19 +34,19 @@ public class DeckStudyServiceNextCardToStudyShould {
     @Mock
     private DeckService deckService;
     @Mock
-    private SessionRepository sessionRepository;
+    private Sessions sessions;
     @Mock
     private CardProgressService cardProgressService;
 
     @Before
     public void setUp() {
         this.deckStudyService = new DeckStudyService(
-                this.deckService, cardProgressService, null, this.sessionRepository, null);
+                this.deckService, cardProgressService, null, this.sessions, null);
     }
 
     @Test(expected = DeckStudyService.SessionDoesNotExist.class)
     public void throwAnException_when_sessionDoesNotExist() {
-        when(this.sessionRepository.findById(SESSION_ID)).thenReturn(empty());
+        when(this.sessions.find(SESSION_ID)).thenReturn(empty());
         this.deckStudyService.nextCardToStudy(SESSION_ID);
     }
 
@@ -54,7 +54,7 @@ public class DeckStudyServiceNextCardToStudyShould {
     public void returnACardToStudy_when_sessionContainsOne() {
         final Session session = new Session(SESSION_ID,
                 Collections.singleton(new CardToStudy(A_CARD_ID, A_QUESTION, AN_ANSWER)));
-        when(this.sessionRepository.findById(SESSION_ID)).thenReturn(of(session));
+        when(this.sessions.find(SESSION_ID)).thenReturn(of(session));
         when(this.cardProgressService.findByCardToStudyId(A_CARD_ID))
                 .thenReturn(new CardProgress(A_CARD_ID, LocalDateTime.now(), new Score(10)));
 
@@ -69,7 +69,7 @@ public class DeckStudyServiceNextCardToStudyShould {
                 new CardToStudy(ANOTHER_CARD_ID, ANOTHER_QUESTION, ANOTHER_ANSWER));
 
         final Session session = new Session(SESSION_ID, new HashSet<>(cardToStudies));
-        when(this.sessionRepository.findById(SESSION_ID)).thenReturn(of(session));
+        when(this.sessions.find(SESSION_ID)).thenReturn(of(session));
         when(this.cardProgressService.findByCardToStudyId(A_CARD_ID))
                 .thenReturn(new CardProgress(A_CARD_ID, LocalDateTime.now(), new Score(10)));
         when(this.cardProgressService.findByCardToStudyId(ANOTHER_CARD_ID))

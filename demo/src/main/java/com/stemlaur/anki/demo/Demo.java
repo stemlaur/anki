@@ -23,8 +23,8 @@ import com.stemlaur.anki.domain.study.CardProgressService;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionIdFactory;
 import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
-import com.stemlaur.anki.infrastructure.InMemoryDeckRepository;
-import com.stemlaur.anki.infrastructure.InMemorySessionRepository;
+import com.stemlaur.anki.infrastructure.InMemoryDecks;
+import com.stemlaur.anki.infrastructure.InMemorySessions;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
@@ -59,8 +59,8 @@ class Demo implements BiConsumer<TextIO, RunnerData> {
     public static void main(String[] args) throws IOException {
         TextIO textIO = TextIoFactory.getTextIO();
 
-        final DeckService deckService = new DeckService(new InMemoryDeckRepository());
-        DeckStudyService deckStudyService = new DeckStudyService(deckService, new CardProgressService(new InMemoryCardProgressRepository()), new SessionIdFactory(), new InMemorySessionRepository(), new Clock());
+        final DeckService deckService = new DeckService(new InMemoryDecks());
+        DeckStudyService deckStudyService = new DeckStudyService(deckService, new CardProgressService(new InMemoryCardProgressRepository()), new SessionIdFactory(), new InMemorySessions(), new Clock());
 
         new Demo(deckService, deckStudyService)
                 .accept(textIO, null);
