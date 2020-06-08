@@ -25,7 +25,7 @@
         <junit.version>4.13</junit.version>
         <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
         <swagger.version>2.9.2</swagger.version>
-        <cucumber.version>5.0.0</cucumber.version>
+        <cucumber.version>6.0.0</cucumber.version>
     </properties>
 
     <dependencyManagement>
