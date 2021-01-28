@@ -22,23 +22,23 @@ public class CardProgressServiceShould {
 
     private CardProgressService cardProgressService;
     @Mock
-    private CardProgressRepository cardProgressRepository;
+    private CardProgresses cardProgresses;
 
     @Before
     public void setUp() {
-        this.cardProgressService = new CardProgressService(this.cardProgressRepository);
+        this.cardProgressService = new CardProgressService(this.cardProgresses);
     }
 
     @Test
     public void returnNewCardProgress_when_CardToStudyDoesNotExist() {
-        when(this.cardProgressRepository.findCardProgressById(CARD_TO_STUDY_ID)).thenReturn(empty());
+        when(this.cardProgresses.findCardProgressById(CARD_TO_STUDY_ID)).thenReturn(empty());
         CardProgress actual = this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID);
         assertNotNull(actual);
     }
 
     @Test
     public void returnCardProgress_when_ItExists() {
-        when(this.cardProgressRepository.findCardProgressById(CARD_TO_STUDY_ID))
+        when(this.cardProgresses.findCardProgressById(CARD_TO_STUDY_ID))
                 .thenReturn(of(CARD_PROGRESS));
         CardProgress actual = this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID);
         assertEquals(CARD_PROGRESS, actual);
@@ -47,6 +47,6 @@ public class CardProgressServiceShould {
     @Test
     public void saveCardProgress() {
         this.cardProgressService.save(CARD_PROGRESS);
-        verify(this.cardProgressRepository, times(1)).save(CARD_PROGRESS);
+        verify(this.cardProgresses, times(1)).save(CARD_PROGRESS);
     }
 }

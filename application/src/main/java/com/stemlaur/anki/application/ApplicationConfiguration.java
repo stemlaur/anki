@@ -5,7 +5,7 @@ import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.CardProgressService;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionIdFactory;
-import com.stemlaur.anki.infrastructure.InMemoryCardProgressRepository;
+import com.stemlaur.anki.infrastructure.InMemoryCardProgresses;
 import com.stemlaur.anki.infrastructure.InMemoryDecks;
 import com.stemlaur.anki.infrastructure.InMemorySessions;
 import com.stemlaur.anki.rest.controllers.RestConfiguration;
@@ -23,7 +23,7 @@ class ApplicationConfiguration {
 
     @Bean
     CardProgressService cardProgressService() {
-        return new CardProgressService(new InMemoryCardProgressRepository());
+        return new CardProgressService(new InMemoryCardProgresses());
     }
 
     @Bean

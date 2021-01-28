@@ -1,13 +1,13 @@
 package com.stemlaur.anki.infrastructure;
 
 import com.stemlaur.anki.domain.study.CardProgress;
-import com.stemlaur.anki.domain.study.CardProgressRepository;
+import com.stemlaur.anki.domain.study.CardProgresses;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public final class InMemoryCardProgressRepository implements CardProgressRepository {
+public final class InMemoryCardProgresses implements CardProgresses {
     private final List<CardProgress> cardProgresses = new ArrayList<>();
 
     @Override
