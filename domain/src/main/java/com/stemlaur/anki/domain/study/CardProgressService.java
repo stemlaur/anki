@@ -1,18 +1,18 @@
 package com.stemlaur.anki.domain.study;
 
 public class CardProgressService {
-    private final CardProgressRepository cardProgressRepository;
+    private final CardProgresses cardProgresses;
 
-    public CardProgressService(final CardProgressRepository cardProgressRepository) {
+    public CardProgressService(final CardProgresses cardProgresses) {
 
-        this.cardProgressRepository = cardProgressRepository;
+        this.cardProgresses = cardProgresses;
     }
 
     public CardProgress findByCardToStudyId(final String id) {
-        return this.cardProgressRepository.findCardProgressById(id).orElse(CardProgress.init(id));
+        return this.cardProgresses.findCardProgressById(id).orElse(CardProgress.init(id));
     }
 
     public void save(final CardProgress cardProgress) {
-        this.cardProgressRepository.save(cardProgress);
+        this.cardProgresses.save(cardProgress);
     }
 }
