@@ -16,6 +16,8 @@ To use the service, please run the following commands:
 
 This usage paragraph will of course change as the project evolves.
 
+You can check the Swagger documentation at http://localhost:8080/swagger-ui.html
+
 ## The modules
 The modules are splitted into two:
 
@@ -32,3 +34,9 @@ The modules are splitted into two:
  - the `master` branch is protected, any pull request can be proposed, they will be merge if the CI is green and after a review
  - please update the READMEs as soon as the usage changes
  - if you have any comment or issue, please file either a pull request or you can create an issue
+
+Please read our architecture decisions [here](./doc/architecture).
+
+# To go further
+
+You can read the living glossary [here](./doc/livingglossary).
