@@ -32,3 +32,9 @@ The modules are splitted into two:
  - the `master` branch is protected, any pull request can be proposed, they will be merge if the CI is green and after a review
  - please update the READMEs as soon as the usage changes
  - if you have any comment or issue, please file either a pull request or you can create an issue
+
+Please read our architecture decisions [here](./doc/architecture).
+
+# To go further
+
+You can read the living glossary [here](./doc/livingglossary).
