@@ -6,8 +6,6 @@ The state of business objects is held here.
 Persistence of the business objects and possibly their state is delegated 
 to the infrastructure layer using dependency inversion.
 
-The service-poller is divided into two responsabilities, a service registrator and a service monitor.
-
 We postpone infrastructure decisions like, until we are ready to tackle them:
 
 - should we introduce a frameword for the web part, if yes which one (Vertx, Spring MVC, ...)
