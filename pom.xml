@@ -24,7 +24,7 @@
         <mockito-core.version>3.2.4</mockito-core.version>
         <junit.version>4.13</junit.version>
         <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
-        <swagger.version>2.9.2</swagger.version>
+        <swagger.version>3.0.0</swagger.version>
         <cucumber.version>5.0.0</cucumber.version>
         <archunit.version>0.13.1</archunit.version>
     </properties>
