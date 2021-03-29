@@ -9,12 +9,13 @@ import com.stemlaur.anki.infrastructure.InMemoryCardProgresses;
 import com.stemlaur.anki.infrastructure.InMemoryDecks;
 import com.stemlaur.anki.infrastructure.InMemorySessions;
 import com.stemlaur.anki.rest.controllers.RestConfiguration;
+import com.stemlaur.anki.sqlpersistence.SqlPersistenceConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(RestConfiguration.class)
+@Import({RestConfiguration.class, SqlPersistenceConfiguration.class})
 class ApplicationConfiguration {
     @Bean
     DeckService deckService() {

@@ -14,6 +14,7 @@
         <module>demo</module>
         <module>rest</module>
         <module>inmemorypersistence</module>
+        <module>sqlpersistence</module>
     </modules>
 
     <properties>
