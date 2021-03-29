@@ -12,8 +12,8 @@
     <artifactId>sqlpersistence</artifactId>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <h2.jdbcUrl>jdbc:h2:file:./target/andi_db;MODE=PostgreSQL</h2.jdbcUrl>
+        <jooq.version>3.12.3</jooq.version>
     </properties>
 
     <dependencies>
@@ -33,8 +33,17 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jooq</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
         </dependency>
     </dependencies>
 
@@ -46,17 +55,70 @@
                 <version>3.8.9</version>
                 <configuration>
                     <changeLogFile>src/main/resources/liquibase-changeLog.xml</changeLogFile>
-                    <diffChangeLogFile>
-                        src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml
-                    </diffChangeLogFile>
+                    <defaultSchemaName>public</defaultSchemaName>
+                    <changelogSchemaName>public</changelogSchemaName>
                     <driver>org.h2.Driver</driver>
-                    <url>jdbc:h2:file:./target/h2db/db/nexusOne</url>
+                    <url>${h2.jdbcUrl}</url>
                     <defaultSchemaName/>
-                    <username>nexusOne</username>
+                    <username>sa</username>
                     <password/>
                     <verbose>true</verbose>
                     <logging>debug</logging>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                 </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.200</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>${jooq.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <jdbc>
+                                <driver>org.h2.Driver</driver>
+                                <url>${h2.jdbcUrl}</url>
+                                <username>sa</username>
+                                <password/>
+                            </jdbc>
+                            <generator>
+                                <database>
+                                    <includes>.*</includes>
+                                </database>
+                                <target>
+                                    <packageName>com.stemlaur.anki.sqlpersistence.jooq.db</packageName>
+                                    <directory>src/main/java</directory>
+                                </target>
+                            </generator>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.200</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -5,9 +5,16 @@
 
     <changeSet author="stemlaur" id="S1-US1">
         <createTable tableName="deck">
-            <column name="id" type="BIGINT">
+            <column name="id" type="varchar(36)">
                 <constraints primaryKey="true" primaryKeyName="deck_PK"/>
             </column>
+            <column name="title" type="varchar(255)"/>
+        </createTable>
+        <createTable tableName="cards">
+            <column name="deck_id" type="varchar(36)"/>
+            <column name="card_count_id" type="BIGINT"/>
+            <column name="question" type="varchar(255)"/>
+            <column name="answer" type="varchar(255)"/>
         </createTable>
     </changeSet>
 

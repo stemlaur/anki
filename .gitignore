@@ -1,3 +1,4 @@
 .idea
 **.iml
 target
+/sqlpersistence/src/main/java/com/stemlaur/anki/sqlpersistence/jooq/db/

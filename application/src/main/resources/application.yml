@@ -12,3 +12,6 @@ logging:
   level:
     root: INFO
     com.stemlaur.anki: DEBUG
+    org.jooq: DEBUG
+server:
+  port: 8081
