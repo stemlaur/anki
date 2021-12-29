@@ -24,7 +24,6 @@ The modules are splitted into :
  - a module [domain](./domain/README.md) 
  - a module [application](./application/README.md)
  - a module [demo](./demo/README.md)
- - a module [rest](./rest/README.md) 
  - a module [inmemorypersistence](./inmemorypersistence/README.md)
 
  ## Contribute
