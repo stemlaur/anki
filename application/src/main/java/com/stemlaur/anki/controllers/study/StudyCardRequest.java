@@ -1,4 +1,4 @@
-package com.stemlaur.anki.rest.controllers.study;
+package com.stemlaur.anki.controllers.study;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.stemlaur.anki.domain.study.Opinion;

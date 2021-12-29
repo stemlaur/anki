@@ -1,4 +1,4 @@
-package com.stemlaur.anki.rest.controllers.study;
+package com.stemlaur.anki.controllers.study;
 
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import org.junit.jupiter.api.BeforeEach;

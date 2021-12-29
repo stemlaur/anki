@@ -1,4 +1,4 @@
-package com.stemlaur.anki.rest.controllers.catalog;
+package com.stemlaur.anki.controllers.catalog;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
