@@ -18,7 +18,6 @@
         <module>domain</module>
         <module>application</module>
         <module>demo</module>
-        <module>inmemorypersistence</module>
     </modules>
 
     <properties>

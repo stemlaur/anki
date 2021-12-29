@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.stemlaur.anki</groupId>
-            <artifactId>inmemorypersistence</artifactId>
+            <artifactId>domain</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
