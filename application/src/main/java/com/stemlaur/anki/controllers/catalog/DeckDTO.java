@@ -1,11 +1,19 @@
-package com.stemlaur.anki.rest.controllers.catalog;
+package com.stemlaur.anki.controllers.catalog;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Objects;
 
 final class DeckDTO {
-    private final String id;
-    private final String title;
+    public String id;
+    public String title;
 
-    DeckDTO(final String id, final String title) {
+    private DeckDTO() {
 
+    }
+
+    DeckDTO(@JsonProperty("id") final String id,
+            @JsonProperty("title") final String title) {
         this.id = id;
         this.title = title;
     }
@@ -17,8 +25,8 @@ final class DeckDTO {
 
         final DeckDTO deckDTO = (DeckDTO) o;
 
-        if (id != null ? !id.equals(deckDTO.id) : deckDTO.id != null) return false;
-        return title != null ? title.equals(deckDTO.title) : deckDTO.title == null;
+        if (!Objects.equals(id, deckDTO.id)) return false;
+        return Objects.equals(title, deckDTO.title);
     }
 
     @Override
