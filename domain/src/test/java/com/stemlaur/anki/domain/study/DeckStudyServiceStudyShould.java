@@ -2,19 +2,24 @@ package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DeckStudyServiceStudyShould {
     private static final String SESSION_ID = "d62c203f-3eeb-4b4a-b493-52e590ad340a";
     private static final String SOME_CARD_TO_STUDY_ID = "7d0424be-6a80-4e3c-9adc-d86eddd6815d";
@@ -32,7 +37,7 @@ public class DeckStudyServiceStudyShould {
     @Mock
     private Clock clock;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.deckStudyService = new DeckStudyService(
                 this.deckService,
@@ -42,36 +47,43 @@ public class DeckStudyServiceStudyShould {
                 this.clock);
     }
 
-    @Test(expected = DeckStudyService.SessionDoesNotExist.class)
+    @Test
     public void throwAnException_when_SessionDoesNotExist() {
         when(this.sessions.find(SESSION_ID)).thenReturn(empty());
-        this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN);
+
+        assertThrows(DeckStudyService.SessionDoesNotExist.class,
+                () -> this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN));
     }
 
-    @Test(expected = DeckStudyService.CardDoesNotExistInTheSession.class)
+    @Test
     public void throwAnException_when_CardDoesNotExistInTheSession() {
         when(this.sessions.find(SESSION_ID)).thenReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
-        this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN);
+
+        assertThrows(DeckStudyService.CardDoesNotExistInTheSession.class,
+                () -> this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN));
     }
 
     @Test
     public void saveCardProgress_when_doesNotAlreadyExist() {
-        when(this.sessions.find(SESSION_ID)).thenReturn(
+        given(this.sessions.find(SESSION_ID)).willReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
-        when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
+        given(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).willReturn(CardProgress.init(CARD_TO_STUDY_ID));
+
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
+
         verify(this.cardProgressService, times(1)).save(any(CardProgress.class));
     }
 
     @Test
     public void saveCardProgress_when_alreadyExist() {
-        when(this.sessions.find(SESSION_ID)).thenReturn(
+        given(this.sessions.find(SESSION_ID)).willReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
-        when(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).thenReturn(CardProgress.init(CARD_TO_STUDY_ID));
+        given(this.cardProgressService.findByCardToStudyId(CARD_TO_STUDY_ID)).willReturn(CardProgress.init(CARD_TO_STUDY_ID));
 
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
         this.deckStudyService.study(SESSION_ID, CARD_TO_STUDY_ID, Opinion.GREEN);
+
         verify(this.cardProgressService, times(2)).save(any(CardProgress.class));
     }
 }

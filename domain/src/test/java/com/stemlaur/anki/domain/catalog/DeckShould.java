@@ -1,9 +1,13 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeckShould {
 
@@ -13,29 +17,34 @@ public class DeckShould {
     private static final String ANOTHER_DECK_ID = "38327e20-b7d8-40c5-8bf7-eeaacd002367";
     private Deck deck;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.deck = new Deck(DECK_ID, A_TITLE);
     }
 
-    @Test(expected = Deck.DeckTitleIsRequired.class)
+    @Test
     public void notCreateDeck_when_titleIsNull() {
-        new Deck("an id", null);
+        assertThrows(Deck.DeckTitleIsRequired.class,
+                () -> new Deck("an id", null));
     }
 
-    @Test(expected = Deck.DeckTitleIsRequired.class)
+    @Test
     public void notCreateDeck_when_titleIsblank() {
-        new Deck("an id", "  ");
+        assertThrows(Deck.DeckTitleIsRequired.class,
+                () -> new Deck("an id", "  "));
     }
 
-    @Test(expected = Deck.DeckIdIsRequired.class)
+    @Test
     public void notCreateDeck_when_idIsNull() {
-        new Deck(null, "a title");
+        assertThrows(Deck.DeckIdIsRequired.class,
+                () -> new Deck(null, "a title"));
     }
 
-    @Test(expected = Deck.DeckIdIsRequired.class)
+    @Test
     public void notCreateDeck_when_idIsBlank() {
-        new Deck("  ", "a title");
+
+        assertThrows(Deck.DeckIdIsRequired.class,
+                () -> new Deck("  ", "a title"));
     }
 
     @Test
@@ -54,15 +63,17 @@ public class DeckShould {
         assertEquals(new CardDetail(QUESTION, "The answer"), this.deck.cards().get(0).detail());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void throwAnException_when_addedCardIsNull() {
-        this.deck.addCard(null);
+        assertThrows(NullPointerException.class,
+                () -> this.deck.addCard(null));
     }
 
     @Test
     public void addTwoCardsWithDifferentIds() {
         this.deck.addCard(new CardDetail("question 1", "The answer"));
         this.deck.addCard(new CardDetail("question 2", "The answer"));
+
         assertNotEquals(this.deck.cards().get(0).id(), this.deck.cards().get(1).id());
     }
 

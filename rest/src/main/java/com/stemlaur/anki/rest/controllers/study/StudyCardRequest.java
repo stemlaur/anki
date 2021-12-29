@@ -1,14 +1,23 @@
 package com.stemlaur.anki.rest.controllers.study;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.stemlaur.anki.domain.study.Opinion;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 final class StudyCardRequest {
-    private String cardId;
-    private Opinion opinion;
+    private final String cardId;
+    private final Opinion opinion;
+
+    public StudyCardRequest(@JsonProperty("cardId") final String cardId,
+                            @JsonProperty("opinion") final Opinion opinion) {
+        this.cardId = cardId;
+        this.opinion = opinion;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public Opinion getOpinion() {
+        return opinion;
+    }
 }

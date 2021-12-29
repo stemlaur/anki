@@ -1,12 +1,15 @@
 package com.stemlaur.anki.rest.controllers.study;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 final class CreateStudySessionRequest {
     private String deckId;
+
+    public CreateStudySessionRequest(@JsonProperty("deckId") final String deckId) {
+        this.deckId = deckId;
+    }
+
+    public String getDeckId() {
+        return deckId;
+    }
 }

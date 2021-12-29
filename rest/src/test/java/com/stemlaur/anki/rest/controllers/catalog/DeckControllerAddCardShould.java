@@ -2,22 +2,22 @@ package com.stemlaur.anki.rest.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.rest.controllers.catalog.AddCardRequest;
-import com.stemlaur.anki.rest.controllers.catalog.DeckController;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DeckControllerAddCardShould {
     private static final String DECK_ID = "2132a2a8-ca3f-4b3a-bc6f-9f1248944f2d";
 
@@ -26,7 +26,7 @@ public class DeckControllerAddCardShould {
     @Mock
     private DeckService deckService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.deckController = new DeckController(deckService);
         MockHttpServletRequest request = new MockHttpServletRequest();
