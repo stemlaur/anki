@@ -1,4 +1,4 @@
-package com.stemlaur.anki.infrastructure;
+package com.stemlaur.anki.domain.catalog.fake;
 
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.Decks;

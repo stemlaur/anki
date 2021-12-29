@@ -1,6 +1,7 @@
-package com.stemlaur.anki.infrastructure;
+package com.stemlaur.anki.domain.study.fake;
 
 import com.stemlaur.anki.domain.study.CardProgress;
+import com.stemlaur.anki.domain.study.fake.InMemoryCardProgresses;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

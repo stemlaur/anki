@@ -1,4 +1,4 @@
-package com.stemlaur.anki.infrastructure;
+package com.stemlaur.anki.domain.study.fake;
 
 import com.stemlaur.anki.domain.study.Session;
 import com.stemlaur.anki.domain.study.Sessions;
