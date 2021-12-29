@@ -1,20 +1,22 @@
 package com.stemlaur.anki.domain.study;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CardProgressServiceShould {
     private static final String CARD_TO_STUDY_ID = "f0a29b14-a5c7-4dae-8b9f-f3ca7b7c9b2a";
     private static final LocalDateTime NOW = LocalDateTime.now();
@@ -24,7 +26,7 @@ public class CardProgressServiceShould {
     @Mock
     private CardProgresses cardProgresses;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.cardProgressService = new CardProgressService(this.cardProgresses);
     }

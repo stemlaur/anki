@@ -1,16 +1,22 @@
 package com.stemlaur.anki.rest.controllers.catalog;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 final class AddCardRequest {
-    @JsonProperty("question")
-    private String question;
-    @JsonProperty("answer")
-    private String answer;
+    private final String question;
+    private final String answer;
+
+    public AddCardRequest(@JsonProperty("question") final String question,
+                          @JsonProperty("answer") final String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
 }

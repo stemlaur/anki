@@ -1,11 +1,12 @@
 package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -16,11 +17,11 @@ import java.util.Optional;
 import static java.util.Arrays.asList;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DeckStudyServiceNextCardToStudyShould {
     private static final String SESSION_ID = "8c250114-fab1-465d-936b-739bc57ff33d";
     private static final String A_CARD_ID = "f2098356-8fbb-47fb-bad7-30a14aa3ed0c";
@@ -38,16 +39,18 @@ public class DeckStudyServiceNextCardToStudyShould {
     @Mock
     private CardProgressService cardProgressService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.deckStudyService = new DeckStudyService(
                 this.deckService, cardProgressService, null, this.sessions, null);
     }
 
-    @Test(expected = DeckStudyService.SessionDoesNotExist.class)
+    @Test
     public void throwAnException_when_sessionDoesNotExist() {
         when(this.sessions.find(SESSION_ID)).thenReturn(empty());
-        this.deckStudyService.nextCardToStudy(SESSION_ID);
+
+        Assertions.assertThrows(DeckStudyService.SessionDoesNotExist.class,
+                () -> this.deckStudyService.nextCardToStudy(SESSION_ID));
     }
 
     @Test

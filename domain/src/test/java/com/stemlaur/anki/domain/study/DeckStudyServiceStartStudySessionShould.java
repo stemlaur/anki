@@ -3,19 +3,23 @@ package com.stemlaur.anki.domain.study;
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DeckStudyServiceStartStudySessionShould {
 
     private static final String DECK_ID = "1234";
@@ -32,23 +36,27 @@ public class DeckStudyServiceStartStudySessionShould {
     @Mock
     private SessionIdFactory sessionIdFactory;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.deckStudyService = new DeckStudyService(
                 this.deckService, null, this.sessionIdFactory, this.sessions, null);
         when(this.sessionIdFactory.create()).thenReturn(SESSION_ID);
     }
 
-    @Test(expected = DeckStudyService.DeckDoesNotExist.class)
+    @Test
     public void throwAnException_when_theDeckDoesNotExist() {
         when(this.deckService.findDeckById(DECK_ID)).thenReturn(empty());
-        this.deckStudyService.startStudySession(DECK_ID);
+
+        assertThrows(DeckStudyService.DeckDoesNotExist.class,
+                () -> this.deckStudyService.startStudySession(DECK_ID));
     }
 
-    @Test(expected = DeckStudyService.DeckDoesNotContainAnyCards.class)
+    @Test
     public void throwAnException_when_deckDoesNotContainAnyCard() {
         when(this.deckService.findDeckById(DECK_ID)).thenReturn(of(aDeck()));
-        this.deckStudyService.startStudySession(DECK_ID);
+
+        assertThrows(DeckStudyService.DeckDoesNotContainAnyCards.class,
+                () -> this.deckStudyService.startStudySession(DECK_ID));
     }
 
     @Test

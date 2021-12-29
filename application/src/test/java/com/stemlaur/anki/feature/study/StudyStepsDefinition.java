@@ -9,7 +9,7 @@ import com.stemlaur.anki.feature.common.World;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
+import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrint;
@@ -17,8 +17,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@CucumberContextConfiguration
 @SpringBootTest(classes = {Application.class, TestConfiguration.class})
 @AutoConfigureMockMvc(print = MockMvcPrint.DEFAULT, printOnlyOnFailure = false)
 public class StudyStepsDefinition {
@@ -56,8 +59,8 @@ public class StudyStepsDefinition {
         final CardToStudy actual = world.popCardToStudy();
 
         assertNotNull(actual.getId());
-        Assert.assertEquals(question, actual.getQuestion());
-        Assert.assertEquals(answer, actual.getAnswer());
+        assertEquals(question, actual.getQuestion());
+        assertEquals(answer, actual.getAnswer());
     }
 
     @Given("I study the card with opinion {string}")
@@ -73,7 +76,5 @@ public class StudyStepsDefinition {
         final CardToStudy secondCard = allCardsToStudy.get(1);
         assertNotEquals(firstCard.getId(), secondCard.getId());
         assertNotEquals(firstCard.getQuestion(), secondCard.getQuestion());
-
     }
-
 }

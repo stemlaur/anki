@@ -1,13 +1,11 @@
 package com.stemlaur.anki.rest.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.rest.controllers.catalog.CreateDeckRequest;
-import com.stemlaur.anki.rest.controllers.catalog.DeckController;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -16,7 +14,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DeckControllerCreateDeckShould {
     private static final String DECK_ID = "2132a2a8-ca3f-4b3a-bc6f-9f1248944f2d";
     private static final String DECK_TITLE = "ANY TITLE";
@@ -25,7 +23,7 @@ public class DeckControllerCreateDeckShould {
     @Mock
     private DeckService deckService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.deckController = new DeckController(deckService);
         MockHttpServletRequest request = new MockHttpServletRequest();

@@ -1,10 +1,10 @@
 package com.stemlaur.anki.domain.study;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SessionShould {
     private static final String SESSION_ID = "9bbd69b9-617d-4945-9180-91184ac722ab";
@@ -16,7 +16,7 @@ public class SessionShould {
         final Session secondSession = new Session(SESSION_ID, Collections.singleton(new CardToStudy("2", "question 2", "answer 2")));
         final Session differentSession = new Session(ANOTHER_SESSION_ID, Collections.singleton(new CardToStudy("1", "question 1", "answer 1")));
 
-        assertEquals(firstSession, secondSession);
-        assertNotEquals(firstSession, differentSession);
+        assertThat(firstSession).isEqualTo(secondSession);
+        assertThat(firstSession).isNotEqualTo(differentSession);
     }
 }

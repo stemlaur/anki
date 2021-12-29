@@ -1,11 +1,7 @@
 package com.stemlaur.anki.domain.study;
-
-import lombok.EqualsAndHashCode;
-
 import java.util.Optional;
 import java.util.Set;
 
-@EqualsAndHashCode(of = {"id"})
 public final class Session {
     private final String id;
     private final Set<CardToStudy> cardsToStudy;
@@ -28,5 +24,20 @@ public final class Session {
         return this.cardsToStudy.stream()
                 .filter(cardToStudy -> cardToStudy.id().equals(cardId))
                 .findFirst();
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final Session session = (Session) o;
+
+        return id.equals(session.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

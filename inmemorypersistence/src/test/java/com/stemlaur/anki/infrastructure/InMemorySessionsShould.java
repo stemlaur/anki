@@ -2,12 +2,12 @@ package com.stemlaur.anki.infrastructure;
 
 import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.Session;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InMemorySessionsShould {
     private static final String SESSION_ID = "0ae41528-e41d-4737-af4a-3858afd71036";
@@ -17,7 +17,7 @@ public class InMemorySessionsShould {
 
     private InMemorySessions inMemorySessions;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.inMemorySessions = new InMemorySessions();
     }

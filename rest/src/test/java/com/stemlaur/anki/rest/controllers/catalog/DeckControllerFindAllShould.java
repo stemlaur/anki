@@ -2,11 +2,11 @@ package com.stemlaur.anki.rest.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DeckControllerFindAllShould {
     private static final String DECK_ID = "2132a2a8-ca3f-4b3a-bc6f-9f1248944f2d";
     private static final String DECK_TITLE = "ANY TITLE";
@@ -27,7 +27,7 @@ public class DeckControllerFindAllShould {
     @Mock
     private DeckService deckService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.deckController = new DeckController(deckService);
     }

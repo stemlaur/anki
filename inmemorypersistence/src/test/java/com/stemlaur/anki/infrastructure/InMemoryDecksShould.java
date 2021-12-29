@@ -1,11 +1,11 @@
 package com.stemlaur.anki.infrastructure;
 
 import com.stemlaur.anki.domain.catalog.Deck;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InMemoryDecksShould {
     private static final String DECKID = "58545437-85df-4cc7-af62-17659ca9d3ec";
@@ -13,7 +13,7 @@ public class InMemoryDecksShould {
 
     private InMemoryDecks inMemoryDecks;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.inMemoryDecks = new InMemoryDecks();
     }

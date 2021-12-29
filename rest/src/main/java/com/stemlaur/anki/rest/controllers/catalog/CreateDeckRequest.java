@@ -1,14 +1,15 @@
 package com.stemlaur.anki.rest.controllers.catalog;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 final class CreateDeckRequest {
-    @JsonProperty("title")
-    private String title;
+    private final String title;
+
+    public CreateDeckRequest(@JsonProperty("title") final String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

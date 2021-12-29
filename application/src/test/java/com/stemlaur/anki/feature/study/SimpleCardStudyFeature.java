@@ -1,12 +1,7 @@
 package com.stemlaur.anki.feature.study;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.runner.RunWith;
+import io.cucumber.junit.platform.engine.Cucumber;
 
-@RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:com/stemlaur/anki/feature/study",
-        plugin = {"pretty", "html:target/cucumber/ankifeatures"},
-        extraGlue = "com.stemlaur.anki.feature.common")
+@Cucumber()
 public class SimpleCardStudyFeature {
 }
