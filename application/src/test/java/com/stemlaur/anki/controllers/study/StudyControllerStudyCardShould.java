@@ -1,7 +1,9 @@
 package com.stemlaur.anki.controllers.study;
 
+import com.stemlaur.anki.domain.study.CardDoesNotExistInTheSession;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.Opinion;
+import com.stemlaur.anki.domain.study.SessionDoesNotExist;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +40,7 @@ public class StudyControllerStudyCardShould {
 
     @Test
     public void return404_when_sessionDoesNotExist() {
-        doThrow(new DeckStudyService.SessionDoesNotExist()).when(this.deckStudyService)
+        doThrow(new SessionDoesNotExist()).when(this.deckStudyService)
                 .study(SESSION_ID, CARD_ID, Opinion.GREEN);
         ResponseEntity<?> responseEntity = studyController.studyCard(SESSION_ID, REQUEST);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
@@ -46,7 +48,7 @@ public class StudyControllerStudyCardShould {
 
     @Test
     public void return404_when_cardDoesNotExist() {
-        doThrow(new DeckStudyService.CardDoesNotExistInTheSession()).when(this.deckStudyService)
+        doThrow(new CardDoesNotExistInTheSession()).when(this.deckStudyService)
                 .study(SESSION_ID, CARD_ID, Opinion.GREEN);
         ResponseEntity<?> responseEntity = studyController.studyCard(SESSION_ID, REQUEST);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);

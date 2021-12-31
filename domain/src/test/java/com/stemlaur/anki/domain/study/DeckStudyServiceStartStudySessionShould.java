@@ -47,7 +47,7 @@ public class DeckStudyServiceStartStudySessionShould {
     public void throwAnException_when_theDeckDoesNotExist() {
         when(this.deckService.findDeckById(DECK_ID)).thenReturn(empty());
 
-        assertThrows(DeckStudyService.DeckDoesNotExist.class,
+        assertThrows(DeckDoesNotExist.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID));
     }
 
@@ -55,7 +55,7 @@ public class DeckStudyServiceStartStudySessionShould {
     public void throwAnException_when_deckDoesNotContainAnyCard() {
         when(this.deckService.findDeckById(DECK_ID)).thenReturn(of(aDeck()));
 
-        assertThrows(DeckStudyService.DeckDoesNotContainAnyCards.class,
+        assertThrows(DeckDoesNotContainAnyCards.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID));
     }
 
