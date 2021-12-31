@@ -1,6 +1,5 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
@@ -9,18 +8,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class Deck {
-    private final String id;
-    private final String title;
+    private final DeckId id;
+    private final DeckTitle title;
     private List<Card> cards = new ArrayList<>();
     private int cardIdCounter = 1;
 
-    public Deck(final String id, final String title) {
-        this.id = id;
-        this.title = title;
-        if (StringUtils.isBlank(id)) {
+    public Deck(DeckId deckId, DeckTitle deckTitle) {
+        this.id = deckId;
+        this.title = deckTitle;
+        if (deckId == null) {
             throw new DeckIdIsRequired();
         }
-        if (StringUtils.isBlank(title)) {
+        if (deckTitle == null) {
             throw new DeckTitleIsRequired();
         }
     }
@@ -37,23 +36,18 @@ public final class Deck {
         this.cards = this.cards.stream().filter(c -> c.id() != id).collect(Collectors.toList());
     }
 
-    public String id() {
-        return this.id;
+    public String idString() {
+        return this.id.getValue();
+    }
+
+    public String titleString() {
+        return this.title.getValue();
     }
 
     public List<Card> cards() {
         return Collections.unmodifiableList(this.cards);
     }
 
-    public String title() {
-        return this.title;
-    }
-
-    public static class DeckIdIsRequired extends RuntimeException {
-    }
-
-    public static class DeckTitleIsRequired extends RuntimeException {
-    }
 
     @Override
     public boolean equals(final Object o) {

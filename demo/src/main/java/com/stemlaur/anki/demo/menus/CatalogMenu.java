@@ -71,7 +71,7 @@ public final class CatalogMenu {
                         terminal.println("========== The deck not exist ==========");
                     } else {
                         final Deck deckToView = optionalDeck.orElseThrow();
-                        terminal.println("Deck with title '" + deckToView.title() + "'");
+                        terminal.println("Deck with title '" + deckToView.titleString() + "'");
                         deckToView.cards().forEach(card -> terminal.println("  >  " + card.detail().question() + " -> " + card.detail().answer()));
                         terminal.println("========================================");
                     }
@@ -79,7 +79,7 @@ public final class CatalogMenu {
                 case LIST_ALL_DECKS:
                     terminal.println("========== You want to list all decks ==========");
                     this.deckService.findAll()
-                            .forEach(deck -> terminal.println("Deck with title '" + deck.title() + "' and id " + deck.id()));
+                            .forEach(deck -> terminal.println("Deck with title '" + deck.titleString() + "' and id " + deck.idString()));
                 case EXIT:
                     return;
             }

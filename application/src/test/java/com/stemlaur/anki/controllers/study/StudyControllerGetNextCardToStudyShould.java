@@ -2,7 +2,7 @@ package com.stemlaur.anki.controllers.study;
 
 import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.DeckStudyService;
-import com.stemlaur.anki.domain.study.DeckStudyService.SessionDoesNotExist;
+import com.stemlaur.anki.domain.study.SessionDoesNotExist;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -16,10 +16,10 @@ public class DeckService {
     }
 
     public String create(final String title) {
-        final String generatedId = UUID.randomUUID().toString();
-        final Deck deck = new Deck(generatedId, title);
+        final DeckId generatedId = DeckId.of();
+        final Deck deck = new Deck(generatedId, new DeckTitle(title));
         this.decks.save(deck);
-        return generatedId;
+        return generatedId.getValue();
     }
 
     public void remove(final String deckId) {
@@ -41,7 +41,5 @@ public class DeckService {
         return this.decks.findAll();
     }
 
-    //@formatter:off
-    public static class DeckDoesNotExist extends RuntimeException { }
     //@formatter:on
 }
