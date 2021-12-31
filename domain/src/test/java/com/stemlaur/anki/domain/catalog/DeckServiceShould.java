@@ -51,7 +51,7 @@ public final class DeckServiceShould {
 
     @Test
     public void removeADeck_when_itExists() {
-        when(this.decks.find(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
+        when(this.decks.find(DECK_ID)).thenReturn(Optional.of(new Deck(new DeckId(DECK_ID), new DeckTitle(DECK_TITLE))));
         this.deckService.remove(DECK_ID);
         verify(this.decks, times(1)).delete(DECK_ID);
     }
@@ -74,7 +74,7 @@ public final class DeckServiceShould {
 
     @Test
     public void addACard_when_deckExists() {
-        when(this.decks.find(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
+        when(this.decks.find(DECK_ID)).thenReturn(Optional.of(new Deck(new DeckId(DECK_ID), new DeckTitle(DECK_TITLE))));
         this.deckService.addCard(DECK_ID, new CardDetail(A_QUESTION, A_ANSWER));
         verify(this.decks, times(1)).save(any(Deck.class));
     }

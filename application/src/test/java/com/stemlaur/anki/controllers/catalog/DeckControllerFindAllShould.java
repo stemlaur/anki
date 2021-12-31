@@ -1,7 +1,9 @@
 package com.stemlaur.anki.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.Deck;
+import com.stemlaur.anki.domain.catalog.DeckId;
 import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.DeckTitle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,7 +43,7 @@ public class DeckControllerFindAllShould {
 
     @Test
     public void returnDecks_when_exists() {
-        when(deckService.findAll()).thenReturn(Collections.singleton(new Deck(DECK_ID, DECK_TITLE)));
+        when(deckService.findAll()).thenReturn(Collections.singleton(new Deck(new DeckId(DECK_ID), new DeckTitle(DECK_TITLE))));
         final List<DeckDTO> actualDecks = this.deckController.findAll().getBody();
         assertEquals(1, actualDecks.size());
         assertEquals(new DeckDTO(DECK_ID, DECK_TITLE), actualDecks.get(0));

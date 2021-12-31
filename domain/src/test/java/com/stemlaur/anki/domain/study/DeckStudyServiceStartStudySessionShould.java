@@ -1,8 +1,6 @@
 package com.stemlaur.anki.domain.study;
 
-import com.stemlaur.anki.domain.catalog.CardDetail;
-import com.stemlaur.anki.domain.catalog.Deck;
-import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,7 +71,7 @@ public class DeckStudyServiceStartStudySessionShould {
     }
 
     private Deck aDeck(final CardDetail... cardDetails) {
-        final Deck deck = new Deck(DeckStudyServiceStartStudySessionShould.DECK_ID, DECK_TITLE);
+        final Deck deck = new Deck(new DeckId(DeckStudyServiceStartStudySessionShould.DECK_ID), new DeckTitle(DECK_TITLE));
         for (CardDetail cardDetail : cardDetails) {
             deck.addCard(cardDetail);
         }

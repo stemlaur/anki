@@ -17,7 +17,7 @@ public class DeckService {
 
     public String create(final String title) {
         final String generatedId = UUID.randomUUID().toString();
-        final Deck deck = new Deck(generatedId, title);
+        final Deck deck = new Deck(new DeckId(generatedId), new DeckTitle(title));
         this.decks.save(deck);
         return generatedId;
     }

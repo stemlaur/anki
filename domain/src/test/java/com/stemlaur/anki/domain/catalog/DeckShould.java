@@ -19,32 +19,32 @@ public class DeckShould {
 
     @BeforeEach
     public void setUp() {
-        this.deck = new Deck(DECK_ID, A_TITLE);
+        this.deck = new Deck(new DeckId(DECK_ID), new DeckTitle(A_TITLE));
     }
 
     @Test
     public void notCreateDeck_when_titleIsNull() {
         assertThrows(DeckTitleIsRequired.class,
-                () -> new Deck("an id", null));
+                () -> new Deck(new DeckId("an id"), new DeckTitle(null)));
     }
 
     @Test
     public void notCreateDeck_when_titleIsblank() {
         assertThrows(DeckTitleIsRequired.class,
-                () -> new Deck("an id", "  "));
+                () -> new Deck(new DeckId("an id"), new DeckTitle("  ")));
     }
 
     @Test
     public void notCreateDeck_when_idIsNull() {
         assertThrows(DeckIdIsRequired.class,
-                () -> new Deck(null, "a title"));
+                () -> new Deck(new DeckId(null), new DeckTitle("a title")));
     }
 
     @Test
     public void notCreateDeck_when_idIsBlank() {
 
         assertThrows(DeckIdIsRequired.class,
-                () -> new Deck("  ", "a title"));
+                () -> new Deck(new DeckId("  "), new DeckTitle("a title")));
     }
 
     @Test
@@ -103,9 +103,9 @@ public class DeckShould {
 
     @Test
     public void beIdentifiedByItsId() {
-        final Deck firstDeck = new Deck(DECK_ID, "A deck title");
-        final Deck secondDeck = new Deck(DECK_ID, "Another deck title");
-        final Deck differentDeck = new Deck(ANOTHER_DECK_ID, "Another deck title");
+        final Deck firstDeck = new Deck(new DeckId(DECK_ID), new DeckTitle("A deck title"));
+        final Deck secondDeck = new Deck(new DeckId(DECK_ID), new DeckTitle("Another deck title"));
+        final Deck differentDeck = new Deck(new DeckId(ANOTHER_DECK_ID), new DeckTitle("Another deck title"));
 
         assertEquals(firstDeck, secondDeck);
         assertNotEquals(firstDeck, differentDeck);

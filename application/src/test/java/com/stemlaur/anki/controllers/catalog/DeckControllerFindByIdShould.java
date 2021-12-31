@@ -1,7 +1,9 @@
 package com.stemlaur.anki.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.Deck;
+import com.stemlaur.anki.domain.catalog.DeckId;
 import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.DeckTitle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,14 +39,14 @@ public class DeckControllerFindByIdShould {
 
     @Test
     public void returnCode200_when_deckExists() {
-        when(deckService.findDeckById(DECK_ID)).thenReturn(of(new Deck(DECK_ID, DECK_TITLE)));
+        when(deckService.findDeckById(DECK_ID)).thenReturn(of(new Deck(new DeckId(DECK_ID), new DeckTitle(DECK_TITLE))));
         final ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
 
     @Test
     public void returnDeckDTO_when_deckExists() {
-        when(deckService.findDeckById(DECK_ID)).thenReturn(of(new Deck(DECK_ID, DECK_TITLE)));
+        when(deckService.findDeckById(DECK_ID)).thenReturn(of(new Deck(new DeckId(DECK_ID), new DeckTitle(DECK_TITLE))));
         final DeckDTO actual = (DeckDTO) this.deckController.findDeckById(DECK_ID).getBody();
         assertThat(actual).isEqualTo(new DeckDTO(DECK_ID, DECK_TITLE));
     }

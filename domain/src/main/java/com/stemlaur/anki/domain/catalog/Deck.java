@@ -14,13 +14,13 @@ public final class Deck {
     private List<Card> cards = new ArrayList<>();
     private int cardIdCounter = 1;
 
-    public Deck(final String id, final String title) {
-        this.id = id;
-        this.title = title;
-        if (StringUtils.isBlank(id)) {
+    public Deck(DeckId deckId, DeckTitle deckTitle) {
+        this.id = deckId.getValue();
+        this.title = deckTitle.getTitle();
+        if (StringUtils.isBlank(deckId.getValue())) {
             throw new DeckIdIsRequired();
         }
-        if (StringUtils.isBlank(title)) {
+        if (StringUtils.isBlank(deckTitle.getTitle())) {
             throw new DeckTitleIsRequired();
         }
     }

@@ -1,7 +1,8 @@
 package com.stemlaur.anki.domain.catalog.fake;
 
 import com.stemlaur.anki.domain.catalog.Deck;
-import com.stemlaur.anki.domain.catalog.fake.InMemoryDecks;
+import com.stemlaur.anki.domain.catalog.DeckId;
+import com.stemlaur.anki.domain.catalog.DeckTitle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,20 +23,20 @@ public class InMemoryDecksShould {
     @Test
     public void addADeck() {
         assertTrue(this.inMemoryDecks.find(DECKID).isEmpty());
-        this.inMemoryDecks.save(new Deck(DECKID, "title"));
+        this.inMemoryDecks.save(new Deck(new DeckId(DECKID), new DeckTitle("title")));
         assertTrue(this.inMemoryDecks.find(DECKID).isPresent());
     }
 
     @Test
     public void overrideDeckWhenAlreadyExist() {
-        this.inMemoryDecks.save(new Deck(DECKID, "title"));
-        this.inMemoryDecks.save(new Deck(DECKID, "title"));
+        this.inMemoryDecks.save(new Deck(new DeckId(DECKID), new DeckTitle("title")));
+        this.inMemoryDecks.save(new Deck(new DeckId(DECKID), new DeckTitle("title")));
         assertEquals(1, this.inMemoryDecks.findAll().size());
     }
 
     @Test
     public void deleteADeck() {
-        this.inMemoryDecks.save(new Deck(DECKID, "title"));
+        this.inMemoryDecks.save(new Deck(new DeckId(DECKID), new DeckTitle("title")));
         assertTrue(this.inMemoryDecks.find(DECKID).isPresent());
 
         this.inMemoryDecks.delete(DECKID);
@@ -44,8 +45,8 @@ public class InMemoryDecksShould {
 
     @Test
     public void findAllDecks() {
-        this.inMemoryDecks.save(new Deck(DECKID, "title"));
-        this.inMemoryDecks.save(new Deck(ANOTHER_DECKID, "title"));
+        this.inMemoryDecks.save(new Deck(new DeckId(DECKID), new DeckTitle("title")));
+        this.inMemoryDecks.save(new Deck(new DeckId(ANOTHER_DECKID), new DeckTitle("title")));
 
         assertEquals(2, this.inMemoryDecks.findAll().size());
     }
