@@ -45,7 +45,7 @@ public final class Deck {
     }
 
     public String title() {
-        return this.title.getTitle();
+        return this.title.getValue();
     }
 
     @Override

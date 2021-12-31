@@ -1,13 +1,13 @@
 package com.stemlaur.anki.domain.catalog;
 
 public class DeckTitle {
-    private final String title;
+    private final String value;
 
-    public DeckTitle(String title) {
-        this.title = title;
+    public DeckTitle(String value) {
+        this.value = value;
     }
 
-    public String getTitle() {
-        return title;
+    public String getValue() {
+        return value;
     }
 }
