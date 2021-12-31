@@ -100,10 +100,5 @@ public class DeckStudyService {
     }
 
 
-    //@formatter:off
-    public static class DeckDoesNotExist extends RuntimeException { }
-    public static class DeckDoesNotContainAnyCards extends RuntimeException{}
-    public static class SessionDoesNotExist extends RuntimeException { }
-    public static class CardDoesNotExistInTheSession extends RuntimeException { }
     //@formatter:on
 }

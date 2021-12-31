@@ -49,7 +49,7 @@ public class DeckStudyServiceNextCardToStudyShould {
     public void throwAnException_when_sessionDoesNotExist() {
         when(this.sessions.find(SESSION_ID)).thenReturn(empty());
 
-        Assertions.assertThrows(DeckStudyService.SessionDoesNotExist.class,
+        Assertions.assertThrows(SessionDoesNotExist.class,
                 () -> this.deckStudyService.nextCardToStudy(SESSION_ID));
     }
 

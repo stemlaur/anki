@@ -51,7 +51,7 @@ public class DeckStudyServiceStudyShould {
     public void throwAnException_when_SessionDoesNotExist() {
         when(this.sessions.find(SESSION_ID)).thenReturn(empty());
 
-        assertThrows(DeckStudyService.SessionDoesNotExist.class,
+        assertThrows(SessionDoesNotExist.class,
                 () -> this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN));
     }
 
@@ -60,7 +60,7 @@ public class DeckStudyServiceStudyShould {
         when(this.sessions.find(SESSION_ID)).thenReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
 
-        assertThrows(DeckStudyService.CardDoesNotExistInTheSession.class,
+        assertThrows(CardDoesNotExistInTheSession.class,
                 () -> this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN));
     }
 

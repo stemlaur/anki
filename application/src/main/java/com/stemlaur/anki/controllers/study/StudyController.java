@@ -2,8 +2,8 @@ package com.stemlaur.anki.controllers.study;
 
 import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.DeckStudyService;
-import com.stemlaur.anki.domain.study.DeckStudyService.CardDoesNotExistInTheSession;
-import com.stemlaur.anki.domain.study.DeckStudyService.SessionDoesNotExist;
+import com.stemlaur.anki.domain.study.CardDoesNotExistInTheSession;
+import com.stemlaur.anki.domain.study.SessionDoesNotExist;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

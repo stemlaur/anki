@@ -3,48 +3,31 @@ package com.stemlaur.anki.domain.catalog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckShould {
 
+    private static final DeckId DECK_ID = DeckId.of();
+    private static final DeckId ANOTHER_DECK_ID = DeckId.of();
     private static final String QUESTION = "question";
     private static final String A_TITLE = "a title";
-    private static final String DECK_ID = "dbf2a115-ac6c-4873-9d7a-65c8d4ab704c";
-    private static final String ANOTHER_DECK_ID = "38327e20-b7d8-40c5-8bf7-eeaacd002367";
     private Deck deck;
 
     @BeforeEach
     public void setUp() {
-        this.deck = new Deck(DECK_ID, A_TITLE);
+        this.deck = new Deck(DECK_ID, new DeckTitle(A_TITLE));
     }
 
     @Test
     public void notCreateDeck_when_titleIsNull() {
-        assertThrows(Deck.DeckTitleIsRequired.class,
-                () -> new Deck("an id", null));
-    }
-
-    @Test
-    public void notCreateDeck_when_titleIsblank() {
-        assertThrows(Deck.DeckTitleIsRequired.class,
-                () -> new Deck("an id", "  "));
+        assertThrows(DeckTitleIsRequired.class,
+                () -> new Deck(DECK_ID, null));
     }
 
     @Test
     public void notCreateDeck_when_idIsNull() {
-        assertThrows(Deck.DeckIdIsRequired.class,
-                () -> new Deck(null, "a title"));
-    }
-
-    @Test
-    public void notCreateDeck_when_idIsBlank() {
-
-        assertThrows(Deck.DeckIdIsRequired.class,
-                () -> new Deck("  ", "a title"));
+        assertThrows(DeckIdIsRequired.class,
+                () -> new Deck(null, new DeckTitle("a title")));
     }
 
     @Test
@@ -54,7 +37,7 @@ public class DeckShould {
 
     @Test
     public void createDeckWithTitle() {
-        assertEquals(A_TITLE, this.deck.title());
+        assertEquals(A_TITLE, this.deck.titleString());
     }
 
     @Test
@@ -103,9 +86,9 @@ public class DeckShould {
 
     @Test
     public void beIdentifiedByItsId() {
-        final Deck firstDeck = new Deck(DECK_ID, "A deck title");
-        final Deck secondDeck = new Deck(DECK_ID, "Another deck title");
-        final Deck differentDeck = new Deck(ANOTHER_DECK_ID, "Another deck title");
+        final Deck firstDeck = new Deck(DECK_ID, new DeckTitle("A deck title"));
+        final Deck secondDeck = new Deck(DECK_ID, new DeckTitle("Another deck title"));
+        final Deck differentDeck = new Deck(ANOTHER_DECK_ID, new DeckTitle("Another deck title"));
 
         assertEquals(firstDeck, secondDeck);
         assertNotEquals(firstDeck, differentDeck);
