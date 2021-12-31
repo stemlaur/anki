@@ -39,7 +39,7 @@ class DeckController {
         try {
             return ResponseEntity.ok(
                     this.deckService.findAll().stream()
-                            .map(deck -> new DeckDTO(deck.idString(), deck.title()))
+                            .map(deck -> new DeckDTO(deck.idString(), deck.titleString()))
                             .collect(Collectors.toList())
             );
         } catch (Exception e) {
@@ -104,7 +104,7 @@ class DeckController {
                 return ResponseEntity.notFound().build();
             } else {
                 final Deck deck = optionalDeckById.orElseThrow();
-                return ResponseEntity.ok().body(new DeckDTO(deck.idString(), deck.title()));
+                return ResponseEntity.ok().body(new DeckDTO(deck.idString(), deck.titleString()));
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).build();

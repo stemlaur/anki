@@ -3,11 +3,7 @@ package com.stemlaur.anki.domain.catalog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckShould {
 
@@ -41,7 +37,7 @@ public class DeckShould {
 
     @Test
     public void createDeckWithTitle() {
-        assertEquals(A_TITLE, this.deck.title());
+        assertEquals(A_TITLE, this.deck.titleString());
     }
 
     @Test

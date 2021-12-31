@@ -40,13 +40,14 @@ public final class Deck {
         return this.id.getValue();
     }
 
+    public String titleString() {
+        return this.title.getValue();
+    }
+
     public List<Card> cards() {
         return Collections.unmodifiableList(this.cards);
     }
 
-    public String title() {
-        return this.title.getValue();
-    }
 
     @Override
     public boolean equals(final Object o) {
