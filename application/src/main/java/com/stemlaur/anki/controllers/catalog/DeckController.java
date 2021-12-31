@@ -10,12 +10,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -44,7 +39,7 @@ class DeckController {
         try {
             return ResponseEntity.ok(
                     this.deckService.findAll().stream()
-                            .map(deck -> new DeckDTO(deck.id(), deck.title()))
+                            .map(deck -> new DeckDTO(deck.idString(), deck.title()))
                             .collect(Collectors.toList())
             );
         } catch (Exception e) {
@@ -109,7 +104,7 @@ class DeckController {
                 return ResponseEntity.notFound().build();
             } else {
                 final Deck deck = optionalDeckById.orElseThrow();
-                return ResponseEntity.ok().body(new DeckDTO(deck.id(), deck.title()));
+                return ResponseEntity.ok().body(new DeckDTO(deck.idString(), deck.title()));
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).build();

@@ -10,7 +10,7 @@ public final class InMemoryDecks implements Decks {
 
     @Override
     public void save(final Deck deck) {
-        this.delete(deck.id());
+        this.delete(deck.idString());
         this.decks.add(deck);
     }
 
@@ -30,7 +30,7 @@ public final class InMemoryDecks implements Decks {
     }
 
     private Optional<Deck> findDeckImpl(final String id) {
-        return this.decks.stream().filter(deck -> deck.id().equals(id))
+        return this.decks.stream().filter(deck -> deck.idString().equals(id))
                 .findFirst();
     }
 }

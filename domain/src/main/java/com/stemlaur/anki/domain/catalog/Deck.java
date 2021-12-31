@@ -36,7 +36,7 @@ public final class Deck {
         this.cards = this.cards.stream().filter(c -> c.id() != id).collect(Collectors.toList());
     }
 
-    public String id() {
+    public String idString() {
         return this.id.getValue();
     }
 

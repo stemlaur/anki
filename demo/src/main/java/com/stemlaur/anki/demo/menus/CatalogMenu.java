@@ -79,7 +79,7 @@ public final class CatalogMenu {
                 case LIST_ALL_DECKS:
                     terminal.println("========== You want to list all decks ==========");
                     this.deckService.findAll()
-                            .forEach(deck -> terminal.println("Deck with title '" + deck.title() + "' and id " + deck.id()));
+                            .forEach(deck -> terminal.println("Deck with title '" + deck.title() + "' and id " + deck.idString()));
                 case EXIT:
                     return;
             }
