@@ -9,18 +9,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class Deck {
-    private final String id;
-    private final String title;
+    private final DeckId id;
+    private final DeckTitle title;
     private List<Card> cards = new ArrayList<>();
     private int cardIdCounter = 1;
 
     public Deck(DeckId deckId, DeckTitle deckTitle) {
-        this.id = deckId.getValue();
-        this.title = deckTitle.getTitle();
-        if (StringUtils.isBlank(deckId.getValue())) {
+        this.id = deckId;
+        this.title = deckTitle;
+        if (deckId == null) {
             throw new DeckIdIsRequired();
         }
-        if (StringUtils.isBlank(deckTitle.getTitle())) {
+        if (deckTitle == null) {
             throw new DeckTitleIsRequired();
         }
     }
@@ -38,7 +38,7 @@ public final class Deck {
     }
 
     public String id() {
-        return this.id;
+        return this.id.getValue();
     }
 
     public List<Card> cards() {
@@ -46,7 +46,7 @@ public final class Deck {
     }
 
     public String title() {
-        return this.title;
+        return this.title.getTitle();
     }
 
     @Override

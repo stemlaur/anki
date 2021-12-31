@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class DeckControllerFindByIdShould {
-    private static final String DECK_ID = "2132a2a8-ca3f-4b3a-bc6f-9f1248944f2d";
+    private static final DeckId DECK_ID = DeckId.of();
     private static final String DECK_TITLE = "ANY TITLE";
     private DeckController deckController;
 
@@ -32,29 +32,29 @@ public class DeckControllerFindByIdShould {
 
     @Test
     public void returnCode404_when_noneExists() {
-        when(deckService.findDeckById(DECK_ID)).thenReturn(empty());
-        final ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID);
+        when(deckService.findDeckById(DECK_ID.getValue())).thenReturn(empty());
+        final ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID.getValue());
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
     }
 
     @Test
     public void returnCode200_when_deckExists() {
-        when(deckService.findDeckById(DECK_ID)).thenReturn(of(new Deck(new DeckId(DECK_ID), new DeckTitle(DECK_TITLE))));
-        final ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID);
+        when(deckService.findDeckById(DECK_ID.getValue())).thenReturn(of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        final ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID.getValue());
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
 
     @Test
     public void returnDeckDTO_when_deckExists() {
-        when(deckService.findDeckById(DECK_ID)).thenReturn(of(new Deck(new DeckId(DECK_ID), new DeckTitle(DECK_TITLE))));
-        final DeckDTO actual = (DeckDTO) this.deckController.findDeckById(DECK_ID).getBody();
-        assertThat(actual).isEqualTo(new DeckDTO(DECK_ID, DECK_TITLE));
+        when(deckService.findDeckById(DECK_ID.getValue())).thenReturn(of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        final DeckDTO actual = (DeckDTO) this.deckController.findDeckById(DECK_ID.getValue()).getBody();
+        assertThat(actual).isEqualTo(new DeckDTO(DECK_ID.getValue(), DECK_TITLE));
     }
 
     @Test
     public void return500Code_when_ExceptionOccured() {
-        when(deckService.findDeckById(DECK_ID)).thenThrow(new RuntimeException());
-        ResponseEntity responseEntity = this.deckController.findDeckById(DECK_ID);
+        when(deckService.findDeckById(DECK_ID.getValue())).thenThrow(new RuntimeException());
+        ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID.getValue());
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 }

@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class DeckStudyServiceStartStudySessionShould {
 
-    private static final String DECK_ID = "1234";
+    private static final DeckId DECK_ID = DeckId.of();
     private static final String SESSION_ID = "901240234";
     private static final String DECK_TITLE = "The lobes we love.";
     private static final String A_QUESTION = "Which lobe is the largest of the four major lobes of the brain in mammals ?";
@@ -43,26 +43,26 @@ public class DeckStudyServiceStartStudySessionShould {
 
     @Test
     public void throwAnException_when_theDeckDoesNotExist() {
-        when(this.deckService.findDeckById(DECK_ID)).thenReturn(empty());
+        when(this.deckService.findDeckById(DECK_ID.getValue())).thenReturn(empty());
 
         assertThrows(DeckDoesNotExist.class,
-                () -> this.deckStudyService.startStudySession(DECK_ID));
+                () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
     }
 
     @Test
     public void throwAnException_when_deckDoesNotContainAnyCard() {
-        when(this.deckService.findDeckById(DECK_ID)).thenReturn(of(aDeck()));
+        when(this.deckService.findDeckById(DECK_ID.getValue())).thenReturn(of(aDeck()));
 
         assertThrows(DeckDoesNotContainAnyCards.class,
-                () -> this.deckStudyService.startStudySession(DECK_ID));
+                () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
     }
 
     @Test
     public void saveCardProgress() {
-        when(this.deckService.findDeckById(DECK_ID))
+        when(this.deckService.findDeckById(DECK_ID.getValue()))
                 .thenReturn(of(aDeck(new CardDetail(A_QUESTION, AN_ANSWER))));
 
-        this.deckStudyService.startStudySession(DECK_ID);
+        this.deckStudyService.startStudySession(DECK_ID.getValue());
 
         verify(this.sessions, times(1))
                 .save(new Session(
@@ -71,7 +71,7 @@ public class DeckStudyServiceStartStudySessionShould {
     }
 
     private Deck aDeck(final CardDetail... cardDetails) {
-        final Deck deck = new Deck(new DeckId(DeckStudyServiceStartStudySessionShould.DECK_ID), new DeckTitle(DECK_TITLE));
+        final Deck deck = new Deck(DECK_ID, new DeckTitle(DECK_TITLE));
         for (CardDetail cardDetail : cardDetails) {
             deck.addCard(cardDetail);
         }
