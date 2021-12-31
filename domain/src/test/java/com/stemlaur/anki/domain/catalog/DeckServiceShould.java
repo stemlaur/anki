@@ -60,7 +60,7 @@ public final class DeckServiceShould {
     public void throwAnException_when_deckDoesNotExist() {
         when(decks.find(NON_EXISTING_DECK_ID)).thenReturn(empty());
 
-        assertThrows(DeckService.DeckDoesNotExist.class,
+        assertThrows(DeckDoesNotExist.class,
                 () -> this.deckService.remove(NON_EXISTING_DECK_ID));
     }
 
@@ -68,7 +68,7 @@ public final class DeckServiceShould {
     public void throwAnException_when_addingCardToANonExistingDeck() {
         when(decks.find(NON_EXISTING_DECK_ID)).thenReturn(empty());
 
-        assertThrows(DeckService.DeckDoesNotExist.class,
+        assertThrows(DeckDoesNotExist.class,
                 () -> this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail(A_QUESTION, A_ANSWER)));
     }
 

@@ -24,26 +24,26 @@ public class DeckShould {
 
     @Test
     public void notCreateDeck_when_titleIsNull() {
-        assertThrows(Deck.DeckTitleIsRequired.class,
+        assertThrows(DeckTitleIsRequired.class,
                 () -> new Deck("an id", null));
     }
 
     @Test
     public void notCreateDeck_when_titleIsblank() {
-        assertThrows(Deck.DeckTitleIsRequired.class,
+        assertThrows(DeckTitleIsRequired.class,
                 () -> new Deck("an id", "  "));
     }
 
     @Test
     public void notCreateDeck_when_idIsNull() {
-        assertThrows(Deck.DeckIdIsRequired.class,
+        assertThrows(DeckIdIsRequired.class,
                 () -> new Deck(null, "a title"));
     }
 
     @Test
     public void notCreateDeck_when_idIsBlank() {
 
-        assertThrows(Deck.DeckIdIsRequired.class,
+        assertThrows(DeckIdIsRequired.class,
                 () -> new Deck("  ", "a title"));
     }
 

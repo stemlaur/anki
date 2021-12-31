@@ -49,12 +49,6 @@ public final class Deck {
         return this.title;
     }
 
-    public static class DeckIdIsRequired extends RuntimeException {
-    }
-
-    public static class DeckTitleIsRequired extends RuntimeException {
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

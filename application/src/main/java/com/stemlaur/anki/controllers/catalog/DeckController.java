@@ -2,6 +2,7 @@ package com.stemlaur.anki.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.Deck;
+import com.stemlaur.anki.domain.catalog.DeckDoesNotExist;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -86,7 +87,7 @@ class DeckController {
         try {
             this.deckService.addCard(deckId, new CardDetail(addCardRequest.getQuestion(), addCardRequest.getAnswer()));
             return ResponseEntity.ok().build();
-        } catch (DeckService.DeckDoesNotExist deckDoesNotExist) {
+        } catch (DeckDoesNotExist deckDoesNotExist) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             return ResponseEntity.status(500).build();

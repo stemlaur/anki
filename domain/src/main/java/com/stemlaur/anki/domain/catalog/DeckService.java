@@ -41,7 +41,5 @@ public class DeckService {
         return this.decks.findAll();
     }
 
-    //@formatter:off
-    public static class DeckDoesNotExist extends RuntimeException { }
     //@formatter:on
 }

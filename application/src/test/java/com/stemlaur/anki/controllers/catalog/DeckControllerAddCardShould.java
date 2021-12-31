@@ -1,6 +1,7 @@
 package com.stemlaur.anki.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.CardDetail;
+import com.stemlaur.anki.domain.catalog.DeckDoesNotExist;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,7 @@ public class DeckControllerAddCardShould {
 
     @Test
     public void return404Code_when_DeckDoesNotExists() {
-        doThrow(new DeckService.DeckDoesNotExist()).when(this.deckService)
+        doThrow(new DeckDoesNotExist()).when(this.deckService)
                 .addCard(DECK_ID, new CardDetail("question", "answer"));
         ResponseEntity<?> responseEntity =
                 deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
