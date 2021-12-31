@@ -1,6 +1,5 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
