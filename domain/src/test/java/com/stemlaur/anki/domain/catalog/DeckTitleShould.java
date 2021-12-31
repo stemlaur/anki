@@ -1,9 +1,10 @@
 package com.stemlaur.anki.domain.catalog;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DeckTitleShould {
 
@@ -21,4 +22,25 @@ class DeckTitleShould {
         assertEquals("my first title", firstDeckTitle.toString());
     }
 
+    @Test
+    void notAcceptBlankValues() {
+        NullPointerException nullPointerException = assertThrows(NullPointerException.class, () -> new DeckTitle(null));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> new DeckTitle("   "));
+
+        assertThat(nullPointerException.getMessage()).isEqualTo("The title must not be blank");
+        assertThat(illegalArgumentException.getMessage()).isEqualTo("The title must not be blank");
+
+    }
+
+    @Test
+    void notAcceptValuesLongerThan100Chars() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DeckTitle(StringUtils.repeat("A", 101)));
+        assertThat(exception.getMessage()).isEqualTo("Deck title value length should be between 3 and 100");
+    }
+
+    @Test
+    void notAcceptValuesShorterThan3Chars() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new DeckTitle("ab"));
+        assertThat(exception.getMessage()).isEqualTo("Deck title value length should be between 3 and 100");
+    }
 }

@@ -1,13 +1,9 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.UUID;
-
-import static org.apache.commons.lang3.Validate.inclusiveBetween;
-import static org.apache.commons.lang3.Validate.notBlank;
 
 public class DeckId {
     private final String value;
