@@ -52,7 +52,7 @@ public class DeckControllerFindByIdShould {
     }
 
     @Test
-    public void return500Code_when_ExceptionOccured() {
+    public void return500Code_when_ExceptionOccurred() {
         when(deckService.findDeckById(DECK_ID.getValue())).thenThrow(new RuntimeException());
         ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID.getValue());
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
