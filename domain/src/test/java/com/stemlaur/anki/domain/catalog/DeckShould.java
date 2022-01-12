@@ -92,5 +92,7 @@ public class DeckShould {
 
         assertEquals(firstDeck, secondDeck);
         assertNotEquals(firstDeck, differentDeck);
+        assertEquals(firstDeck.hashCode(), secondDeck.hashCode());
+        assertNotEquals(firstDeck.hashCode(), differentDeck.hashCode());
     }
 }

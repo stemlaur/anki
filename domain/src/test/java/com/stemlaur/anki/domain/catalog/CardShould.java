@@ -17,5 +17,7 @@ public class CardShould {
 
         assertEquals(firstCard, secondCard);
         assertNotEquals(firstCard, differentCard);
+        assertEquals(firstCard.hashCode(), secondCard.hashCode());
+        assertNotEquals(firstCard.hashCode(), differentCard.hashCode());
     }
 }
