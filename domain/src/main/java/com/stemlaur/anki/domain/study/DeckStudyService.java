@@ -3,6 +3,7 @@ package com.stemlaur.anki.domain.study;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
+import com.stemlaur.anki.domain.study.api.StudyDeck;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Optional.empty;
 
-public class DeckStudyService {
+public class DeckStudyService implements StudyDeck {
     private final DeckService deckService;
     private final SessionIdFactory sessionIdFactory;
     private final Sessions sessions;
