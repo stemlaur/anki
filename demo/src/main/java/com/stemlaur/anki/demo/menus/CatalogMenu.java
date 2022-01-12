@@ -66,7 +66,7 @@ public final class CatalogMenu {
                 case VIEW_A_DECK:
                     terminal.println("========== You want to view a deck ==========");
                     givenDeckId = textIO.newStringInputReader().withMinLength(36).withMaxLength(36).read("Id of the deck:");
-                    final Optional<Deck> optionalDeck = deckService.findDeckById(givenDeckId);
+                    final Optional<Deck> optionalDeck = deckService.byId(givenDeckId);
                     if (optionalDeck.isEmpty()) {
                         terminal.println("========== The deck not exist ==========");
                     } else {
@@ -78,7 +78,7 @@ public final class CatalogMenu {
                     break;
                 case LIST_ALL_DECKS:
                     terminal.println("========== You want to list all decks ==========");
-                    this.deckService.findAll()
+                    this.deckService.all()
                             .forEach(deck -> terminal.println("Deck with title '" + deck.titleString() + "' and id " + deck.idString()));
                 case EXIT:
                     return;

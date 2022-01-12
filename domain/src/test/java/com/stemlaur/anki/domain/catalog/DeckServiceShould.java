@@ -9,13 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static java.util.Optional.empty;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public final class DeckServiceShould {
@@ -81,7 +76,7 @@ public final class DeckServiceShould {
 
     @Test
     public void findAllDecks() {
-        this.deckService.findAll();
+        this.deckService.all();
         verify(this.decks, times(1)).findAll();
     }
 }

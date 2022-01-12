@@ -38,12 +38,12 @@ public class DeckService implements CreateDeck, RemoveDeck, AddCard, FindDecks {
     }
 
     @Override
-    public Optional<Deck> findDeckById(final String deckId) {
+    public Optional<Deck> byId(final String deckId) {
         return this.decks.find(deckId);
     }
 
     @Override
-    public Collection<Deck> findAll() {
+    public Collection<Deck> all() {
         return this.decks.findAll();
     }
 

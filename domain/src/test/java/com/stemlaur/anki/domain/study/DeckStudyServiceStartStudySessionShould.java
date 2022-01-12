@@ -12,10 +12,7 @@ import java.util.Collections;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class DeckStudyServiceStartStudySessionShould {
@@ -43,7 +40,7 @@ public class DeckStudyServiceStartStudySessionShould {
 
     @Test
     public void throwAnException_when_theDeckDoesNotExist() {
-        when(this.deckService.findDeckById(DECK_ID.getValue())).thenReturn(empty());
+        when(this.deckService.byId(DECK_ID.getValue())).thenReturn(empty());
 
         assertThrows(DeckDoesNotExist.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
@@ -51,7 +48,7 @@ public class DeckStudyServiceStartStudySessionShould {
 
     @Test
     public void throwAnException_when_deckDoesNotContainAnyCard() {
-        when(this.deckService.findDeckById(DECK_ID.getValue())).thenReturn(of(aDeck()));
+        when(this.deckService.byId(DECK_ID.getValue())).thenReturn(of(aDeck()));
 
         assertThrows(DeckDoesNotContainAnyCards.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
@@ -59,7 +56,7 @@ public class DeckStudyServiceStartStudySessionShould {
 
     @Test
     public void saveCardProgress() {
-        when(this.deckService.findDeckById(DECK_ID.getValue()))
+        when(this.deckService.byId(DECK_ID.getValue()))
                 .thenReturn(of(aDeck(new CardDetail(A_QUESTION, AN_ANSWER))));
 
         this.deckStudyService.startStudySession(DECK_ID.getValue());

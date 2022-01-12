@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface FindDecks {
-    Optional<Deck> findDeckById(final String deckId);
+    Optional<Deck> byId(final String deckId);
 
-    Collection<Deck> findAll();
+    Collection<Deck> all();
 }
