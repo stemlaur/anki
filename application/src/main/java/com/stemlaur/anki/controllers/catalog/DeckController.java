@@ -37,7 +37,7 @@ class DeckController {
     ResponseEntity<List<DeckDTO>> findAll() {
         try {
             return ResponseEntity.ok(
-                    this.deckService.findAll().stream()
+                    this.deckService.all().stream()
                             .map(deck -> new DeckDTO(deck.idString(), deck.titleString()))
                             .collect(Collectors.toList())
             );
@@ -98,7 +98,7 @@ class DeckController {
     ResponseEntity<?> findDeckById(
             @ApiParam(value = "The id of the deck", required = true) @PathVariable("id") final String deckId) {
         try {
-            final Optional<Deck> optionalDeckById = this.deckService.findDeckById(deckId);
+            final Optional<Deck> optionalDeckById = this.deckService.byId(deckId);
             if (optionalDeckById.isEmpty()) {
                 return ResponseEntity.notFound().build();
             } else {

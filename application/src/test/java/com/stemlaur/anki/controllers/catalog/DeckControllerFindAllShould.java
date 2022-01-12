@@ -4,7 +4,6 @@ import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.catalog.DeckTitle;
-import org.apache.commons.lang3.Validate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,14 +37,14 @@ public class DeckControllerFindAllShould {
 
     @Test
     public void returnNoDecks_when_noneExists() {
-        when(deckService.findAll()).thenReturn(new ArrayList<>());
+        when(deckService.all()).thenReturn(new ArrayList<>());
         final List<DeckDTO> actualDecks = this.deckController.findAll().getBody();
         assertTrue(notNull(actualDecks).isEmpty());
     }
 
     @Test
     public void returnDecks_when_exists() {
-        when(deckService.findAll()).thenReturn(Collections.singleton(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        when(deckService.all()).thenReturn(Collections.singleton(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
         final List<DeckDTO> actualDecks = this.deckController.findAll().getBody();
         assertEquals(1, notNull(actualDecks).size());
         assertEquals(new DeckDTO(DECK_ID.toString(), DECK_TITLE), actualDecks.get(0));
@@ -53,7 +52,7 @@ public class DeckControllerFindAllShould {
 
     @Test
     public void return500Code_when_ExceptionOccured() {
-        when(deckService.findAll()).thenThrow(new RuntimeException());
+        when(deckService.all()).thenThrow(new RuntimeException());
         final ResponseEntity<List<DeckDTO>> responseEntity = this.deckController.findAll();
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }

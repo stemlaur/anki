@@ -38,7 +38,7 @@ public class DeckStudyService implements StudyDeck {
     }
 
     private Deck findDeck(final String deckId) {
-        final Deck deck = this.deckService.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);
+        final Deck deck = this.deckService.byId(deckId).orElseThrow(DeckDoesNotExist::new);
         if (deck.cards().isEmpty()) {
             throw new DeckDoesNotContainAnyCards();
         }
