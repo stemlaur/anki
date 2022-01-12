@@ -1,8 +1,8 @@
 package com.stemlaur.anki.controllers.study;
 
 import com.stemlaur.anki.domain.study.CardToStudy;
-import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionDoesNotExist;
+import com.stemlaur.anki.domain.study.api.StudyDeck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class StudyControllerGetNextCardToStudyShould {
@@ -27,7 +25,7 @@ public class StudyControllerGetNextCardToStudyShould {
 
     private StudyController studyController;
     @Mock
-    private DeckStudyService deckStudyService;
+    private StudyDeck deckStudyService;
 
     @BeforeEach
     public void setUp() {

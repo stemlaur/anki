@@ -1,6 +1,6 @@
 package com.stemlaur.anki.controllers.study;
 
-import com.stemlaur.anki.domain.study.DeckStudyService;
+import com.stemlaur.anki.domain.study.api.StudyDeck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,9 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class StudyControllerStartSessionShould {
@@ -23,7 +21,7 @@ public class StudyControllerStartSessionShould {
     private static final String SESSION_ID = "9b9dc6dd-18d3-45e4-92c1-399253ec954d";
     private StudyController studyController;
     @Mock
-    private DeckStudyService deckStudyService;
+    private StudyDeck deckStudyService;
 
     @BeforeEach
     public void setUp() {
