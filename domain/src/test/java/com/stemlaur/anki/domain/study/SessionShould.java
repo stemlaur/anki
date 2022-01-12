@@ -18,5 +18,8 @@ public class SessionShould {
 
         assertThat(firstSession).isEqualTo(secondSession);
         assertThat(firstSession).isNotEqualTo(differentSession);
+
+        assertThat(firstSession.hashCode()).isEqualTo(secondSession.hashCode());
+        assertThat(firstSession.hashCode()).isNotEqualTo(differentSession.hashCode());
     }
 }
