@@ -2,7 +2,7 @@ package com.stemlaur.anki.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckDoesNotExist;
-import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.api.AddCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,11 +25,11 @@ public class DeckControllerAddCardShould {
     private DeckController deckController;
 
     @Mock
-    private DeckService deckService;
+    private AddCard addCard;
 
     @BeforeEach
     public void setUp() {
-        this.deckController = new DeckController(deckService);
+        this.deckController = new DeckController(null, addCard, null);
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
     }
@@ -38,13 +38,13 @@ public class DeckControllerAddCardShould {
     public void return200Code_when_DeckExists() {
         ResponseEntity<?> responseEntity =
                 deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
-        verify(this.deckService, times(1)).addCard(DECK_ID, new CardDetail("question", "answer"));
+        verify(this.addCard, times(1)).addCard(DECK_ID, new CardDetail("question", "answer"));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
 
     @Test
     public void return404Code_when_DeckDoesNotExists() {
-        doThrow(new DeckDoesNotExist()).when(this.deckService)
+        doThrow(new DeckDoesNotExist()).when(this.addCard)
                 .addCard(DECK_ID, new CardDetail("question", "answer"));
         ResponseEntity<?> responseEntity =
                 deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
@@ -53,7 +53,7 @@ public class DeckControllerAddCardShould {
 
     @Test
     public void return500Code_when_ExceptionOccured() {
-        doThrow(new RuntimeException()).when(this.deckService)
+        doThrow(new RuntimeException()).when(this.addCard)
                 .addCard(DECK_ID, new CardDetail("question", "answer"));
         ResponseEntity<?> responseEntity =
                 deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));

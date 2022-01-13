@@ -3,14 +3,22 @@ package com.stemlaur.anki.controllers.catalog;
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckDoesNotExist;
-import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.api.AddCard;
+import com.stemlaur.anki.domain.catalog.api.CreateDeck;
+import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -21,12 +29,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping(path = "/api")
+@RequiredArgsConstructor
 class DeckController {
-    private final DeckService deckService;
-
-    DeckController(final DeckService deckService) {
-        this.deckService = deckService;
-    }
+    private final CreateDeck createDeck;
+    private final AddCard addCard;
+    private final FindDecks findDecks;
 
     @ApiOperation(value = "Webservice to find all existing decks", response = List.class)
     @ApiResponses(value = {
@@ -37,7 +44,7 @@ class DeckController {
     ResponseEntity<List<DeckDTO>> findAll() {
         try {
             return ResponseEntity.ok(
-                    this.deckService.all().stream()
+                    this.findDecks.all().stream()
                             .map(deck -> new DeckDTO(deck.idString(), deck.titleString()))
                             .collect(Collectors.toList())
             );
@@ -56,7 +63,7 @@ class DeckController {
             @ApiParam(value = "Create deck request object", required = true)
             @RequestBody final CreateDeckRequest request) {
         try {
-            final String id = this.deckService.create(request.getTitle());
+            final String id = this.createDeck.create(request.getTitle());
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(id)
@@ -79,7 +86,7 @@ class DeckController {
             @ApiParam(value = "The id of the deck", required = true) @PathVariable("id") final String deckId,
             @ApiParam(value = "Add card request object", required = true) @RequestBody final AddCardRequest addCardRequest) {
         try {
-            this.deckService.addCard(deckId, new CardDetail(addCardRequest.getQuestion(), addCardRequest.getAnswer()));
+            this.addCard.addCard(deckId, new CardDetail(addCardRequest.getQuestion(), addCardRequest.getAnswer()));
             return ResponseEntity.ok().build();
         } catch (DeckDoesNotExist deckDoesNotExist) {
             return ResponseEntity.notFound().build();
@@ -98,7 +105,7 @@ class DeckController {
     ResponseEntity<?> findDeckById(
             @ApiParam(value = "The id of the deck", required = true) @PathVariable("id") final String deckId) {
         try {
-            final Optional<Deck> optionalDeckById = this.deckService.byId(deckId);
+            final Optional<Deck> optionalDeckById = this.findDecks.byId(deckId);
             if (optionalDeckById.isEmpty()) {
                 return ResponseEntity.notFound().build();
             } else {
