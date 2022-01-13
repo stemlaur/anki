@@ -8,8 +8,8 @@ class DeckIdShould {
 
     @Test
     void beAValueObject() {
-        DeckId firstDeckId = DeckId.of();
-        DeckId secondDeckId = DeckId.of();
+        DeckId firstDeckId = DeckId.from("1234");
+        DeckId secondDeckId = DeckId.from("7980");
 
         assertEquals(firstDeckId, firstDeckId);
         assertNotEquals(firstDeckId, secondDeckId);
