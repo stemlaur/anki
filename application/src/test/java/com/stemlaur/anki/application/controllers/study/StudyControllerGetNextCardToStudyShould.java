@@ -1,5 +1,7 @@
-package com.stemlaur.anki.controllers.study;
+package com.stemlaur.anki.application.controllers.study;
 
+import com.stemlaur.anki.application.controllers.study.NextCardToStudyResponse;
+import com.stemlaur.anki.application.controllers.study.StudyController;
 import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.SessionDoesNotExist;
 import com.stemlaur.anki.domain.study.api.StudyDeck;

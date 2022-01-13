@@ -1,9 +1,8 @@
-package com.stemlaur.anki.controllers.catalog;
+package com.stemlaur.anki.application.controllers.catalog;
 
-import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.domain.catalog.api.AddCard;
+import com.stemlaur.anki.application.controllers.catalog.CreateDeckRequest;
+import com.stemlaur.anki.application.controllers.catalog.DeckController;
 import com.stemlaur.anki.domain.catalog.api.CreateDeck;
-import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

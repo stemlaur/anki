@@ -1,5 +1,7 @@
-package com.stemlaur.anki.controllers.study;
+package com.stemlaur.anki.application.controllers.study;
 
+import com.stemlaur.anki.application.controllers.study.CreateStudySessionRequest;
+import com.stemlaur.anki.application.controllers.study.StudyController;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

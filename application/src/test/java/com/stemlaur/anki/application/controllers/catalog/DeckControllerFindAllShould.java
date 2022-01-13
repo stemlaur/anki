@@ -1,5 +1,7 @@
-package com.stemlaur.anki.controllers.catalog;
+package com.stemlaur.anki.application.controllers.catalog;
 
+import com.stemlaur.anki.application.controllers.catalog.DeckController;
+import com.stemlaur.anki.application.controllers.catalog.DeckDTO;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
 import com.stemlaur.anki.domain.catalog.DeckTitle;

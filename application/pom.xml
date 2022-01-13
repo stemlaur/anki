@@ -129,7 +129,7 @@
                             </properties>
                         </database>
                         <target>
-                            <packageName>com.stemlaur.anki.providers.jooq</packageName>
+                            <packageName>com.stemlaur.anki.application.providers.jooq</packageName>
                         </target>
                     </generator>
                 </configuration>

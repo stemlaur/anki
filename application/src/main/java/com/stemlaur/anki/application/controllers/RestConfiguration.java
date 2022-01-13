@@ -1,4 +1,4 @@
-package com.stemlaur.anki.controllers;
+package com.stemlaur.anki.application.controllers;
 
 import org.springframework.context.annotation.ComponentScan;
 
