@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-deck
+      author: stemlaur
+      changes:
+        - createTable:
+            tableName: deck
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: cards
+            columns:
+              - column:
+                  name: deck_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: card_count_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: question
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: answer
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
