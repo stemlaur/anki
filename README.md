@@ -16,7 +16,7 @@ To use the service, please run the following commands:
 
 This usage paragraph will of course change as the project evolves.
 
-You can check the Swagger documentation at http://localhost:8080/swagger-ui.html
+You can check the Swagger documentation at http://localhost:8080/swagger-ui/
 
 ## The modules
 The modules are splitted into :
