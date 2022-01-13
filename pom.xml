@@ -27,7 +27,7 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <mockito-core.version>3.2.4</mockito-core.version>
         <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
-        <springfox.version>2.9.2</springfox.version>
+        <springfox.version>3.0.0</springfox.version>
         <cucumber.version>7.1.0</cucumber.version>
         <archunit.version>0.22.0</archunit.version>
     </properties>
