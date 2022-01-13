@@ -1,40 +1,39 @@
 package com.stemlaur.anki.application;
 
-import com.stemlaur.anki.application.controllers.RestConfiguration;
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.domain.catalog.fake.InMemoryDecks;
+import com.stemlaur.anki.domain.catalog.Decks;
 import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.CardProgressService;
+import com.stemlaur.anki.domain.study.CardProgresses;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionIdFactory;
+import com.stemlaur.anki.domain.study.Sessions;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
-import com.stemlaur.anki.domain.study.fake.InMemoryCardProgresses;
-import com.stemlaur.anki.domain.study.fake.InMemorySessions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(RestConfiguration.class)
 class ApplicationConfiguration {
-    @Bean
-    DeckService deckService() {
-        return new DeckService(new InMemoryDecks());
-    }
 
     @Bean
-    CardProgressService cardProgressService() {
-        return new CardProgressService(new InMemoryCardProgresses());
-    }
-
-    @Bean
-    StudyDeck deckStudyService(final DeckService deckService,
-                               final CardProgressService cardProgressService) {
+    static StudyDeck deckStudyService(final Decks decks,
+                                      final CardProgresses cardProgresses,
+                                      final Sessions sessions) {
         return new DeckStudyService(
-                deckService,
-                cardProgressService,
+                new DeckService(decks),
+                new CardProgressService(cardProgresses),
                 new SessionIdFactory(),
-                new InMemorySessions(),
+                sessions,
                 new Clock());
+    }
+
+    @Bean
+    static DeckService deckService(final Decks decks) {
+        return new DeckService(decks);
+    }
+
+    @Bean
+    static CardProgressService cardProgressService(final CardProgresses cardProgresses) {
+        return new CardProgressService(cardProgresses);
     }
 }
