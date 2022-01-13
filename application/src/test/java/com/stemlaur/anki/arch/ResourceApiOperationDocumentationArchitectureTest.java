@@ -3,10 +3,9 @@ package com.stemlaur.anki.arch;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
-import com.tngtech.archunit.junit.ArchUnitRunner;
 import com.tngtech.archunit.lang.ArchRule;
 import io.swagger.annotations.ApiOperation;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Tag;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods;
 
-@RunWith(ArchUnitRunner.class)
+@Tag("Architecture")
 @AnalyzeClasses(packages = "fr.edf.nexusone", importOptions = {ImportOption.DoNotIncludeTests.class})
 public class ResourceApiOperationDocumentationArchitectureTest {
 
@@ -24,15 +23,15 @@ public class ResourceApiOperationDocumentationArchitectureTest {
      */
     @ArchTest
     static final ArchRule resourcesMethodShouldBeAnnotatedWithApiOperation =
-        methods()
-            .that()
-            .areDeclaredInClassesThat()
-            .areAnnotatedWith(RestController.class)
-            .and()
-            .areAnnotatedWith(GetMapping.class)
-            .or().areAnnotatedWith(PostMapping.class)
-            .or().areAnnotatedWith(PutMapping.class)
-            .or().areAnnotatedWith(DeleteMapping.class)
-            .should()
-            .beAnnotatedWith(ApiOperation.class);
+            methods()
+                    .that()
+                    .areDeclaredInClassesThat()
+                    .areAnnotatedWith(RestController.class)
+                    .and()
+                    .areAnnotatedWith(GetMapping.class)
+                    .or().areAnnotatedWith(PostMapping.class)
+                    .or().areAnnotatedWith(PutMapping.class)
+                    .or().areAnnotatedWith(DeleteMapping.class)
+                    .should()
+                    .beAnnotatedWith(ApiOperation.class);
 }

@@ -1,41 +1,33 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckShould {
 
+    private static final DeckId DECK_ID = DeckId.of();
+    private static final DeckId ANOTHER_DECK_ID = DeckId.of();
     private static final String QUESTION = "question";
     private static final String A_TITLE = "a title";
-    private static final String DECK_ID = "dbf2a115-ac6c-4873-9d7a-65c8d4ab704c";
-    private static final String ANOTHER_DECK_ID = "38327e20-b7d8-40c5-8bf7-eeaacd002367";
     private Deck deck;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        this.deck = new Deck(DECK_ID, A_TITLE);
+        this.deck = new Deck(DECK_ID, new DeckTitle(A_TITLE));
     }
 
-    @Test(expected = Deck.DeckTitleIsRequired.class)
+    @Test
     public void notCreateDeck_when_titleIsNull() {
-        new Deck("an id", null);
+        assertThrows(DeckTitleIsRequired.class,
+                () -> new Deck(DECK_ID, null));
     }
 
-    @Test(expected = Deck.DeckTitleIsRequired.class)
-    public void notCreateDeck_when_titleIsblank() {
-        new Deck("an id", "  ");
-    }
-
-    @Test(expected = Deck.DeckIdIsRequired.class)
+    @Test
     public void notCreateDeck_when_idIsNull() {
-        new Deck(null, "a title");
-    }
-
-    @Test(expected = Deck.DeckIdIsRequired.class)
-    public void notCreateDeck_when_idIsBlank() {
-        new Deck("  ", "a title");
+        assertThrows(DeckIdIsRequired.class,
+                () -> new Deck(null, new DeckTitle("a title")));
     }
 
     @Test
@@ -45,7 +37,7 @@ public class DeckShould {
 
     @Test
     public void createDeckWithTitle() {
-        assertEquals(A_TITLE, this.deck.title());
+        assertEquals(A_TITLE, this.deck.titleString());
     }
 
     @Test
@@ -54,15 +46,17 @@ public class DeckShould {
         assertEquals(new CardDetail(QUESTION, "The answer"), this.deck.cards().get(0).detail());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void throwAnException_when_addedCardIsNull() {
-        this.deck.addCard(null);
+        assertThrows(NullPointerException.class,
+                () -> this.deck.addCard(null));
     }
 
     @Test
     public void addTwoCardsWithDifferentIds() {
         this.deck.addCard(new CardDetail("question 1", "The answer"));
         this.deck.addCard(new CardDetail("question 2", "The answer"));
+
         assertNotEquals(this.deck.cards().get(0).id(), this.deck.cards().get(1).id());
     }
 
@@ -92,11 +86,13 @@ public class DeckShould {
 
     @Test
     public void beIdentifiedByItsId() {
-        final Deck firstDeck = new Deck(DECK_ID, "A deck title");
-        final Deck secondDeck = new Deck(DECK_ID, "Another deck title");
-        final Deck differentDeck = new Deck(ANOTHER_DECK_ID, "Another deck title");
+        final Deck firstDeck = new Deck(DECK_ID, new DeckTitle("A deck title"));
+        final Deck secondDeck = new Deck(DECK_ID, new DeckTitle("Another deck title"));
+        final Deck differentDeck = new Deck(ANOTHER_DECK_ID, new DeckTitle("Another deck title"));
 
         assertEquals(firstDeck, secondDeck);
         assertNotEquals(firstDeck, differentDeck);
+        assertEquals(firstDeck.hashCode(), secondDeck.hashCode());
+        assertNotEquals(firstDeck.hashCode(), differentDeck.hashCode());
     }
 }

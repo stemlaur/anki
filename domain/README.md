@@ -8,7 +8,7 @@ to the infrastructure layer using dependency inversion.
 
 We postpone infrastructure decisions like, until we are ready to tackle them:
 
-- should we introduce a frameword for the web part, if yes which one (Vertx, Spring MVC, ...)
+- should we introduce a framework for the web part, if yes which one (Vertx, Spring MVC, ...)
 - what kind of database we would like to use to store our service statuses
 - what are the business rules regarding health checks (should we consider 2XX ok, 3XX ?)
 - what frontend technology would fit the best, should we use an SPA or not, should we use a JS framework ?   
