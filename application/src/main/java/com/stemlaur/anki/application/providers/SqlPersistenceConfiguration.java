@@ -1,5 +1,6 @@
 package com.stemlaur.anki.application.providers;
 
+import com.stemlaur.anki.application.providers.catalog.SQLDecks;
 import com.stemlaur.anki.domain.catalog.Decks;
 import liquibase.integration.spring.SpringLiquibase;
 import org.jooq.DSLContext;

@@ -1,4 +1,4 @@
-package com.stemlaur.anki.application.providers;
+package com.stemlaur.anki.application.providers.catalog;
 
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
