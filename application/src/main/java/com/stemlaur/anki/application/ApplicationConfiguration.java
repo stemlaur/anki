@@ -1,6 +1,5 @@
 package com.stemlaur.anki.application;
 
-import com.stemlaur.anki.application.controllers.RestConfiguration;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.catalog.fake.InMemoryDecks;
 import com.stemlaur.anki.domain.common.Clock;
@@ -12,10 +11,8 @@ import com.stemlaur.anki.domain.study.fake.InMemoryCardProgresses;
 import com.stemlaur.anki.domain.study.fake.InMemorySessions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(RestConfiguration.class)
 class ApplicationConfiguration {
     @Bean
     DeckService deckService() {
