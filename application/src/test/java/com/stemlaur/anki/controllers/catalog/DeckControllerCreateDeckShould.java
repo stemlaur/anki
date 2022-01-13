@@ -1,6 +1,9 @@
 package com.stemlaur.anki.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.api.AddCard;
+import com.stemlaur.anki.domain.catalog.api.CreateDeck;
+import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,18 +24,18 @@ public class DeckControllerCreateDeckShould {
     private DeckController deckController;
 
     @Mock
-    private DeckService deckService;
+    private CreateDeck createDeck;
 
     @BeforeEach
     public void setUp() {
-        this.deckController = new DeckController(deckService);
+        this.deckController = new DeckController(createDeck, null, null);
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
     }
 
     @Test
     public void createDeck() {
-        when(this.deckService.create(DECK_TITLE)).thenReturn(DECK_ID);
+        when(this.createDeck.create(DECK_TITLE)).thenReturn(DECK_ID);
         ResponseEntity<String> responseEntity = deckController.createDeck(new CreateDeckRequest(DECK_TITLE));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
         assertThat(responseEntity.getHeaders().getLocation().getPath()).isEqualTo("/" + DECK_ID);
@@ -41,7 +44,7 @@ public class DeckControllerCreateDeckShould {
 
     @Test
     public void return500Code_when_ExceptionOccured() {
-        when(this.deckService.create(DECK_TITLE)).thenThrow(new RuntimeException());
+        when(this.createDeck.create(DECK_TITLE)).thenThrow(new RuntimeException());
         ResponseEntity<String> responseEntity = deckController.createDeck(new CreateDeckRequest(DECK_TITLE));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
