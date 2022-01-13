@@ -1,5 +1,7 @@
 package com.stemlaur.anki.domain.catalog;
 
+import java.util.Objects;
+
 public final class CardDetail {
     private final String question;
     private final String answer;
@@ -24,8 +26,8 @@ public final class CardDetail {
 
         final CardDetail that = (CardDetail) o;
 
-        if (question != null ? !question.equals(that.question) : that.question != null) return false;
-        return answer != null ? answer.equals(that.answer) : that.answer == null;
+        if (!Objects.equals(question, that.question)) return false;
+        return Objects.equals(answer, that.answer);
     }
 
     @Override

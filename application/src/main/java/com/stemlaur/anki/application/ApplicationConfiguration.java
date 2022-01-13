@@ -1,6 +1,6 @@
 package com.stemlaur.anki.application;
 
-import com.stemlaur.anki.controllers.RestConfiguration;
+import com.stemlaur.anki.application.controllers.RestConfiguration;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.catalog.fake.InMemoryDecks;
 import com.stemlaur.anki.domain.common.Clock;

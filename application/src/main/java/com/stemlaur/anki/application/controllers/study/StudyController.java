@@ -1,4 +1,4 @@
-package com.stemlaur.anki.controllers.study;
+package com.stemlaur.anki.application.controllers.study;
 
 import com.stemlaur.anki.domain.study.CardDoesNotExistInTheSession;
 import com.stemlaur.anki.domain.study.CardToStudy;

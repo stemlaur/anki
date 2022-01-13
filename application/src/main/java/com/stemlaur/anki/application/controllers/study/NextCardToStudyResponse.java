@@ -1,6 +1,8 @@
-package com.stemlaur.anki.controllers.study;
+package com.stemlaur.anki.application.controllers.study;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Objects;
 
 final class NextCardToStudyResponse {
     private String id;
@@ -37,9 +39,9 @@ final class NextCardToStudyResponse {
 
         final NextCardToStudyResponse that = (NextCardToStudyResponse) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (question != null ? !question.equals(that.question) : that.question != null) return false;
-        return answer != null ? answer.equals(that.answer) : that.answer == null;
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(question, that.question)) return false;
+        return Objects.equals(answer, that.answer);
     }
 
     @Override
