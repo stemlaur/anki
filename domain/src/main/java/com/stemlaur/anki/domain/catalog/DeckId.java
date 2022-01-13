@@ -16,6 +16,10 @@ public class DeckId {
         return new DeckId(UUID.randomUUID().toString());
     }
 
+    public static DeckId from(final String id) {
+        return new DeckId(id);
+    }
+
     public String getValue() {
         return value;
     }
