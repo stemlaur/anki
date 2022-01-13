@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.5.7</version>
+        <version>2.6.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -26,8 +26,8 @@
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <commons-lang3.version>3.9</commons-lang3.version>
         <mockito-core.version>3.2.4</mockito-core.version>
-        <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
-        <springfox.version>2.9.2</springfox.version>
+        <spring-boot.version>2.6.2</spring-boot.version>
+        <springfox.version>3.0.0</springfox.version>
         <cucumber.version>7.1.0</cucumber.version>
         <archunit.version>0.22.0</archunit.version>
     </properties>
