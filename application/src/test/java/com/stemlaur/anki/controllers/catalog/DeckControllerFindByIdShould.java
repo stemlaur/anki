@@ -2,8 +2,8 @@ package com.stemlaur.anki.controllers.catalog;
 
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
-import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.catalog.DeckTitle;
+import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,37 +23,37 @@ public class DeckControllerFindByIdShould {
     private DeckController deckController;
 
     @Mock
-    private DeckService deckService;
+    private FindDecks findDecks;
 
     @BeforeEach
     public void setUp() {
-        this.deckController = new DeckController(deckService);
+        this.deckController = new DeckController(null, null, findDecks);
     }
 
     @Test
     public void returnCode404_when_noneExists() {
-        when(deckService.byId(DECK_ID.getValue())).thenReturn(empty());
+        when(findDecks.byId(DECK_ID.getValue())).thenReturn(empty());
         final ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID.getValue());
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
     }
 
     @Test
     public void returnCode200_when_deckExists() {
-        when(deckService.byId(DECK_ID.getValue())).thenReturn(of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        when(findDecks.byId(DECK_ID.getValue())).thenReturn(of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
         final ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID.getValue());
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
 
     @Test
     public void returnDeckDTO_when_deckExists() {
-        when(deckService.byId(DECK_ID.getValue())).thenReturn(of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        when(findDecks.byId(DECK_ID.getValue())).thenReturn(of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
         final DeckDTO actual = (DeckDTO) this.deckController.findDeckById(DECK_ID.getValue()).getBody();
         assertThat(actual).isEqualTo(new DeckDTO(DECK_ID.getValue(), DECK_TITLE));
     }
 
     @Test
     public void return500Code_when_ExceptionOccurred() {
-        when(deckService.byId(DECK_ID.getValue())).thenThrow(new RuntimeException());
+        when(findDecks.byId(DECK_ID.getValue())).thenThrow(new RuntimeException());
         ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID.getValue());
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
