@@ -1,21 +1,20 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static java.util.Optional.empty;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public final class DeckServiceShould {
-    private static final String DECK_ID = "4a1a2498-2f02-45b4-9570-58724b77a4e3";
+    private static final DeckId DECK_ID = DeckId.of();
     private static final String NON_EXISTING_DECK_ID = "ANYID";
     private static final String DECK_TITLE = "Neuro-fun";
     private static final String ANOTHER_DECK_TITLE = "Test deck";
@@ -26,7 +25,7 @@ public final class DeckServiceShould {
     @Mock
     private Decks decks;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.deckService = new DeckService(this.decks);
     }
@@ -47,33 +46,37 @@ public final class DeckServiceShould {
 
     @Test
     public void removeADeck_when_itExists() {
-        when(this.decks.find(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
-        this.deckService.remove(DECK_ID);
-        verify(this.decks, times(1)).delete(DECK_ID);
+        when(this.decks.find(DECK_ID.getValue())).thenReturn(Optional.of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        this.deckService.remove(DECK_ID.getValue());
+        verify(this.decks, times(1)).delete(DECK_ID.getValue());
     }
 
-    @Test(expected = DeckService.DeckDoesNotExist.class)
+    @Test
     public void throwAnException_when_deckDoesNotExist() {
         when(decks.find(NON_EXISTING_DECK_ID)).thenReturn(empty());
-        this.deckService.remove(NON_EXISTING_DECK_ID);
+
+        assertThrows(DeckDoesNotExist.class,
+                () -> this.deckService.remove(NON_EXISTING_DECK_ID));
     }
 
-    @Test(expected = DeckService.DeckDoesNotExist.class)
+    @Test
     public void throwAnException_when_addingCardToANonExistingDeck() {
         when(decks.find(NON_EXISTING_DECK_ID)).thenReturn(empty());
-        this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail(A_QUESTION, A_ANSWER));
+
+        assertThrows(DeckDoesNotExist.class,
+                () -> this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail(A_QUESTION, A_ANSWER)));
     }
 
     @Test
     public void addACard_when_deckExists() {
-        when(this.decks.find(DECK_ID)).thenReturn(Optional.of(new Deck(DECK_ID, DECK_TITLE)));
-        this.deckService.addCard(DECK_ID, new CardDetail(A_QUESTION, A_ANSWER));
+        when(this.decks.find(DECK_ID.getValue())).thenReturn(Optional.of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        this.deckService.addCard(DECK_ID.getValue(), new CardDetail(A_QUESTION, A_ANSWER));
         verify(this.decks, times(1)).save(any(Deck.class));
     }
 
     @Test
     public void findAllDecks() {
-        this.deckService.findAll();
+        this.deckService.all();
         verify(this.decks, times(1)).findAll();
     }
 }

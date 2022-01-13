@@ -19,13 +19,11 @@ This usage paragraph will of course change as the project evolves.
 You can check the Swagger documentation at http://localhost:8080/swagger-ui.html
 
 ## The modules
-The modules are splitted into two:
+The modules are splitted into :
 
  - a module [domain](./domain/README.md) 
  - a module [application](./application/README.md)
  - a module [demo](./demo/README.md)
- - a module [rest](./rest/README.md) 
- - a module [inmemorypersistence](./inmemorypersistence/README.md)
 
  ## Contribute
  - keep the domain free of any infrastructure related details

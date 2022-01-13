@@ -3,6 +3,7 @@ package com.stemlaur.anki.domain.study;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.common.Clock;
+import com.stemlaur.anki.domain.study.api.StudyDeck;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Optional.empty;
 
-public class DeckStudyService {
+public class DeckStudyService implements StudyDeck {
     private final DeckService deckService;
     private final SessionIdFactory sessionIdFactory;
     private final Sessions sessions;
@@ -37,7 +38,7 @@ public class DeckStudyService {
     }
 
     private Deck findDeck(final String deckId) {
-        final Deck deck = this.deckService.findDeckById(deckId).orElseThrow(DeckDoesNotExist::new);
+        final Deck deck = this.deckService.byId(deckId).orElseThrow(DeckDoesNotExist::new);
         if (deck.cards().isEmpty()) {
             throw new DeckDoesNotContainAnyCards();
         }
@@ -100,10 +101,5 @@ public class DeckStudyService {
     }
 
 
-    //@formatter:off
-    public static class DeckDoesNotExist extends RuntimeException { }
-    public static class DeckDoesNotContainAnyCards extends RuntimeException{}
-    public static class SessionDoesNotExist extends RuntimeException { }
-    public static class CardDoesNotExistInTheSession extends RuntimeException { }
     //@formatter:on
 }
