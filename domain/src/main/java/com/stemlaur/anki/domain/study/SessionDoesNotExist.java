@@ -1,4 +1,9 @@
 package com.stemlaur.anki.domain.study;
 
-public class SessionDoesNotExist extends RuntimeException {
+import com.stemlaur.anki.domain.AbstractAnkiException;
+
+public class SessionDoesNotExist extends AbstractAnkiException {
+    public SessionDoesNotExist(final String id) {
+        super("Session with id %s does not exist", id);
+    }
 }

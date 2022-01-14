@@ -59,13 +59,13 @@ public class StudyControllerGetNextCardToStudyShould {
 
     @Test
     public void return404_when_sessionDoesNotExist() {
-        when(this.deckStudyService.nextCardToStudy(SESSION_ID)).thenThrow(new SessionDoesNotExist());
+        when(this.deckStudyService.nextCardToStudy(SESSION_ID)).thenThrow(new SessionDoesNotExist(SESSION_ID));
         ResponseEntity<?> responseEntity = studyController.nextCardToStudy(SESSION_ID);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
     }
 
     @Test
-    public void return500Code_when_ExceptionOccured() {
+    public void return500Code_when_ExceptionOccurred() {
         when(this.deckStudyService.nextCardToStudy(SESSION_ID)).thenThrow(new RuntimeException());
         ResponseEntity<?> responseEntity = studyController.nextCardToStudy(SESSION_ID);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);

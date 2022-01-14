@@ -1,7 +1,5 @@
 package com.stemlaur.anki.application.controllers.catalog;
 
-import com.stemlaur.anki.application.controllers.catalog.AddCardRequest;
-import com.stemlaur.anki.application.controllers.catalog.DeckController;
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckDoesNotExist;
 import com.stemlaur.anki.domain.catalog.api.AddCard;
