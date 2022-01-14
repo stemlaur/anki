@@ -45,6 +45,8 @@ public class DeckService implements CreateDeck, RemoveDeck, AddCard, FindDecks {
         final Deck deck = this.decks.find(deckId).orElseThrow(() -> new DeckDoesNotExist(deckId));
         deck.addCard(cardDetail);
         this.decks.save(deck);
+
+        this.domainEvents.publish(deck.events());
     }
 
     @Override

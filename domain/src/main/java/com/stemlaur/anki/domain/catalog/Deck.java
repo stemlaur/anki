@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 public final class Deck implements AggregateRoot {
     private final DeckId id;
     private final DeckTitle title;
+    private final transient List<DomainEvent> events = new ArrayList<>();
     private List<Card> cards = new ArrayList<>();
     private int cardIdCounter = 1;
-    private final transient List<DomainEvent> events = new ArrayList<>();
 
     public Deck(DeckId deckId, DeckTitle deckTitle) {
         this.id = deckId;
@@ -30,10 +30,11 @@ public final class Deck implements AggregateRoot {
 
     public int addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
-        final int id = cardIdCounter;
-        this.cards.add(new Card(id, cardDetail));
+        final int cardId = cardIdCounter;
+        this.cards.add(new Card(cardId, cardDetail));
         cardIdCounter++;
-        return id;
+        this.events.add(new CardAdded(this.id, cardId, cardDetail.question(), cardDetail.answer()));
+        return cardId;
     }
 
     public void removeCard(final int id) {
@@ -54,7 +55,9 @@ public final class Deck implements AggregateRoot {
 
     @Override
     public List<DomainEvent> events() {
-        return this.events;
+        List<DomainEvent> domainEvents = new ArrayList<>(this.events);
+        this.events.clear();
+        return domainEvents;
     }
 
     @Override
