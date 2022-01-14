@@ -1,4 +1,9 @@
 package com.stemlaur.anki.domain.study;
 
-public class CardDoesNotExistInTheSession extends RuntimeException {
+import com.stemlaur.anki.domain.AbstractAnkiException;
+
+public class CardDoesNotExistInTheSession extends AbstractAnkiException {
+    public CardDoesNotExistInTheSession(final String sessionId, final String cardId) {
+        super("Card with id %s does not exist in the session %s", cardId, sessionId);
+    }
 }

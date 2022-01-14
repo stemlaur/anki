@@ -42,7 +42,7 @@ public class StudyControllerStudyCardShould {
 
     @Test
     public void return404_when_sessionDoesNotExist() {
-        doThrow(new SessionDoesNotExist()).when(this.deckStudyService)
+        doThrow(new SessionDoesNotExist(SESSION_ID)).when(this.deckStudyService)
                 .study(SESSION_ID, CARD_ID, Opinion.GREEN);
         ResponseEntity<?> responseEntity = studyController.studyCard(SESSION_ID, REQUEST);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
@@ -50,7 +50,7 @@ public class StudyControllerStudyCardShould {
 
     @Test
     public void return404_when_cardDoesNotExist() {
-        doThrow(new CardDoesNotExistInTheSession()).when(this.deckStudyService)
+        doThrow(new CardDoesNotExistInTheSession(SESSION_ID, CARD_ID)).when(this.deckStudyService)
                 .study(SESSION_ID, CARD_ID, Opinion.GREEN);
         ResponseEntity<?> responseEntity = studyController.studyCard(SESSION_ID, REQUEST);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);

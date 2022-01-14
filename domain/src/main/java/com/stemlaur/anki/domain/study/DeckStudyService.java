@@ -7,7 +7,11 @@ import com.stemlaur.anki.domain.study.spi.Sessions;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -40,9 +44,9 @@ public class DeckStudyService implements StudyDeck {
     }
 
     private Deck findDeck(final String deckId) {
-        final Deck deck = this.deckService.byId(deckId).orElseThrow(DeckDoesNotExist::new);
+        final Deck deck = this.deckService.byId(deckId).orElseThrow(() -> new DeckDoesNotExist(deckId));
         if (deck.cards().isEmpty()) {
-            throw new DeckDoesNotContainAnyCards();
+            throw new DeckDoesNotContainAnyCards(deckId);
         }
         return deck;
     }
@@ -54,7 +58,7 @@ public class DeckStudyService implements StudyDeck {
     }
 
     public Optional<CardToStudy> nextCardToStudy(final String sessionId) {
-        final Session session = this.sessions.find(sessionId).orElseThrow(SessionDoesNotExist::new);
+        final Session session = this.sessions.find(sessionId).orElseThrow(() -> new SessionDoesNotExist(sessionId));
         final Optional<CardProgress> randomCardProgressWithMinimalScore =
                 this.findRadomCardProgressWithLowestScore(session.cardsToStudy());
         if (randomCardProgressWithMinimalScore.isEmpty()) {
@@ -95,13 +99,12 @@ public class DeckStudyService implements StudyDeck {
     }
 
     public void study(final String sessionId, final String cardId, final Opinion opinion) {
-        final Session session = this.sessions.find(sessionId).orElseThrow(SessionDoesNotExist::new);
-        final CardToStudy card = session.findCard(cardId).orElseThrow(CardDoesNotExistInTheSession::new);
+        final Session session = this.sessions.find(sessionId).orElseThrow(() -> new SessionDoesNotExist(sessionId));
+        final CardToStudy card = session.findCard(cardId).orElseThrow(() -> new CardDoesNotExistInTheSession(sessionId, cardId));
         final CardProgress cardProgress = this.cardProgressService.findByCardToStudyId(card.id());
         cardProgress.updateProgress(opinion, LocalDateTime.now(clock));
         this.cardProgressService.save(cardProgress);
     }
-
 
     //@formatter:on
 }
