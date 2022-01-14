@@ -1,6 +1,7 @@
 package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.catalog.*;
+import com.stemlaur.anki.domain.study.spi.Sessions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

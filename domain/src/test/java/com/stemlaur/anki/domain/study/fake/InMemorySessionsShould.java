@@ -2,7 +2,7 @@ package com.stemlaur.anki.domain.study.fake;
 
 import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.Session;
-import com.stemlaur.anki.domain.study.fake.InMemorySessions;
+import com.stemlaur.anki.domain.study.spi.fake.InMemorySessions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

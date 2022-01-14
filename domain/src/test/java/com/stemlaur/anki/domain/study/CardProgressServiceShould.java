@@ -1,5 +1,6 @@
 package com.stemlaur.anki.domain.study;
 
+import com.stemlaur.anki.domain.study.spi.CardProgresses;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

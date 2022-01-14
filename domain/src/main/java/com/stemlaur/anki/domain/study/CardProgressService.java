@@ -1,5 +1,7 @@
 package com.stemlaur.anki.domain.study;
 
+import com.stemlaur.anki.domain.study.spi.CardProgresses;
+
 public class CardProgressService {
     private final CardProgresses cardProgresses;
 
