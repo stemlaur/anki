@@ -18,11 +18,13 @@ package com.stemlaur.anki.demo;
 import com.stemlaur.anki.demo.importing.ImportDeck;
 import com.stemlaur.anki.demo.menus.MainMenu;
 import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.spi.fake.FakeDeckIdFactory;
+import com.stemlaur.anki.domain.catalog.spi.fake.InMemoryDecks;
+import com.stemlaur.anki.domain.common.spi.fake.FakeDomainEvents;
 import com.stemlaur.anki.domain.study.CardProgressService;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionIdFactory;
 import com.stemlaur.anki.domain.study.spi.fake.InMemoryCardProgresses;
-import com.stemlaur.anki.domain.catalog.spi.fake.InMemoryDecks;
 import com.stemlaur.anki.domain.study.spi.fake.InMemorySessions;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
@@ -59,7 +61,7 @@ class Demo implements BiConsumer<TextIO, RunnerData> {
     public static void main(String[] args) throws IOException {
         TextIO textIO = TextIoFactory.getTextIO();
 
-        final DeckService deckService = new DeckService(new InMemoryDecks());
+        final DeckService deckService = new DeckService(new InMemoryDecks(), new FakeDeckIdFactory(), new FakeDomainEvents());
         DeckStudyService deckStudyService = new DeckStudyService(deckService, new CardProgressService(new InMemoryCardProgresses()), new SessionIdFactory(), new InMemorySessions(), Clock.systemUTC());
 
         new Demo(deckService, deckStudyService)

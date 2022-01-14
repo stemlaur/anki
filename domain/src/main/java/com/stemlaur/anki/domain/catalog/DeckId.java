@@ -3,17 +3,11 @@ package com.stemlaur.anki.domain.catalog;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.util.UUID;
-
 public class DeckId {
     private final String value;
 
     private DeckId(String value) {
         this.value = value;
-    }
-
-    public static DeckId of() {
-        return new DeckId(UUID.randomUUID().toString());
     }
 
     public static DeckId from(final String id) {

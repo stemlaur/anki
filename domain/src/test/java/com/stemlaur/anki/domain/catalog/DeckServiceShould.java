@@ -1,6 +1,10 @@
 package com.stemlaur.anki.domain.catalog;
 
 import com.stemlaur.anki.domain.catalog.spi.Decks;
+import com.stemlaur.anki.domain.common.spi.fake.FakeDomainEvents;
+import org.assertj.core.api.Assertions;
+import org.assertj.core.groups.Tuple;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,25 +14,42 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static java.util.Optional.empty;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public final class DeckServiceShould {
-    private static final DeckId DECK_ID = DeckId.of();
+    private static final DeckId DECK_ID = DeckId.from("any id");
     private static final String NON_EXISTING_DECK_ID = "ANYID";
     private static final String DECK_TITLE = "Neuro-fun";
     private static final String ANOTHER_DECK_TITLE = "Test deck";
     private static final String A_QUESTION = "What is the name of the standard used to order the human brain anatomical regions ?";
     private static final String A_ANSWER = "The neuroanatomy hierarchies.";
 
+    private final FakeDomainEvents fakeDomainEvents = new FakeDomainEvents();
+    private DumbDeckIdFactory fakeDeckIdFactory;
     private DeckService deckService;
     @Mock
     private Decks decks;
 
     @BeforeEach
     public void setUp() {
-        this.deckService = new DeckService(this.decks);
+        this.fakeDeckIdFactory = new DumbDeckIdFactory("a_dumb_id");
+
+        this.deckService = new DeckService(this.decks,
+                this.fakeDeckIdFactory,
+                this.fakeDomainEvents);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        this.fakeDomainEvents.clear();
     }
 
     @Test
@@ -41,8 +62,19 @@ public final class DeckServiceShould {
     @Test
     public void createDecksWithDifferentId() {
         final String firstDeckId = this.deckService.create(DECK_TITLE);
+
+        fakeDeckIdFactory.changedFixedId("another id");
+
         final String secondDeckId = this.deckService.create(ANOTHER_DECK_TITLE);
         assertNotEquals(firstDeckId, secondDeckId);
+    }
+
+    @Test
+    public void publishDeckCreated() {
+        this.deckService.create(DECK_TITLE);
+
+        assertThat(fakeDomainEvents.getEvents())
+                .containsExactly(new DeckCreated(DeckId.from("a_dumb_id"), DECK_TITLE));
     }
 
     @Test

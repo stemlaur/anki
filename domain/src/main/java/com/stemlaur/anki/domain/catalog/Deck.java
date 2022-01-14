@@ -1,5 +1,7 @@
 package com.stemlaur.anki.domain.catalog;
 
+import com.stemlaur.anki.domain.common.AggregateRoot;
+import com.stemlaur.anki.domain.common.DomainEvent;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
@@ -7,11 +9,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class Deck {
+public final class Deck implements AggregateRoot {
     private final DeckId id;
     private final DeckTitle title;
     private List<Card> cards = new ArrayList<>();
     private int cardIdCounter = 1;
+    private final transient List<DomainEvent> events = new ArrayList<>();
 
     public Deck(DeckId deckId, DeckTitle deckTitle) {
         this.id = deckId;
@@ -22,6 +25,7 @@ public final class Deck {
         if (deckTitle == null) {
             throw new DeckTitleIsRequired();
         }
+        this.events.add(new DeckCreated(deckId, deckTitle.getValue()));
     }
 
     public int addCard(final CardDetail cardDetail) {
@@ -48,6 +52,10 @@ public final class Deck {
         return Collections.unmodifiableList(this.cards);
     }
 
+    @Override
+    public List<DomainEvent> events() {
+        return this.events;
+    }
 
     @Override
     public boolean equals(final Object o) {

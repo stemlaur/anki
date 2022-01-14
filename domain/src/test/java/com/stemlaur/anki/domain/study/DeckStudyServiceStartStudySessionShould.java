@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class DeckStudyServiceStartStudySessionShould {
 
-    private static final DeckId DECK_ID = DeckId.of();
+    private static final DeckId DECK_ID = DeckId.from("any id");
     private static final String SESSION_ID = "901240234";
     private static final String DECK_TITLE = "The lobes we love.";
     private static final String A_QUESTION = "Which lobe is the largest of the four major lobes of the brain in mammals ?";

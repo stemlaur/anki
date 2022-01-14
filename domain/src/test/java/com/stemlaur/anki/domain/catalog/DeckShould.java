@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckShould {
 
-    private static final DeckId DECK_ID = DeckId.of();
-    private static final DeckId ANOTHER_DECK_ID = DeckId.of();
+    private static final DeckId DECK_ID = DeckId.from("any id");
+    private static final DeckId ANOTHER_DECK_ID = DeckId.from("any other id");
     private static final String QUESTION = "question";
     private static final String A_TITLE = "a title";
     private Deck deck;
