@@ -1,7 +1,6 @@
 package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.spi.Sessions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Collections;
 
 import static java.util.Optional.empty;
@@ -35,17 +37,16 @@ public class DeckStudyServiceStudyShould {
     private Sessions sessions;
     @Mock
     private CardProgressService cardProgressService;
-    @Mock
-    private Clock clock;
 
     @BeforeEach
     public void setUp() {
+        Instant instant = Instant.parse("2018-08-19T16:02:42.00Z");
         this.deckStudyService = new DeckStudyService(
                 this.deckService,
                 this.cardProgressService,
                 null,
                 this.sessions,
-                this.clock);
+                Clock.fixed(instant, ZoneId.systemDefault()));
     }
 
     @Test

@@ -2,7 +2,6 @@ package com.stemlaur.anki.application;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.catalog.spi.Decks;
-import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.CardProgressService;
 import com.stemlaur.anki.domain.study.spi.CardProgresses;
 import com.stemlaur.anki.domain.study.DeckStudyService;
@@ -11,6 +10,8 @@ import com.stemlaur.anki.domain.study.spi.Sessions;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.Clock;
 
 @Configuration
 class ApplicationConfiguration {
@@ -24,7 +25,7 @@ class ApplicationConfiguration {
                 new CardProgressService(cardProgresses),
                 new SessionIdFactory(),
                 sessions,
-                new Clock());
+                Clock.systemUTC());
     }
 
     @Bean

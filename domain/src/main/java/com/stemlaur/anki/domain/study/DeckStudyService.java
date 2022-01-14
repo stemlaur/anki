@@ -2,10 +2,11 @@ package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
 import com.stemlaur.anki.domain.study.spi.Sessions;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -97,7 +98,7 @@ public class DeckStudyService implements StudyDeck {
         final Session session = this.sessions.find(sessionId).orElseThrow(SessionDoesNotExist::new);
         final CardToStudy card = session.findCard(cardId).orElseThrow(CardDoesNotExistInTheSession::new);
         final CardProgress cardProgress = this.cardProgressService.findByCardToStudyId(card.id());
-        cardProgress.updateProgress(opinion, this.clock.now());
+        cardProgress.updateProgress(opinion, LocalDateTime.now(clock));
         this.cardProgressService.save(cardProgress);
     }
 
