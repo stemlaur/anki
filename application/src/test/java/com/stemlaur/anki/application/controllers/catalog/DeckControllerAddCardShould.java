@@ -46,7 +46,7 @@ public class DeckControllerAddCardShould {
 
     @Test
     public void return404Code_when_DeckDoesNotExists() {
-        doThrow(new DeckDoesNotExist()).when(this.addCard)
+        doThrow(new DeckDoesNotExist(DECK_ID)).when(this.addCard)
                 .addCard(DECK_ID, new CardDetail("question", "answer"));
         ResponseEntity<?> responseEntity =
                 deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
@@ -54,7 +54,7 @@ public class DeckControllerAddCardShould {
     }
 
     @Test
-    public void return500Code_when_ExceptionOccured() {
+    public void return500Code_when_ExceptionOccurred() {
         doThrow(new RuntimeException()).when(this.addCard)
                 .addCard(DECK_ID, new CardDetail("question", "answer"));
         ResponseEntity<?> responseEntity =
