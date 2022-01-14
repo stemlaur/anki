@@ -1,4 +1,6 @@
-package com.stemlaur.anki.domain.study;
+package com.stemlaur.anki.domain.study.spi;
+
+import com.stemlaur.anki.domain.study.CardProgress;
 
 import java.util.Optional;
 

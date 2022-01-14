@@ -1,4 +1,6 @@
-package com.stemlaur.anki.domain.catalog;
+package com.stemlaur.anki.domain.catalog.spi;
+
+import com.stemlaur.anki.domain.catalog.Deck;
 
 import java.util.Collection;
 import java.util.Optional;

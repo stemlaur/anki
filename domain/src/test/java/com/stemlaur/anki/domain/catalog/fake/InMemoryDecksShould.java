@@ -3,6 +3,7 @@ package com.stemlaur.anki.domain.catalog.fake;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
 import com.stemlaur.anki.domain.catalog.DeckTitle;
+import com.stemlaur.anki.domain.catalog.spi.fake.InMemoryDecks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

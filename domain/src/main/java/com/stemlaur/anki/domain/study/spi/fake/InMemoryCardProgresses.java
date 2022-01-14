@@ -1,7 +1,7 @@
-package com.stemlaur.anki.domain.study.fake;
+package com.stemlaur.anki.domain.study.spi.fake;
 
 import com.stemlaur.anki.domain.study.CardProgress;
-import com.stemlaur.anki.domain.study.CardProgresses;
+import com.stemlaur.anki.domain.study.spi.CardProgresses;
 
 import java.util.ArrayList;
 import java.util.List;

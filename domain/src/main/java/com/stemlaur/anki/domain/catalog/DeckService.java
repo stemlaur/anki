@@ -4,6 +4,7 @@ import com.stemlaur.anki.domain.catalog.api.AddCard;
 import com.stemlaur.anki.domain.catalog.api.CreateDeck;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import com.stemlaur.anki.domain.catalog.api.RemoveDeck;
+import com.stemlaur.anki.domain.catalog.spi.Decks;
 
 import java.util.Collection;
 import java.util.Optional;

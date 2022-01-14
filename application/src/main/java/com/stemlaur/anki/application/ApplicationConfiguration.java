@@ -1,13 +1,13 @@
 package com.stemlaur.anki.application;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.domain.catalog.Decks;
+import com.stemlaur.anki.domain.catalog.spi.Decks;
 import com.stemlaur.anki.domain.common.Clock;
 import com.stemlaur.anki.domain.study.CardProgressService;
-import com.stemlaur.anki.domain.study.CardProgresses;
+import com.stemlaur.anki.domain.study.spi.CardProgresses;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionIdFactory;
-import com.stemlaur.anki.domain.study.Sessions;
+import com.stemlaur.anki.domain.study.spi.Sessions;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

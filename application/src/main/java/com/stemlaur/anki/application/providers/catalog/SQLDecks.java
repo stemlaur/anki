@@ -3,7 +3,7 @@ package com.stemlaur.anki.application.providers.catalog;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
 import com.stemlaur.anki.domain.catalog.DeckTitle;
-import com.stemlaur.anki.domain.catalog.Decks;
+import com.stemlaur.anki.domain.catalog.spi.Decks;
 import org.jooq.DSLContext;
 
 import java.util.Collection;

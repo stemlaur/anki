@@ -1,11 +1,11 @@
 package com.stemlaur.anki.feature.common;
 
-import com.stemlaur.anki.domain.catalog.Decks;
-import com.stemlaur.anki.domain.catalog.fake.InMemoryDecks;
-import com.stemlaur.anki.domain.study.CardProgresses;
-import com.stemlaur.anki.domain.study.Sessions;
-import com.stemlaur.anki.domain.study.fake.InMemoryCardProgresses;
-import com.stemlaur.anki.domain.study.fake.InMemorySessions;
+import com.stemlaur.anki.domain.catalog.spi.Decks;
+import com.stemlaur.anki.domain.catalog.spi.fake.InMemoryDecks;
+import com.stemlaur.anki.domain.study.spi.CardProgresses;
+import com.stemlaur.anki.domain.study.spi.Sessions;
+import com.stemlaur.anki.domain.study.spi.fake.InMemoryCardProgresses;
+import com.stemlaur.anki.domain.study.spi.fake.InMemorySessions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.test.web.servlet.MockMvc;
