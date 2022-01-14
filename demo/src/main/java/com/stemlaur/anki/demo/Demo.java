@@ -18,7 +18,7 @@ package com.stemlaur.anki.demo;
 import com.stemlaur.anki.demo.importing.ImportDeck;
 import com.stemlaur.anki.demo.menus.MainMenu;
 import com.stemlaur.anki.domain.catalog.DeckService;
-import com.stemlaur.anki.domain.catalog.spi.fake.FakeDeckIdFactory;
+import com.stemlaur.anki.domain.catalog.spi.fake.SimpleDeckIdFactory;
 import com.stemlaur.anki.domain.catalog.spi.fake.InMemoryDecks;
 import com.stemlaur.anki.domain.common.spi.fake.FakeDomainEvents;
 import com.stemlaur.anki.domain.study.CardProgressService;
@@ -61,7 +61,7 @@ class Demo implements BiConsumer<TextIO, RunnerData> {
     public static void main(String[] args) throws IOException {
         TextIO textIO = TextIoFactory.getTextIO();
 
-        final DeckService deckService = new DeckService(new InMemoryDecks(), new FakeDeckIdFactory(), new FakeDomainEvents());
+        final DeckService deckService = new DeckService(new InMemoryDecks(), new SimpleDeckIdFactory(), new FakeDomainEvents());
         DeckStudyService deckStudyService = new DeckStudyService(deckService, new CardProgressService(new InMemoryCardProgresses()), new SessionIdFactory(), new InMemorySessions(), Clock.systemUTC());
 
         new Demo(deckService, deckStudyService)

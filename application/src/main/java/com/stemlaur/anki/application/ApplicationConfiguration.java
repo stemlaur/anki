@@ -2,7 +2,7 @@ package com.stemlaur.anki.application;
 
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.catalog.spi.Decks;
-import com.stemlaur.anki.domain.catalog.spi.fake.FakeDeckIdFactory;
+import com.stemlaur.anki.domain.catalog.spi.fake.SimpleDeckIdFactory;
 import com.stemlaur.anki.domain.common.spi.fake.FakeDomainEvents;
 import com.stemlaur.anki.domain.study.CardProgressService;
 import com.stemlaur.anki.domain.study.DeckStudyService;
@@ -23,7 +23,7 @@ class ApplicationConfiguration {
                                       final CardProgresses cardProgresses,
                                       final Sessions sessions) {
         return new DeckStudyService(
-                new DeckService(decks, new FakeDeckIdFactory(), new FakeDomainEvents()),
+                new DeckService(decks, new SimpleDeckIdFactory(), new FakeDomainEvents()),
                 new CardProgressService(cardProgresses),
                 new SessionIdFactory(),
                 sessions,
@@ -32,7 +32,7 @@ class ApplicationConfiguration {
 
     @Bean
     static DeckService deckService(final Decks decks) {
-        return new DeckService(decks, new FakeDeckIdFactory(), new FakeDomainEvents());
+        return new DeckService(decks, new SimpleDeckIdFactory(), new FakeDomainEvents());
     }
 
     @Bean
