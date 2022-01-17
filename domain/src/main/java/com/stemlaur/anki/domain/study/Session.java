@@ -1,7 +1,11 @@
 package com.stemlaur.anki.domain.study;
+
+import org.jmolecules.ddd.annotation.AggregateRoot;
+
 import java.util.Optional;
 import java.util.Set;
 
+@AggregateRoot
 public final class Session {
     private final String id;
     private final Set<CardToStudy> cardsToStudy;
