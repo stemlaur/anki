@@ -1,5 +1,7 @@
 package com.stemlaur.anki.domain.catalog;
 
+import com.stemlaur.anki.domain.common.AggregateRoot;
+import com.stemlaur.anki.domain.common.DomainEvent;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
@@ -7,9 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class Deck {
+public final class Deck implements AggregateRoot {
     private final DeckId id;
     private final DeckTitle title;
+    private final transient List<DomainEvent> events = new ArrayList<>();
     private List<Card> cards = new ArrayList<>();
     private int cardIdCounter = 1;
 
@@ -22,14 +25,16 @@ public final class Deck {
         if (deckTitle == null) {
             throw new DeckTitleIsRequired();
         }
+        this.events.add(new DeckCreated(deckId, deckTitle.getValue()));
     }
 
     public int addCard(final CardDetail cardDetail) {
         Validate.notNull(cardDetail);
-        final int id = cardIdCounter;
-        this.cards.add(new Card(id, cardDetail));
+        final int cardId = cardIdCounter;
+        this.cards.add(new Card(cardId, cardDetail));
         cardIdCounter++;
-        return id;
+        this.events.add(new CardAdded(this.id, cardId, cardDetail.question(), cardDetail.answer()));
+        return cardId;
     }
 
     public void removeCard(final int id) {
@@ -48,6 +53,12 @@ public final class Deck {
         return Collections.unmodifiableList(this.cards);
     }
 
+    @Override
+    public List<DomainEvent> events() {
+        List<DomainEvent> domainEvents = new ArrayList<>(this.events);
+        this.events.clear();
+        return domainEvents;
+    }
 
     @Override
     public boolean equals(final Object o) {

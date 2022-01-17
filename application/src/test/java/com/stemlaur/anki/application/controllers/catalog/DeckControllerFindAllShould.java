@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class DeckControllerFindAllShould {
-    private static final DeckId DECK_ID = DeckId.of();
+    private static final DeckId DECK_ID = DeckId.from("any id");
     private static final String DECK_TITLE = "ANY TITLE";
     private DeckController deckController;
 

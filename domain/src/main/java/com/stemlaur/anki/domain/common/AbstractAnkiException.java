@@ -1,4 +1,4 @@
-package com.stemlaur.anki.domain;
+package com.stemlaur.anki.domain.common;
 
 public class AbstractAnkiException extends RuntimeException {
     protected AbstractAnkiException(String message, Object... parameters) {

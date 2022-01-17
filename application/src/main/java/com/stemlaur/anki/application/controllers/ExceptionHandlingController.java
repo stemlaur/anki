@@ -1,6 +1,6 @@
 package com.stemlaur.anki.application.controllers;
 
-import com.stemlaur.anki.domain.AbstractAnkiException;
+import com.stemlaur.anki.domain.common.AbstractAnkiException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
