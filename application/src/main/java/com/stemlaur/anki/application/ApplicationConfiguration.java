@@ -5,6 +5,7 @@ import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.catalog.spi.Decks;
 import com.stemlaur.anki.domain.catalog.spi.fake.SimpleDeckIdFactory;
 import com.stemlaur.anki.domain.common.spi.DomainEvents;
+import com.stemlaur.anki.domain.stats.DeckStatsService;
 import com.stemlaur.anki.domain.study.CardProgressService;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.SessionIdFactory;
@@ -42,6 +43,11 @@ class ApplicationConfiguration {
     @Bean
     static CardProgressService cardProgressService(final CardProgresses cardProgresses) {
         return new CardProgressService(cardProgresses);
+    }
+
+    @Bean
+    static DeckStatsService deckStatsService() {
+        return new DeckStatsService();
     }
 
     @Bean
