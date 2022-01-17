@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InMemoryDecksShould {
-    private static final DeckId DECK_ID = DeckId.of();
-    private static final DeckId ANOTHER_DECK_ID = DeckId.of();
+    private static final DeckId DECK_ID = DeckId.from("any id");
+    private static final DeckId ANOTHER_DECK_ID = DeckId.from("any other id");
 
     private InMemoryDecks inMemoryDecks;
 

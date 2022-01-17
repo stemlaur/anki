@@ -1,6 +1,6 @@
 package com.stemlaur.anki.domain.study;
 
-import com.stemlaur.anki.domain.AbstractAnkiException;
+import com.stemlaur.anki.domain.common.AbstractAnkiException;
 
 public class CardDoesNotExistInTheSession extends AbstractAnkiException {
     public CardDoesNotExistInTheSession(final String sessionId, final String cardId) {
