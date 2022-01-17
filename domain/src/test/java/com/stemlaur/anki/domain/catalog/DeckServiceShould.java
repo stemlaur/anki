@@ -6,15 +6,12 @@ import com.stemlaur.anki.domain.common.spi.fake.FakeDomainEvents;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(MockitoExtension.class)
 public final class DeckServiceShould {
     private static final DeckId DECK_ID = DeckId.from("any id");
     private static final String NON_EXISTING_DECK_ID = "ANYID";
