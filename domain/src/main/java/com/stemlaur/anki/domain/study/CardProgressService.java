@@ -1,9 +1,12 @@
 package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.study.spi.CardProgresses;
-import org.jmolecules.ddd.annotation.Service;
+import com.stemlaur.livingdocumentation.annotation.DomainService;
 
-@Service
+/**
+ * Service to retrieve the progress of a specific card.
+ */
+@DomainService
 public class CardProgressService {
     private final CardProgresses cardProgresses;
 

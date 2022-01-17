@@ -5,7 +5,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
 
-@org.jmolecules.event.annotation.DomainEvent
+/**
+ * Event representing the fact that a card is added to a deck.
+ */
+@com.stemlaur.livingdocumentation.annotation.DomainEvent
 public class CardAdded implements DomainEvent {
     private final String deckId;
     private final int cardId;

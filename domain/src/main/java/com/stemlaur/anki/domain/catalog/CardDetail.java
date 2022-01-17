@@ -1,9 +1,12 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.jmolecules.ddd.annotation.ValueObject;
+import com.stemlaur.livingdocumentation.annotation.ValueObject;
 
 import java.util.Objects;
 
+/**
+ * This value object represents the question and its answer from a card.
+ */
 @ValueObject
 public final class CardDetail {
     private final String question;

@@ -2,11 +2,14 @@ package com.stemlaur.anki.domain.catalog;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.jmolecules.ddd.annotation.ValueObject;
+import com.stemlaur.livingdocumentation.annotation.ValueObject;
 
 import static org.apache.commons.lang3.Validate.inclusiveBetween;
 import static org.apache.commons.lang3.Validate.notBlank;
 
+/**
+ * This value object represents the title of a deck.
+ */
 @ValueObject
 public class DeckTitle {
     private final String value;

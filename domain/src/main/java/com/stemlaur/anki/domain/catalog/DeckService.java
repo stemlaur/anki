@@ -7,12 +7,15 @@ import com.stemlaur.anki.domain.catalog.api.RemoveDeck;
 import com.stemlaur.anki.domain.catalog.spi.DeckIdFactory;
 import com.stemlaur.anki.domain.catalog.spi.Decks;
 import com.stemlaur.anki.domain.common.spi.DomainEvents;
-import org.jmolecules.ddd.annotation.Service;
+import com.stemlaur.livingdocumentation.annotation.DomainService;
 
 import java.util.Collection;
 import java.util.Optional;
 
-@Service
+/**
+ * Service to manage decks.
+ */
+@DomainService
 public class DeckService implements CreateDeck, RemoveDeck, AddCard, FindDecks {
     private final Decks decks;
     private final DeckIdFactory deckIdFactory;

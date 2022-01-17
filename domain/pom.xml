@@ -18,12 +18,9 @@
             <version>1.9</version>
         </dependency>
         <dependency>
-            <groupId>org.jmolecules</groupId>
-            <artifactId>jmolecules-ddd</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmolecules</groupId>
-            <artifactId>jmolecules-events</artifactId>
+            <groupId>com.stemlaur.anki</groupId>
+            <artifactId>livingdocumentation-mavenplugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -41,5 +38,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.stemlaur.anki</groupId>
+                <artifactId>livingdocumentation-mavenplugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <id>create-living-doc</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectories>${maven.multiModuleProjectDirectory}/</sourceDirectories>
+                            <targetDirectory>${maven.multiModuleProjectDirectory}/doc/livingdocumentation</targetDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

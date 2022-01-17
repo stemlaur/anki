@@ -1,8 +1,11 @@
 package com.stemlaur.anki.domain.study;
 
 import org.apache.commons.lang3.Validate;
-import org.jmolecules.ddd.annotation.ValueObject;
+import com.stemlaur.livingdocumentation.annotation.ValueObject;
 
+/**
+ * This value object represents the score of a card in the session of the player.
+ */
 @ValueObject
 public final class Score {
     private final int score;

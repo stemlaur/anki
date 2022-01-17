@@ -2,17 +2,19 @@ package com.stemlaur.anki.domain.catalog;
 
 import com.stemlaur.anki.domain.common.AggregateRoot;
 import com.stemlaur.anki.domain.common.DomainEvent;
+import com.stemlaur.livingdocumentation.annotation.Entity;
 import org.apache.commons.lang3.Validate;
-import org.jmolecules.ddd.annotation.Identity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@org.jmolecules.ddd.annotation.AggregateRoot
+/**
+ * Represents a deck of card.
+ */
+@Entity
 public final class Deck implements AggregateRoot {
-    @Identity
     private final DeckId id;
     private final DeckTitle title;
     private final transient List<DomainEvent> events = new ArrayList<>();

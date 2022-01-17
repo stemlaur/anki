@@ -1,10 +1,13 @@
 package com.stemlaur.anki.domain.study;
 
-import org.jmolecules.ddd.annotation.AggregateRoot;
+import com.stemlaur.livingdocumentation.annotation.Entity;
 
 import java.time.LocalDateTime;
 
-@AggregateRoot
+/**
+ * Represents the progress of a card in a session.
+ */
+@Entity
 public final class CardProgress {
     private static final Score MINIMUM_SCORE = new Score(1);
     private static final int GREEN_MULTIPLICAND = 10;

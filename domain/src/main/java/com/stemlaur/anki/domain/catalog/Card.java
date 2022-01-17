@@ -1,11 +1,12 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.jmolecules.ddd.annotation.Entity;
-import org.jmolecules.ddd.annotation.Identity;
+import com.stemlaur.livingdocumentation.annotation.Entity;
 
+/**
+ * Represent a card in a deck. It contains a question and an answer.
+ */
 @Entity
 public class Card {
-    @Identity
     private final int id;
     private final CardDetail detail;
 
