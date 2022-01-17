@@ -7,6 +7,7 @@ import com.stemlaur.anki.domain.study.api.StudyDeck;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,13 +19,9 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestController
 @RequestMapping(path = "/api")
+@RequiredArgsConstructor
 class StudyController {
     private final StudyDeck deckStudyService;
-
-    StudyController(final StudyDeck deckStudyService) {
-
-        this.deckStudyService = deckStudyService;
-    }
 
     @ApiOperation(value = "Webservice to create a study session", response = String.class)
     @ApiResponses(value = {
