@@ -4,6 +4,7 @@ import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
 import com.stemlaur.anki.domain.study.spi.Sessions;
+import org.jmolecules.ddd.annotation.Service;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Optional.empty;
 
+@Service
 public class DeckStudyService implements StudyDeck {
     private final DeckService deckService;
     private final SessionIdFactory sessionIdFactory;

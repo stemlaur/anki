@@ -1,7 +1,9 @@
 package com.stemlaur.anki.domain.study;
 
 import org.apache.commons.lang3.Validate;
+import org.jmolecules.ddd.annotation.ValueObject;
 
+@ValueObject
 public final class Score {
     private final int score;
 

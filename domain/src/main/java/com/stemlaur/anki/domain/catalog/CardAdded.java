@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
 
+@org.jmolecules.event.annotation.DomainEvent
 public class CardAdded implements DomainEvent {
     private final String deckId;
     private final int cardId;
