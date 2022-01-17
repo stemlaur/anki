@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
 
+@org.jmolecules.event.annotation.DomainEvent
 public class DeckCreated implements DomainEvent {
     private final String deckId;
     private final String title;

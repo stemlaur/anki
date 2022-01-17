@@ -1,7 +1,10 @@
 package com.stemlaur.anki.domain.catalog;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import java.util.Objects;
 
+@ValueObject
 public final class CardDetail {
     private final String question;
     private final String answer;
