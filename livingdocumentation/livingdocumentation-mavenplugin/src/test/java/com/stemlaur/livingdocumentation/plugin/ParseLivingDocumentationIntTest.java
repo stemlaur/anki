@@ -36,11 +36,6 @@ public class ParseLivingDocumentationIntTest {
                                                         singletonList(LivingDocumentation.Type.DOMAIN_EVENT)
                                                 ),
                                                 new Definition(
-                                                        "AnEntity",
-                                                        "An entity.",
-                                                        singletonList(LivingDocumentation.Type.ENTITY)
-                                                ),
-                                                new Definition(
                                                         "AService",
                                                         "A service.",
                                                         singletonList(LivingDocumentation.Type.DOMAIN_SERVICE)
@@ -49,6 +44,11 @@ public class ParseLivingDocumentationIntTest {
                                                         "AValueObject",
                                                         "A value object.",
                                                         singletonList(LivingDocumentation.Type.VALUE_OBJECT)
+                                                ),
+                                                new Definition(
+                                                        "AnEntity",
+                                                        "An entity.",
+                                                        singletonList(LivingDocumentation.Type.ENTITY)
                                                 )
                                         ))
                         )

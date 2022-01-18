@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class ParseLivingDocumentation {
     private static final String LIVING_DOC_ANNOTATION_PACKAGE_NAME = DomainLayer.class.getPackage().getName();
@@ -78,7 +79,10 @@ public class ParseLivingDocumentation {
 
     private LivingDocumentation.Layer parseLayer(final JavaPackage pckge, final JavaAnnotation bc) {
         final LivingDocumentation.Layer layer = parseLayerDetails(pckge, bc);
-        for (JavaClass clss : pckge.getClasses()) {
+        List<JavaClass> sortedClasses = pckge.getClasses().stream()
+                .sorted(Comparator.comparing(JavaClass::getName))
+                .collect(Collectors.toList());
+        for (JavaClass clss : sortedClasses) {
             if (isBusinessMeaningful(clss)) {
                 final LivingDocumentation.Definition definition = parseDefinition(clss);
                 layer.addDefinition(definition);
