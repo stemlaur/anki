@@ -13,7 +13,6 @@ import java.nio.file.Paths;
 import static java.util.Objects.requireNonNull;
 
 public class HtmlTemplateLivingDocumentation implements TemplateLivingDocumentation {
-    private static final String RESOURCE_BASE_URL = "src/main/resources/";
     private final Log log;
 
     public HtmlTemplateLivingDocumentation(final Log log) {
