@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
 public interface TemplateLivingDocumentation {
-    void write(final Log log,
-               final String targetDirectory,
+    void write(final String targetDirectory,
                final LivingDocumentation livingDocumentation) throws UnsupportedEncodingException, FileNotFoundException;
 }

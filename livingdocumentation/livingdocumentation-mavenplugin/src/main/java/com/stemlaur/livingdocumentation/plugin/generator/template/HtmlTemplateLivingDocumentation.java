@@ -4,38 +4,55 @@ import com.google.gson.Gson;
 import com.stemlaur.livingdocumentation.plugin.generator.LivingDocumentation;
 import org.apache.maven.plugin.logging.Log;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import static java.util.Objects.requireNonNull;
 
 public class HtmlTemplateLivingDocumentation implements TemplateLivingDocumentation {
+    private static final String RESOURCE_BASE_URL = "src/main/resources/";
+    private final Log log;
 
-    public HtmlTemplateLivingDocumentation() {
+    public HtmlTemplateLivingDocumentation(final Log log) {
+        this.log = log;
     }
 
-    public void write(final Log log,
-                      final String targetDirectory,
-                      final LivingDocumentation livingDocumentation) throws UnsupportedEncodingException, FileNotFoundException {
+    public void write(final String targetDirectory,
+                      final LivingDocumentation livingDocumentation) {
         log.debug("Creating HTML template");
         Gson gson = new Gson();
 
         String extractedContent = gson.toJson(livingDocumentation);
 
-        write("", targetDirectory + "/data.json", extractedContent);
+        writeToFile(targetDirectory + "/index.html", readContent("/index.html"));
+        writeToFile(targetDirectory + "/index.js", readContent("/index.js"));
+        writeToFile(targetDirectory + "/reset.css", readContent("/reset.css"));
+        writeToFile(targetDirectory + "/style.css", readContent("/style.css"));
+        writeToFile(targetDirectory + "/data.json", extractedContent);
     }
 
-    private static void write(String path, String filename, String content) throws UnsupportedEncodingException,
-            FileNotFoundException {
-        final String outputFileName = path + filename;
-        final String outputEncoding = "UTF-8";
-        final FileOutputStream fos = new FileOutputStream(outputFileName);
-        final PrintWriter w = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos, outputEncoding)));
+    private String readContent(final String resourceFileName) {
+        try {
+            return Files.readString(
+                    Paths.get(requireNonNull(this.getClass()
+                            .getResource(resourceFileName)).toURI()),
+                    StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("The given file " +
+                    resourceFileName + " does not exist", e);
+        }
+    }
 
-        w.println(content);
-        w.flush();
-        w.close();
+    private void writeToFile(final String filePath, final String content) {
+        log.info("Writing file " + filePath);
+
+        try (PrintWriter out = new PrintWriter(filePath)) {
+            out.println(content);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("The given file " + filePath + " cannot be written at", e);
+        }
     }
 }
