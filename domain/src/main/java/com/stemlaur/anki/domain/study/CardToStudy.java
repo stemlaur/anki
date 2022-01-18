@@ -1,5 +1,11 @@
 package com.stemlaur.anki.domain.study;
 
+import com.stemlaur.livingdocumentation.annotation.Entity;
+
+/**
+ * Represents a card being studied.
+ */
+@Entity
 public final class CardToStudy {
     private final String id;
     private final String question;
