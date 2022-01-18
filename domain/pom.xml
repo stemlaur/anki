@@ -53,8 +53,8 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <sourceDirectories>${maven.multiModuleProjectDirectory}/</sourceDirectories>
-                            <targetDirectory>${maven.multiModuleProjectDirectory}/doc/livingdocumentation</targetDirectory>
+                            <sourceDirectories>${project.basedir}/</sourceDirectories>
+                            <targetDirectory>${project.basedir}/../doc/glossary</targetDirectory>
                         </configuration>
                     </execution>
                 </executions>
