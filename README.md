@@ -18,6 +18,8 @@ This usage paragraph will of course change as the project evolves.
 
 You can check the Swagger documentation at http://localhost:8080/swagger-ui/
 
+You can as well look at the glossary [here](https://htmlpreview.github.io/?https://github.com/stemlaur/anki/blob/master/doc/glossary/index.html) 
+
 ## The modules
 The modules are splitted into :
 
