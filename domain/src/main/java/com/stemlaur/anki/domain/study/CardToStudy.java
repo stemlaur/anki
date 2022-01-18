@@ -1,11 +1,6 @@
 package com.stemlaur.anki.domain.study;
 
-import org.jmolecules.ddd.annotation.Entity;
-import org.jmolecules.ddd.annotation.Identity;
-
-@Entity
 public final class CardToStudy {
-    @Identity
     private final String id;
     private final String question;
     private final String answer;

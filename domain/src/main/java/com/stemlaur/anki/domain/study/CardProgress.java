@@ -1,10 +1,7 @@
 package com.stemlaur.anki.domain.study;
 
-import org.jmolecules.ddd.annotation.AggregateRoot;
-
 import java.time.LocalDateTime;
 
-@AggregateRoot
 public final class CardProgress {
     private static final Score MINIMUM_SCORE = new Score(1);
     private static final int GREEN_MULTIPLICAND = 10;
