@@ -1,7 +1,6 @@
 package com.stemlaur.livingdocumentation.plugin.generator;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
