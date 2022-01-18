@@ -2,9 +2,7 @@ package com.stemlaur.anki.domain.catalog;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.jmolecules.ddd.annotation.ValueObject;
 
-@ValueObject
 public class DeckId {
     private final String value;
 

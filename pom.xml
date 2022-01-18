@@ -30,7 +30,6 @@
         <springfox.version>3.0.0</springfox.version>
         <cucumber.version>7.2.2</cucumber.version>
         <archunit.version>0.22.0</archunit.version>
-        <jmolecules.version>2021.2.0</jmolecules.version>
     </properties>
 
     <dependencyManagement>
@@ -51,13 +50,6 @@
                 <artifactId>archunit-junit5-engine</artifactId>
                 <version>${archunit.version}</version>
                 <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jmolecules</groupId>
-                <artifactId>jmolecules-bom</artifactId>
-                <version>${jmolecules.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
