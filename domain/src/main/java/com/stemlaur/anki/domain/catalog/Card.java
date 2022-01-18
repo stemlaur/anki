@@ -1,11 +1,6 @@
 package com.stemlaur.anki.domain.catalog;
 
-import org.jmolecules.ddd.annotation.Entity;
-import org.jmolecules.ddd.annotation.Identity;
-
-@Entity
 public class Card {
-    @Identity
     private final int id;
     private final CardDetail detail;
 
