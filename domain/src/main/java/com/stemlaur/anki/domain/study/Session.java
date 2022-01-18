@@ -1,7 +1,14 @@
 package com.stemlaur.anki.domain.study;
+
+import com.stemlaur.livingdocumentation.annotation.Entity;
+
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Represents a play session of a user.
+ */
+@Entity
 public final class Session {
     private final String id;
     private final Set<CardToStudy> cardsToStudy;
