@@ -79,27 +79,47 @@ public class Plugin extends AbstractMojo {
             getLog().info("Skipping living documentation code generation");
             return;
         }
+        ClassLoader oldCL = Thread.currentThread().getContextClassLoader();
+        URLClassLoader pluginClassLoader = getClassLoader();
+
         try {
             // [#2886] Add the surrounding project's dependencies to the current classloader
+            Thread.currentThread().setContextClassLoader(pluginClassLoader);
+
             new LivingGlossaryGenerator(getLog(), targetDirectory, sourceDirectories).generateDocumentation();
 
         } catch (Exception ex) {
             throw new MojoExecutionException("Error running living documentation generation tool", ex);
         }
+        finally {
+
+            // [#2886] Restore old class loader
+            Thread.currentThread().setContextClassLoader(oldCL);
+
+            // [#7630] Close URLClassLoader to help free resources
+            try {
+                pluginClassLoader.close();
+            }
+
+            // Catch all possible errors to avoid suppressing the original exception
+            catch (Throwable e) {
+                getLog().error("Couldn't close the classloader.", e);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
-    private ClassLoader getClassLoader() throws MojoExecutionException {
+    private URLClassLoader getClassLoader() throws MojoExecutionException {
         try {
             List<String> classpathElements = project.getRuntimeClasspathElements();
-            URL urls[] = new URL[classpathElements.size()];
+            URL[] urls = new URL[classpathElements.size()];
 
-            for (int i = 0; i < urls.length; i++) {
+            for (int i = 0; i < urls.length; i++)
                 urls[i] = new File(classpathElements.get(i)).toURI().toURL();
-            }
 
             return new URLClassLoader(urls, getClass().getClassLoader());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new MojoExecutionException("Couldn't create a classloader.", e);
         }
     }

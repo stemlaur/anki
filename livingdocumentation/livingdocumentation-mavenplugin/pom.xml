@@ -24,12 +24,14 @@
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
             <version>3.8.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-project</artifactId>
             <version>2.2.1</version>
             <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -50,6 +52,7 @@
             <groupId>org.apache.maven.artifact</groupId>
             <artifactId>maven-artifact</artifactId>
             <version>3.0-alpha-1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
