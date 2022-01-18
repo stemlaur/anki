@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 public class ParseLivingDocumentation {
@@ -39,7 +38,6 @@ public class ParseLivingDocumentation {
         final LivingDocumentation livingDocumentation = new LivingDocumentation();
         final Map<JavaPackage, JavaAnnotation> inventory = layerInventory(builder);
         for (Map.Entry<JavaPackage, JavaAnnotation> entry : inventory.entrySet()) {
-            log.info("parseLivingDocumentation entry " + entry);
             final JavaPackage pckge = entry.getKey();
             final JavaAnnotation bc = entry.getValue();
             LivingDocumentation.Layer layer = parseLayer(pckge, bc);
@@ -70,11 +68,6 @@ public class ParseLivingDocumentation {
     private JavaAnnotation layerAnnotation(JavaPackage pkge) {
         for (JavaAnnotation annotation : pkge.getAnnotations()) {
             final JavaClass type = annotation.getType();
-            log.info("LAYER_ANNOTATIONS " + LAYER_ANNOTATIONS);
-            log.info("type.getFullyQualifiedName() " + type.getFullyQualifiedName());
-            log.info("DomainLayer.class.getSimpleName() " + DomainLayer.class.getSimpleName());
-            log.info("DomainLayer.class.getCanonicalName() " + DomainLayer.class.getCanonicalName());
-
             if (LAYER_ANNOTATIONS.contains(type.getFullyQualifiedName())) {
                 return annotation;
             }
@@ -84,9 +77,7 @@ public class ParseLivingDocumentation {
 
     private LivingDocumentation.Layer parseLayer(final JavaPackage pckge, final JavaAnnotation bc) {
         final LivingDocumentation.Layer layer = parseLayerDetails(pckge, bc);
-        log.info("layer " + layer);
         for (JavaClass clss : pckge.getClasses()) {
-            log.info("parseLayer " + clss);
             if (isBusinessMeaningful(clss)) {
                 final LivingDocumentation.Definition definition = parseDefinition(clss);
                 layer.addDefinition(definition);
@@ -96,10 +87,8 @@ public class ParseLivingDocumentation {
     }
 
     private boolean isBusinessMeaningful(JavaClass doc) {
-        log.info("isBusinessMeaningful " + doc);
         for (JavaClass interfaz : doc.getInterfaces()) {
             if (interfaz.getCanonicalName().startsWith(LIVING_DOC_ANNOTATION_PACKAGE_NAME)) {
-                log.info("interfaz " + interfaz.getCanonicalName());
                 return true;
             }
         }

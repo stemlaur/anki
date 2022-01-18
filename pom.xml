@@ -19,8 +19,6 @@
         <module>domain</module>
         <module>application</module>
         <module>demo</module>
-        <module>livingdocumentation/livingdocumentation-annotations</module>
-        <module>livingdocumentation/livingdocumentation-mavenplugin</module>
     </modules>
 
     <properties>
