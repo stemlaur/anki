@@ -4,7 +4,6 @@ import com.stemlaur.livingdocumentation.annotation.DomainEvent;
 import com.stemlaur.livingdocumentation.annotation.DomainLayer;
 import com.stemlaur.livingdocumentation.annotation.DomainService;
 import com.stemlaur.livingdocumentation.annotation.Entity;
-import com.stemlaur.livingdocumentation.annotation.Repository;
 import com.stemlaur.livingdocumentation.annotation.ValueObject;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaAnnotation;
@@ -124,8 +123,6 @@ public class ParseLivingDocumentation {
                 types.add(LivingDocumentation.Type.DOMAIN_SERVICE);
             } else if (isAnnotation(fullyQualifiedName, Entity.class)) {
                 types.add(LivingDocumentation.Type.ENTITY);
-            } else if (isAnnotation(fullyQualifiedName, Repository.class)) {
-                types.add(LivingDocumentation.Type.REPOSITORY);
             } else if (isAnnotation(fullyQualifiedName, ValueObject.class)) {
                 types.add(LivingDocumentation.Type.VALUE_OBJECT);
             }
