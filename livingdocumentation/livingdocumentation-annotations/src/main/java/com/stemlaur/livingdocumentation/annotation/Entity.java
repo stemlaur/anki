@@ -9,14 +9,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Represents an entity. (object subject to a lifecycle with an identity)
+ * Represents an entity.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
 public @interface Entity {
-
-    String brief() default "An Entity that acts as the root for a cluster of associated objects, all treated as a unit";
-
-    String link() default "http://domaindrivendesign.org/node/88";
 }
