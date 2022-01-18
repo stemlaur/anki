@@ -3,7 +3,7 @@ package com.stemlaur.anki.domain.catalog;
 import com.stemlaur.livingdocumentation.annotation.Entity;
 
 /**
- * Represent a card in a deck. It contains a question and an answer.
+ * Represents a card in a deck. It contains a question and an answer.
  */
 @Entity
 public class Card {
