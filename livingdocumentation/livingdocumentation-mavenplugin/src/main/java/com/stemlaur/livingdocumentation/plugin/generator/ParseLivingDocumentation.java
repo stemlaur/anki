@@ -12,12 +12,13 @@ import com.thoughtworks.qdox.model.JavaPackage;
 import org.apache.maven.plugin.logging.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 
 public class ParseLivingDocumentation {
     private static final String LIVING_DOC_ANNOTATION_PACKAGE_NAME = DomainLayer.class.getPackage().getName();
@@ -49,7 +50,8 @@ public class ParseLivingDocumentation {
      * Creates an inventory of every package that defines a Layer
      */
     private Map<JavaPackage, JavaAnnotation> layerInventory(JavaProjectBuilder builder) {
-        final Map<JavaPackage, JavaAnnotation> contexts = new HashMap<>();
+        final Map<JavaPackage, JavaAnnotation> contexts = new TreeMap<>(Comparator.comparing(JavaPackage::getName));
+
         for (JavaPackage p : builder.getPackages()) {
             final JavaAnnotation layer = layerAnnotation(p);
             if (layer != null) {
