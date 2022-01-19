@@ -1,6 +1,6 @@
 package com.stemlaur.livingdocumentation.plugin.generator;
 
-import com.stemlaur.livingdocumentation.plugin.generator.template.HtmlTemplateLivingDocumentation;
+import com.stemlaur.livingdocumentation.plugin.generator.template.JsonLivingDocumentation;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugin.logging.Log;
 
@@ -40,7 +40,7 @@ public class LivingGlossaryGenerator {
 
             final LivingDocumentation livingDocumentation =
                     new ParseLivingDocumentation(this.log).parseLivingDocumentation(builder);
-            new HtmlTemplateLivingDocumentation(this.log).write( targetDirectory, livingDocumentation);
+            new JsonLivingDocumentation(this.log).write( targetDirectory, livingDocumentation);
         } catch (Exception e) {
             e.printStackTrace();
         }

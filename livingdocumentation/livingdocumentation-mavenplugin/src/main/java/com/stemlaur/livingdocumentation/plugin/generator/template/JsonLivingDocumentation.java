@@ -6,22 +6,17 @@ import org.apache.maven.plugin.logging.Log;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-import static java.util.Objects.requireNonNull;
-
-public class HtmlTemplateLivingDocumentation implements TemplateLivingDocumentation {
+public class JsonLivingDocumentation implements TemplateLivingDocumentation {
     private final Log log;
 
-    public HtmlTemplateLivingDocumentation(final Log log) {
+    public JsonLivingDocumentation(final Log log) {
         this.log = log;
     }
 
     public void write(final String targetDirectory,
                       final LivingDocumentation livingDocumentation) {
-        log.debug("Creating HTML template");
+        log.debug("Creating JSON template");
         Gson gson = new Gson();
 
         String extractedContent = gson.toJson(livingDocumentation);
