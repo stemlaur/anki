@@ -98,6 +98,33 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <configuration>
+                            <rules>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <!-- exclude junit 4 from project -->
+                                        <exclude>junit:junit</exclude>
+                                        <exclude>junit:junit-dep</exclude>
+                                    </excludes>
+                                </bannedDependencies>
+                                <dependencyConvergence />
+                            </rules>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
@@ -179,6 +206,11 @@
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>6.5.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.0.0-M3</version>
                 </plugin>
             </plugins>
         </pluginManagement>
