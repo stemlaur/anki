@@ -26,23 +26,7 @@ public class HtmlTemplateLivingDocumentation implements TemplateLivingDocumentat
 
         String extractedContent = gson.toJson(livingDocumentation);
 
-        writeToFile(targetDirectory + "/index.html", readContent("/index.html"));
-        writeToFile(targetDirectory + "/index.js", readContent("/index.js"));
-        writeToFile(targetDirectory + "/reset.css", readContent("/reset.css"));
-        writeToFile(targetDirectory + "/style.css", readContent("/style.css"));
         writeToFile(targetDirectory + "/data.json", extractedContent);
-    }
-
-    private String readContent(final String resourceFileName) {
-        try {
-            return Files.readString(
-                    Paths.get(requireNonNull(this.getClass()
-                            .getResource(resourceFileName)).toURI()),
-                    StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("The given file " +
-                    resourceFileName + " does not exist", e);
-        }
     }
 
     private void writeToFile(final String filePath, final String content) {
