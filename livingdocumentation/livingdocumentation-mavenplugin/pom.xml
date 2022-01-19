@@ -34,6 +34,16 @@
             <artifactId>maven-plugin-api</artifactId>
             <version>3.8.4</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>plexus-classworlds</artifactId>
+                    <groupId>org.codehaus.plexus</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>plexus-utils</artifactId>
+                    <groupId>org.codehaus.plexus</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -41,6 +51,28 @@
             <version>2.2.1</version>
             <type>jar</type>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.maven</groupId>
+                    <artifactId>maven-artifact</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>maven-model</artifactId>
+                    <groupId>org.apache.maven</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>plexus-utils</artifactId>
+                    <groupId>org.codehaus.plexus</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>plexus-container-default</artifactId>
+                    <groupId>org.codehaus.plexus</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -62,6 +94,20 @@
             <artifactId>maven-artifact</artifactId>
             <version>3.0-alpha-1</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>plexus-utils</artifactId>
+                    <groupId>org.codehaus.plexus</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>wagon-provider-api</artifactId>
+                    <groupId>org.apache.maven.wagon</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
