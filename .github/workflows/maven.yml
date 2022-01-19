@@ -14,3 +14,18 @@ jobs:
         java-version: 11
     - name: Build with Maven
       run: mvn -B verify -P owasp-check --file pom.xml
+  check-uncommitted-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Make uncommitted changes by creating empty file
+        run: touch uncommitted.tmp
+      - name: Check for uncommitted changes
+        id: check-changes
+        uses: mskri/check-uncommitted-changes-action@v1.0.1
+      - name: Fail when uncommitted changes
+        if: steps.check-changes.outputs.changes != ''
+        run: exit 1
+
