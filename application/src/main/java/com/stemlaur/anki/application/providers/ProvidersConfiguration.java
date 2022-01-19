@@ -58,8 +58,7 @@ public class ProvidersConfiguration {
 
     @Bean
     public DataSourceConnectionProvider connectionProvider(final DataSource dataSource) {
-        return new DataSourceConnectionProvider
-                (new TransactionAwareDataSourceProxy(dataSource));
+        return new DataSourceConnectionProvider(new TransactionAwareDataSourceProxy(dataSource));
     }
 
     @Bean

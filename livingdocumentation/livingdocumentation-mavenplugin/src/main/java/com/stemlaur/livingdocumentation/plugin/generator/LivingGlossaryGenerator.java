@@ -53,10 +53,9 @@ public class LivingGlossaryGenerator {
 
             final LivingDocumentation livingDocumentation =
                     new ParseLivingDocumentation(this.log).parseLivingDocumentation(builder);
-            new JsonLivingDocumentation(this.log).write( targetDirectory, livingDocumentation);
+            new JsonLivingDocumentation(this.log).write(targetDirectory, livingDocumentation);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
