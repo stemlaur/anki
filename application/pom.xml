@@ -91,6 +91,18 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <configuration>
+                    <!-- [#12434] These two dependencies are outdated transitive dependencies from
+                                  spring-boot-dependencies:2.6.2, which we can't update easily without risking to break
+                                  the build -->
+                    <excludes>
+                        <exclude>com.h2database:h2:1.4.200</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <dependencies>
