@@ -171,6 +171,12 @@
                     <configuration>
                         <failBuildOnCVSS>0</failBuildOnCVSS>
                         <skipTestScope>true</skipTestScope>
+                        <!-- [#12434] These two dependencies are outdated transitive dependencies from
+                                      spring-boot-dependencies:2.6.2, which we can't update easily without risking to break
+                                      the build -->
+                        <excludes>
+                            <exclude>com.h2database:h2:1.4.200</exclude>
+                        </excludes>
                     </configuration>
                 </plugin>
             </plugins>
