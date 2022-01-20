@@ -13,9 +13,9 @@
  */
 package com.stemlaur.anki.domain.catalog;
 
+import com.stemlaur.livingdocumentation.annotation.ValueObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import com.stemlaur.livingdocumentation.annotation.ValueObject;
 
 /**
  * This value object represents the unique identified or a deck.

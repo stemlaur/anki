@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class ScoreShould {
 
-
     @Test
     void beAValueObject() {
         Score first = new Score(1);

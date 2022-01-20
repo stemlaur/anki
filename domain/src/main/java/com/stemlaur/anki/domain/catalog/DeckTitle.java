@@ -13,9 +13,9 @@
  */
 package com.stemlaur.anki.domain.catalog;
 
+import com.stemlaur.livingdocumentation.annotation.ValueObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import com.stemlaur.livingdocumentation.annotation.ValueObject;
 
 import static org.apache.commons.lang3.Validate.inclusiveBetween;
 import static org.apache.commons.lang3.Validate.notBlank;

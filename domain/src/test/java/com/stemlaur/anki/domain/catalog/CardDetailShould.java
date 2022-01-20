@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CardDetailShould {
 
-
     @Test
     void beAValueObject() {
         CardDetail first = new CardDetail("q1", "a1");
@@ -32,5 +31,4 @@ class CardDetailShould {
         assertEquals(first.hashCode(), first.hashCode());
         assertNotEquals(first.hashCode(), second.hashCode());
     }
-
 }

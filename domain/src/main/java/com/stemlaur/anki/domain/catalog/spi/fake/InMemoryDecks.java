@@ -16,7 +16,11 @@ package com.stemlaur.anki.domain.catalog.spi.fake;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.spi.Decks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 public final class InMemoryDecks implements Decks {
     private final List<Deck> decks = new ArrayList<>();
