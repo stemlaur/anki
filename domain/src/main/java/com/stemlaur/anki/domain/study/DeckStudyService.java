@@ -14,7 +14,7 @@
 package com.stemlaur.anki.domain.study;
 
 import com.stemlaur.anki.domain.catalog.Deck;
-import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
 import com.stemlaur.anki.domain.study.spi.Sessions;
 import com.stemlaur.livingdocumentation.annotation.DomainService;
@@ -36,18 +36,18 @@ import static java.util.Optional.empty;
  */
 @DomainService
 public class DeckStudyService implements StudyDeck {
-    private final DeckService deckService;
+    private final FindDecks findDecks;
     private final SessionIdFactory sessionIdFactory;
     private final Sessions sessions;
     private final CardProgressService cardProgressService;
     private final Clock clock;
 
-    public DeckStudyService(final DeckService deckService,
+    public DeckStudyService(final FindDecks findDecks,
                             final CardProgressService cardProgressService,
                             final SessionIdFactory sessionIdFactory,
                             final Sessions sessions,
                             final Clock clock) {
-        this.deckService = deckService;
+        this.findDecks = findDecks;
         this.sessionIdFactory = sessionIdFactory;
         this.sessions = sessions;
         this.cardProgressService = cardProgressService;
@@ -62,7 +62,7 @@ public class DeckStudyService implements StudyDeck {
     }
 
     private Deck findDeck(final String deckId) {
-        final Deck deck = this.deckService.byId(deckId).orElseThrow(() -> new DeckDoesNotExist(deckId));
+        final Deck deck = this.findDecks.byId(deckId).orElseThrow(() -> new DeckDoesNotExist(deckId));
         if (deck.cards().isEmpty()) {
             throw new DeckDoesNotContainAnyCards(deckId);
         }

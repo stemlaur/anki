@@ -16,8 +16,8 @@ package com.stemlaur.anki.domain.study;
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
-import com.stemlaur.anki.domain.catalog.DeckService;
 import com.stemlaur.anki.domain.catalog.DeckTitle;
+import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import com.stemlaur.anki.domain.study.spi.Sessions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ public class DeckStudyServiceStartStudySessionShould {
 
     private DeckStudyService deckStudyService;
     @Mock
-    private DeckService deckService;
+    private FindDecks findDecks;
     @Mock
     private Sessions sessions;
     @Mock
@@ -55,13 +55,13 @@ public class DeckStudyServiceStartStudySessionShould {
     @BeforeEach
     public void setUp() {
         this.deckStudyService = new DeckStudyService(
-                this.deckService, null, this.sessionIdFactory, this.sessions, null);
+                this.findDecks, null, this.sessionIdFactory, this.sessions, null);
         when(this.sessionIdFactory.create()).thenReturn(SESSION_ID);
     }
 
     @Test
     public void throwAnException_when_theDeckDoesNotExist() {
-        when(this.deckService.byId(DECK_ID.getValue())).thenReturn(empty());
+        when(this.findDecks.byId(DECK_ID.getValue())).thenReturn(empty());
 
         assertThrows(DeckDoesNotExist.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
@@ -69,7 +69,7 @@ public class DeckStudyServiceStartStudySessionShould {
 
     @Test
     public void throwAnException_when_deckDoesNotContainAnyCard() {
-        when(this.deckService.byId(DECK_ID.getValue())).thenReturn(of(aDeck()));
+        when(this.findDecks.byId(DECK_ID.getValue())).thenReturn(of(aDeck()));
 
         assertThrows(DeckDoesNotContainAnyCards.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
@@ -77,7 +77,7 @@ public class DeckStudyServiceStartStudySessionShould {
 
     @Test
     public void saveCardProgress() {
-        when(this.deckService.byId(DECK_ID.getValue()))
+        when(this.findDecks.byId(DECK_ID.getValue()))
                 .thenReturn(of(aDeck(new CardDetail(A_QUESTION, AN_ANSWER))));
 
         this.deckStudyService.startStudySession(DECK_ID.getValue());
