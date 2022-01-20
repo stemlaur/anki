@@ -129,7 +129,30 @@
     </profiles>
 
     <build>
+        <!-- fix formatting issues with mvn editorconfig:format -->
         <plugins>
+            <plugin>
+                <groupId>org.ec4j.maven</groupId>
+                <artifactId>editorconfig-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>check</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- See http://ec4j.github.io/editorconfig-maven-plugin/ for full configuration reference -->
+                    <excludes>
+                        <!-- Note that maven submodule directories and many non-source file patterns are excluded by default -->
+                        <!-- see https://github.com/ec4j/editorconfig-linters/blob/master/editorconfig-lint-api/src/main/java/org/ec4j/lint/api/Constants.java#L37 -->
+                        <!-- You can exclude further files from processing: -->
+                        <exclude>doc/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
@@ -276,6 +299,11 @@
                     <groupId>org.jooq</groupId>
                     <artifactId>jooq-codegen-maven</artifactId>
                     <version>${jooq.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.ec4j.maven</groupId>
+                    <artifactId>editorconfig-maven-plugin</artifactId>
+                    <version>0.1.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
