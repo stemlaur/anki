@@ -65,7 +65,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <sourceDirectories>${project.basedir}/</sourceDirectories>
+                            <sourceDirectories>${project.basedir}/src/main/java</sourceDirectories>
                             <targetDirectory>${project.basedir}/../doc/glossary</targetDirectory>
                         </configuration>
                     </execution>

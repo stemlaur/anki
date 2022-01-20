@@ -33,7 +33,7 @@ public class ParseLivingDocumentationIntTest {
     public void testParsingDocumentation() {
         final JavaProjectBuilder builder = new JavaProjectBuilder();
         builder.setEncoding("UTF-8");
-        builder.addSourceTree(new File("../example/"));
+        builder.addSourceTree(new File("../example/src/main/java"));
 
         LivingDocumentation livingDocumentation = new ParseLivingDocumentation(new SystemStreamLog())
                 .parseLivingDocumentation(builder);
