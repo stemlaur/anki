@@ -43,5 +43,4 @@ public class World {
     public List<StudyHttpClient.CardToStudy> getListOfCardsToStudy() {
         return new ArrayList<>(this.cardsToStudies);
     }
-
 }

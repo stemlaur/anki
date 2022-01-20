@@ -17,7 +17,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DeckTitleShould {
 
@@ -42,7 +44,6 @@ class DeckTitleShould {
 
         assertThat(nullPointerException.getMessage()).isEqualTo("The title must not be blank");
         assertThat(illegalArgumentException.getMessage()).isEqualTo("The title must not be blank");
-
     }
 
     @Test

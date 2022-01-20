@@ -37,13 +37,18 @@ public class StudyHttpClient {
         this.mockMvc = mockMvc;
     }
 
+    private static CardToStudy from(String body) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(body, CardToStudy.class);
+    }
+
     @SneakyThrows
     public String create(final String deckId) {
         final MvcResult result = this.mockMvc.perform(
-                post("/api/sessions")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(format("{ \"deckId\": \"%s\"}", deckId))
-        )
+                        post("/api/sessions")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(format("{ \"deckId\": \"%s\"}", deckId))
+                )
                 .andExpect(status().isCreated())
                 .andReturn();
         return result.getResponse().getContentAsString();
@@ -52,26 +57,21 @@ public class StudyHttpClient {
     @SneakyThrows
     public CardToStudy nextCard(final String sessionId) {
         final MvcResult result = this.mockMvc.perform(
-                get(format("/api/sessions/%s/nextCard", sessionId))
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
+                        get(format("/api/sessions/%s/nextCard", sessionId))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
                 .andReturn();
         return from(result.getResponse().getContentAsString());
     }
 
-    private static CardToStudy from(String body) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(body, CardToStudy.class);
-    }
-
     @SneakyThrows
     public void study(final String sessionId, final String cardToStudyId, final String opinion) {
         this.mockMvc.perform(
-                post(format("/api/sessions/%s/opinion", sessionId))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(format("{ \"cardId\": \"%s\", \"opinion\": \"%s\"}", cardToStudyId, opinion))
-        )
+                        post(format("/api/sessions/%s/opinion", sessionId))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(format("{ \"cardId\": \"%s\", \"opinion\": \"%s\"}", cardToStudyId, opinion))
+                )
                 .andExpect(status().isOk());
     }
 

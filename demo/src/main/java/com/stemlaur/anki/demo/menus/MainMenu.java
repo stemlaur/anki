@@ -23,17 +23,6 @@ public final class MainMenu {
     private final DeckStudyService deckStudyService;
     private final TextIO textIO;
 
-    public enum MainMenuItems {
-        CATALOG("Deck management (Catalog)"),
-        STUDY("Study decks"),
-        EXIT("Exit");
-        private final String title;
-
-        MainMenuItems(final String title) {
-            this.title = title;
-        }
-    }
-
     public MainMenu(final DeckService deckService,
                     final DeckStudyService deckStudyService,
                     final TextIO textIO) {
@@ -63,6 +52,17 @@ public final class MainMenu {
             }
 
             terminal.println();
+        }
+    }
+
+    public enum MainMenuItems {
+        CATALOG("Deck management (Catalog)"),
+        STUDY("Study decks"),
+        EXIT("Exit");
+        private final String title;
+
+        MainMenuItems(final String title) {
+            this.title = title;
         }
     }
 }

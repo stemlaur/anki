@@ -37,6 +37,12 @@ public final class ImportDeck {
         this.csvFilePath = csvFilePath;
     }
 
+    private static List<String> fromResourceToListOfString(final String csvFilePath) throws IOException {
+        try (Stream<String> stream = Files.lines(Paths.get(csvFilePath), StandardCharsets.UTF_8)) {
+            return stream.collect(Collectors.toList());
+        }
+    }
+
     public String ofResource() throws IOException {
         final List<String> lines = fromResourceToListOfString(this.csvFilePath);
         final String deckId = this.deckService.create(this.deckTitle);
@@ -48,11 +54,5 @@ public final class ImportDeck {
         final String[] split = line.split("\\|");
         final CardDetail cardDetail = new CardDetail(split[0], split[1]);
         this.deckService.addCard(deckId, cardDetail);
-    }
-
-    private static List<String> fromResourceToListOfString(final String csvFilePath) throws IOException {
-        try (Stream<String> stream = Files.lines(Paths.get(csvFilePath), StandardCharsets.UTF_8)) {
-            return stream.collect(Collectors.toList());
-        }
     }
 }

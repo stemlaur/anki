@@ -13,8 +13,6 @@
  */
 package com.stemlaur.anki.application.controllers.catalog;
 
-import com.stemlaur.anki.application.controllers.catalog.CreateDeckRequest;
-import com.stemlaur.anki.application.controllers.catalog.DeckController;
 import com.stemlaur.anki.domain.catalog.api.CreateDeck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

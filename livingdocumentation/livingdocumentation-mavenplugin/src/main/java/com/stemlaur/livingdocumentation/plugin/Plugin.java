@@ -76,11 +76,9 @@ public class Plugin extends AbstractMojo {
             Thread.currentThread().setContextClassLoader(pluginClassLoader);
 
             new LivingGlossaryGenerator(getLog(), targetDirectory, sourceDirectories).generateDocumentation();
-
         } catch (Exception ex) {
             throw new MojoExecutionException("Error running living documentation generation tool", ex);
-        }
-        finally {
+        } finally {
 
             // [#2886] Restore old class loader
             Thread.currentThread().setContextClassLoader(oldCL);
@@ -107,8 +105,7 @@ public class Plugin extends AbstractMojo {
                 urls[i] = new File(classpathElements.get(i)).toURI().toURL();
 
             return new URLClassLoader(urls, getClass().getClassLoader());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new MojoExecutionException("Couldn't create a classloader.", e);
         }
     }
