@@ -24,7 +24,6 @@ class DeckStatsServiceShould {
     private final DeckCreated FIRST_DECK_CREATED = new DeckCreated(DeckId.from("first"), "My super deck");
     private final DeckCreated SECOND_DECK_CREATED = new DeckCreated(DeckId.from("second"), "My super deck");
 
-
     private DeckStatsService deckStatsService;
 
     @BeforeEach
@@ -51,6 +50,5 @@ class DeckStatsServiceShould {
         assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(1);
         this.deckStatsService.incrementByOne(FIRST_DECK_CREATED);
         assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(1);
-
     }
 }

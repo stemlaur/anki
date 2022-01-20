@@ -13,7 +13,11 @@
  */
 package com.stemlaur.anki.domain.study;
 
-import com.stemlaur.anki.domain.catalog.*;
+import com.stemlaur.anki.domain.catalog.CardDetail;
+import com.stemlaur.anki.domain.catalog.Deck;
+import com.stemlaur.anki.domain.catalog.DeckId;
+import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.DeckTitle;
 import com.stemlaur.anki.domain.study.spi.Sessions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +30,10 @@ import java.util.Collections;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class DeckStudyServiceStartStudySessionShould {

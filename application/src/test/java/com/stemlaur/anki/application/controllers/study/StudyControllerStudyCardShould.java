@@ -13,8 +13,6 @@
  */
 package com.stemlaur.anki.application.controllers.study;
 
-import com.stemlaur.anki.application.controllers.study.StudyCardRequest;
-import com.stemlaur.anki.application.controllers.study.StudyController;
 import com.stemlaur.anki.domain.study.CardDoesNotExistInTheSession;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.Opinion;

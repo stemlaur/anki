@@ -37,10 +37,10 @@ public class DeckHttpClient {
     @SneakyThrows
     public String create(String title) {
         final MvcResult result = this.mockMvc.perform(
-                post("/api/decks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(format("{ \"title\": \"%s\"}", title))
-        )
+                        post("/api/decks")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(format("{ \"title\": \"%s\"}", title))
+                )
                 .andExpect(status().isCreated())
                 .andReturn();
         return result.getResponse().getContentAsString();
@@ -49,10 +49,10 @@ public class DeckHttpClient {
     @SneakyThrows
     public void addCard(final String deckId, final String question, final String answer) {
         this.mockMvc.perform(
-                post(format("/api/decks/%s/card", deckId))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(format("{ \"question\": \"%s\", \"answer\":\"%s\"}", question, answer))
-        )
+                        post(format("/api/decks/%s/card", deckId))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(format("{ \"question\": \"%s\", \"answer\":\"%s\"}", question, answer))
+                )
                 .andExpect(status().isOk())
                 .andReturn();
     }

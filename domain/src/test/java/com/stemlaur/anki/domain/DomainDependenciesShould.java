@@ -36,5 +36,4 @@ public class DomainDependenciesShould {
             ).or(type(int[].class))) // See https://github.com/TNG/ArchUnit/issues/570
             .as("The domain should be independent of infrastructure")
             .because("business rules evolve at a different rhythm");
-
 }

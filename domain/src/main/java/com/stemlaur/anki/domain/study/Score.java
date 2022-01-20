@@ -13,8 +13,8 @@
  */
 package com.stemlaur.anki.domain.study;
 
-import org.apache.commons.lang3.Validate;
 import com.stemlaur.livingdocumentation.annotation.ValueObject;
+import org.apache.commons.lang3.Validate;
 
 /**
  * This value object represents the score of a card in the session of the player.

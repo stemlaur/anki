@@ -30,19 +30,6 @@ public final class CatalogMenu {
     private final DeckService deckService;
     private final TextIO textIO;
 
-    public enum CatalogMenuItems {
-        CREATE_A_DECK("Create a deck"),
-        ADD_A_CARD("Add a card to a deck"),
-        VIEW_A_DECK("View a deck"),
-        LIST_ALL_DECKS("List all decks"),
-        EXIT("Go back to main menu");
-        private final String title;
-
-        CatalogMenuItems(final String title) {
-            this.title = title;
-        }
-    }
-
     public CatalogMenu(final DeckService deckService, final TextIO textIO) {
         this.deckService = deckService;
         this.textIO = textIO;
@@ -97,6 +84,19 @@ public final class CatalogMenu {
                     return;
             }
             terminal.println();
+        }
+    }
+
+    public enum CatalogMenuItems {
+        CREATE_A_DECK("Create a deck"),
+        ADD_A_CARD("Add a card to a deck"),
+        VIEW_A_DECK("View a deck"),
+        LIST_ALL_DECKS("List all decks"),
+        EXIT("Go back to main menu");
+        private final String title;
+
+        CatalogMenuItems(final String title) {
+            this.title = title;
         }
     }
 }

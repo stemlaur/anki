@@ -23,21 +23,18 @@ final class StudyMenu {
     private final DeckStudyService deckStudyService;
     private final TextIO textIO;
 
-    public enum StudyMenuItems {
-        CREATE_A_SESSION("Create a session"),
-        NEXT_CARD_TO_STUDY("Study next card"),
-        STOP_SESSION("Stop session");
-        private final String title;
-
-        StudyMenuItems(final String title) {
-            this.title = title;
-        }
-    }
-
     StudyMenu(final DeckStudyService deckStudyService,
               final TextIO textIO) {
         this.deckStudyService = deckStudyService;
         this.textIO = textIO;
+    }
+
+    private static void wait5Seconds() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     void display() {
@@ -72,11 +69,14 @@ final class StudyMenu {
         }
     }
 
-    private static void wait5Seconds() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public enum StudyMenuItems {
+        CREATE_A_SESSION("Create a session"),
+        NEXT_CARD_TO_STUDY("Study next card"),
+        STOP_SESSION("Stop session");
+        private final String title;
+
+        StudyMenuItems(final String title) {
+            this.title = title;
         }
     }
 }
