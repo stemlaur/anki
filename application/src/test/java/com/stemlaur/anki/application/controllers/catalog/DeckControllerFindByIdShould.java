@@ -13,16 +13,17 @@
  */
 package com.stemlaur.anki.application.controllers.catalog;
 
-import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
-import com.stemlaur.anki.domain.catalog.DeckTitle;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
+import com.stemlaur.anki.domain.catalog.api.FindDecks.DeckSnapshot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -52,14 +53,14 @@ public class DeckControllerFindByIdShould {
 
     @Test
     public void returnCode200_when_deckExists() {
-        when(findDecks.byId(DECK_ID.getValue())).thenReturn(of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        when(findDecks.byId(DECK_ID.getValue())).thenReturn(of(new DeckSnapshot(DECK_ID.getValue(), DECK_TITLE, new ArrayList<>())));
         final ResponseEntity<?> responseEntity = this.deckController.findDeckById(DECK_ID.getValue());
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
 
     @Test
     public void returnDeckDTO_when_deckExists() {
-        when(findDecks.byId(DECK_ID.getValue())).thenReturn(of(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        when(findDecks.byId(DECK_ID.getValue())).thenReturn(of(new DeckSnapshot(DECK_ID.getValue(), DECK_TITLE, new ArrayList<>())));
         final DeckDTO actual = (DeckDTO) this.deckController.findDeckById(DECK_ID.getValue()).getBody();
         assertThat(actual).isEqualTo(new DeckDTO(DECK_ID.getValue(), DECK_TITLE));
     }

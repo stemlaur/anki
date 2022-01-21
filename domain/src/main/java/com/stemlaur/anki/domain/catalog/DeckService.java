@@ -23,7 +23,9 @@ import com.stemlaur.anki.domain.common.spi.DomainEvents;
 import com.stemlaur.livingdocumentation.annotation.DomainService;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service to manage decks.
@@ -68,13 +70,30 @@ public class DeckService implements CreateDeck, RemoveDeck, AddCard, FindDecks {
     }
 
     @Override
-    public Optional<Deck> byId(final String deckId) {
-        return this.decks.find(deckId);
+    public Optional<DeckSnapshot> byId(final String deckId) {
+        return this.decks.find(deckId)
+                .map(this::mapToSnapshot);
     }
 
     @Override
-    public Collection<Deck> all() {
-        return this.decks.findAll();
+    public Collection<DeckSnapshot> all() {
+        return this.decks.findAll()
+                .stream()
+                .map(this::mapToSnapshot)
+                .collect(Collectors.toList());
+    }
+
+    private DeckSnapshot mapToSnapshot(Deck deck) {
+        return new DeckSnapshot(
+                deck.idString(),
+                deck.titleString(),
+                mapToSnapshot(deck.cards()));
+    }
+
+    private List<CardSnapshot> mapToSnapshot(List<Card> cards) {
+        return cards.stream()
+                .map(c -> new CardSnapshot(c.detail().question(), c.detail().answer()))
+                .collect(Collectors.toList());
     }
 
     //@formatter:on

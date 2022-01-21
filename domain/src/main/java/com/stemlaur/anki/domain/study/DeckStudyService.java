@@ -13,8 +13,8 @@
  */
 package com.stemlaur.anki.domain.study;
 
-import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
+import com.stemlaur.anki.domain.catalog.api.FindDecks.DeckSnapshot;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
 import com.stemlaur.anki.domain.study.spi.Sessions;
 import com.stemlaur.livingdocumentation.annotation.DomainService;
@@ -56,22 +56,22 @@ public class DeckStudyService implements StudyDeck {
 
     public String startStudySession(final String deckId) {
         final String sessionId = this.sessionIdFactory.create();
-        final Deck deck = this.findDeck(deckId);
-        this.sessions.save(new Session(sessionId, this.convertCardsToCardsToStudy(deck)));
+        final DeckSnapshot deckSnapshot = this.findDeck(deckId);
+        this.sessions.save(new Session(sessionId, this.convertCardsToCardsToStudy(deckSnapshot)));
         return sessionId;
     }
 
-    private Deck findDeck(final String deckId) {
-        final Deck deck = this.findDecks.byId(deckId).orElseThrow(() -> new DeckDoesNotExist(deckId));
-        if (deck.cards().isEmpty()) {
+    private DeckSnapshot findDeck(final String deckId) {
+        final DeckSnapshot deckSnapshot = this.findDecks.byId(deckId).orElseThrow(() -> new DeckDoesNotExist(deckId));
+        if (deckSnapshot.getCards().isEmpty()) {
             throw new DeckDoesNotContainAnyCards(deckId);
         }
-        return deck;
+        return deckSnapshot;
     }
 
-    private Set<CardToStudy> convertCardsToCardsToStudy(final Deck deck) {
-        return deck.cards().stream()
-                .map(c -> new CardToStudy(UUID.randomUUID().toString(), c.detail().question(), c.detail().answer()))
+    private Set<CardToStudy> convertCardsToCardsToStudy(final DeckSnapshot deckSnapshot) {
+        return deckSnapshot.getCards().stream()
+                .map(c -> new CardToStudy(UUID.randomUUID().toString(), c.getQuestion(), c.getAnswer()))
                 .collect(Collectors.toSet());
     }
 

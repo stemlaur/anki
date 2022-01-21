@@ -13,13 +13,54 @@
  */
 package com.stemlaur.anki.domain.catalog.api;
 
-import com.stemlaur.anki.domain.catalog.Deck;
-
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface FindDecks {
-    Optional<Deck> byId(final String deckId);
+    Optional<DeckSnapshot> byId(final String deckId);
 
-    Collection<Deck> all();
+    Collection<DeckSnapshot> all();
+
+    class DeckSnapshot {
+        private final String id;
+        private final String title;
+        private final List<CardSnapshot> cards;
+
+        public DeckSnapshot(final String id, final String title, final List<CardSnapshot> cards) {
+            this.id = id;
+            this.title = title;
+            this.cards = cards;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public List<CardSnapshot> getCards() {
+            return cards;
+        }
+    }
+
+    class CardSnapshot {
+        private final String question;
+        private final String answer;
+
+        public CardSnapshot(final String question, final String answer) {
+            this.question = question;
+            this.answer = answer;
+        }
+
+        public String getQuestion() {
+            return question;
+        }
+
+        public String getAnswer() {
+            return answer;
+        }
+    }
 }

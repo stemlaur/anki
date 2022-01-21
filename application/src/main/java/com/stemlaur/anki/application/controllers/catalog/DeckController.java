@@ -19,6 +19,7 @@ import com.stemlaur.anki.domain.catalog.DeckDoesNotExist;
 import com.stemlaur.anki.domain.catalog.api.AddCard;
 import com.stemlaur.anki.domain.catalog.api.CreateDeck;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
+import com.stemlaur.anki.domain.catalog.api.FindDecks.DeckSnapshot;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -58,7 +59,7 @@ class DeckController {
         try {
             return ResponseEntity.ok(
                     this.findDecks.all().stream()
-                            .map(deck -> new DeckDTO(deck.idString(), deck.titleString()))
+                            .map(deck -> new DeckDTO(deck.getId(), deck.getTitle()))
                             .collect(Collectors.toList())
             );
         } catch (Exception e) {
@@ -118,12 +119,12 @@ class DeckController {
     ResponseEntity<?> findDeckById(
             @ApiParam(value = "The id of the deck", required = true) @PathVariable("id") final String deckId) {
         try {
-            final Optional<Deck> optionalDeckById = this.findDecks.byId(deckId);
+            final Optional<DeckSnapshot> optionalDeckById = this.findDecks.byId(deckId);
             if (optionalDeckById.isEmpty()) {
                 return ResponseEntity.notFound().build();
             } else {
-                final Deck deck = optionalDeckById.orElseThrow();
-                return ResponseEntity.ok().body(new DeckDTO(deck.idString(), deck.titleString()));
+                final DeckSnapshot deck = optionalDeckById.orElseThrow();
+                return ResponseEntity.ok().body(new DeckDTO(deck.getId(), deck.getTitle()));
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).build();

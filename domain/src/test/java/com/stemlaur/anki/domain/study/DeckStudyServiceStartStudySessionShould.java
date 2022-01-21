@@ -13,11 +13,10 @@
  */
 package com.stemlaur.anki.domain.study;
 
-import com.stemlaur.anki.domain.catalog.CardDetail;
-import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
-import com.stemlaur.anki.domain.catalog.DeckTitle;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
+import com.stemlaur.anki.domain.catalog.api.FindDecks.CardSnapshot;
+import com.stemlaur.anki.domain.catalog.api.FindDecks.DeckSnapshot;
 import com.stemlaur.anki.domain.study.spi.Sessions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -69,7 +70,7 @@ public class DeckStudyServiceStartStudySessionShould {
 
     @Test
     public void throwAnException_when_deckDoesNotContainAnyCard() {
-        when(this.findDecks.byId(DECK_ID.getValue())).thenReturn(of(aDeck()));
+        when(this.findDecks.byId(DECK_ID.getValue())).thenReturn(of(aDeckSnapshot()));
 
         assertThrows(DeckDoesNotContainAnyCards.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
@@ -78,7 +79,7 @@ public class DeckStudyServiceStartStudySessionShould {
     @Test
     public void saveCardProgress() {
         when(this.findDecks.byId(DECK_ID.getValue()))
-                .thenReturn(of(aDeck(new CardDetail(A_QUESTION, AN_ANSWER))));
+                .thenReturn(of(aDeckSnapshot(new CardSnapshot(A_QUESTION, AN_ANSWER))));
 
         this.deckStudyService.startStudySession(DECK_ID.getValue());
 
@@ -88,11 +89,7 @@ public class DeckStudyServiceStartStudySessionShould {
                         Collections.singleton(new CardToStudy(any(), A_QUESTION, AN_ANSWER))));
     }
 
-    private Deck aDeck(final CardDetail... cardDetails) {
-        final Deck deck = new Deck(DECK_ID, new DeckTitle(DECK_TITLE));
-        for (CardDetail cardDetail : cardDetails) {
-            deck.addCard(cardDetail);
-        }
-        return deck;
+    private DeckSnapshot aDeckSnapshot(final CardSnapshot... cardDetails) {
+        return new DeckSnapshot(DECK_ID.getValue(), DECK_TITLE, Arrays.stream(cardDetails).collect(Collectors.toList()));
     }
 }
