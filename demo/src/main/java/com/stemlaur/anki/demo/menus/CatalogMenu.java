@@ -14,8 +14,8 @@
 package com.stemlaur.anki.demo.menus;
 
 import com.stemlaur.anki.domain.catalog.CardDetail;
-import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckService;
+import com.stemlaur.anki.domain.catalog.api.FindDecks.DeckSnapshot;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextTerminal;
 
@@ -66,20 +66,20 @@ public final class CatalogMenu {
                 case VIEW_A_DECK:
                     terminal.println("========== You want to view a deck ==========");
                     givenDeckId = textIO.newStringInputReader().withMinLength(36).withMaxLength(36).read("Id of the deck:");
-                    final Optional<Deck> optionalDeck = deckService.byId(givenDeckId);
+                    final Optional<DeckSnapshot> optionalDeck = deckService.byId(givenDeckId);
                     if (optionalDeck.isEmpty()) {
                         terminal.println("========== The deck not exist ==========");
                     } else {
-                        final Deck deckToView = optionalDeck.orElseThrow();
-                        terminal.println("Deck with title '" + deckToView.titleString() + "'");
-                        deckToView.cards().forEach(card -> terminal.println("  >  " + card.detail().question() + " -> " + card.detail().answer()));
+                        final DeckSnapshot deckToView = optionalDeck.orElseThrow();
+                        terminal.println("Deck with title '" + deckToView.getTitle() + "'");
+                        deckToView.getCards().forEach(card -> terminal.println("  >  " + card.getQuestion() + " -> " + card.getAnswer()));
                         terminal.println("========================================");
                     }
                     break;
                 case LIST_ALL_DECKS:
                     terminal.println("========== You want to list all decks ==========");
                     this.deckService.all()
-                            .forEach(deck -> terminal.println("Deck with title '" + deck.titleString() + "' and id " + deck.idString()));
+                            .forEach(deck -> terminal.println("Deck with title '" + deck.getTitle() + "' and id " + deck.getId()));
                 case EXIT:
                     return;
             }

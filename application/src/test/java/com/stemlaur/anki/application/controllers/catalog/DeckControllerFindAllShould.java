@@ -13,9 +13,7 @@
  */
 package com.stemlaur.anki.application.controllers.catalog;
 
-import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckId;
-import com.stemlaur.anki.domain.catalog.DeckTitle;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,7 +55,7 @@ public class DeckControllerFindAllShould {
 
     @Test
     public void returnDecks_when_exists() {
-        when(findDecks.all()).thenReturn(Collections.singleton(new Deck(DECK_ID, new DeckTitle(DECK_TITLE))));
+        when(findDecks.all()).thenReturn(Collections.singleton(new FindDecks.DeckSnapshot(DECK_ID.getValue(), DECK_TITLE, new ArrayList<>())));
         final List<DeckDTO> actualDecks = this.deckController.findAll().getBody();
         assertEquals(1, notNull(actualDecks).size());
         assertEquals(new DeckDTO(DECK_ID.toString(), DECK_TITLE), actualDecks.get(0));
