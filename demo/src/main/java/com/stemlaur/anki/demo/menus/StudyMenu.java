@@ -32,8 +32,8 @@ final class StudyMenu {
     private static void wait5Seconds() {
         try {
             Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException ignored) {
+
         }
     }
 
