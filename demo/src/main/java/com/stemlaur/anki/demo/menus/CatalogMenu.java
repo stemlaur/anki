@@ -82,6 +82,8 @@ public final class CatalogMenu {
                             .forEach(deck -> terminal.println("Deck with title '" + deck.getTitle() + "' and id " + deck.getId()));
                 case EXIT:
                     return;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + n);
             }
             terminal.println();
         }
