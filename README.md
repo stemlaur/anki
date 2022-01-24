@@ -24,7 +24,7 @@ glossary [here](https://htmlpreview.github.io/?https://github.com/stemlaur/anki/
 
 ## The modules
 
-The modules are split into :
+The modules are split into:
 
 - a module [domain](./domain/README.md)
 - a module [application](./application/README.md)
