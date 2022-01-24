@@ -32,8 +32,8 @@ final class StudyMenu {
     private static void wait5Seconds() {
         try {
             Thread.sleep(5000);
-        } catch (InterruptedException ignored) {
-
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
         }
     }
 
