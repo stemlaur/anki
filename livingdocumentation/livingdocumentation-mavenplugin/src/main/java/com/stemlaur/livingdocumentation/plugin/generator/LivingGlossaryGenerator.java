@@ -34,7 +34,6 @@ public class LivingGlossaryGenerator {
 
     public void generateDocumentation() {
         try {
-
             final JavaProjectBuilder builder = new JavaProjectBuilder();
             builder.setEncoding("UTF-8");
 
@@ -54,8 +53,8 @@ public class LivingGlossaryGenerator {
             final LivingDocumentation livingDocumentation =
                     new ParseLivingDocumentation(this.log).parseLivingDocumentation(builder);
             new JsonLivingDocumentation(this.log).write(targetDirectory, livingDocumentation);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
+
         }
     }
 }
