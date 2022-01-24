@@ -1,6 +1,6 @@
 body {
-  font-family: "Computer Modern Sans", sans-serif;
-  --clr-primary: rgba(30, 58, 138, 1);
+    font-family: "Computer Modern Sans", sans-serif;
+    --clr-primary: rgba(30, 58, 138, 1);
 }
 
 h1,
@@ -10,87 +10,86 @@ h4,
 h5,
 h6,
 p {
-  padding: 0.5rem 1.5rem;
-  color: var(--clr-primary);
+    padding: 0.5rem 1.5rem;
+    color: var(--clr-primary);
 }
 
 p {
-  color: black;
+    color: black;
 }
 
 h1 {
-  font-weight: 800;
-  font-size: 2rem;
-  margin: 0.67rem;
+    font-weight: 800;
+    font-size: 2rem;
+    margin: 0.67rem;
 }
 
 h2 {
-  font-weight: 600;
-  font-size: 1.5rem;
+    font-weight: 600;
+    font-size: 1.5rem;
 }
 
 h3 {
-  font-weight: 600;
-  font-size: 1.17rem;
+    font-weight: 600;
+    font-size: 1.17rem;
 }
 
 header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 3rem;
-  padding: 0.5em;
-  border-bottom: 1px solid darkgray;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 3rem;
+    padding: 0.5em;
+    border-bottom: 1px solid darkgray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
 }
 
 header img {
-  width: 4rem;
-  height: 4rem;
+    width: 4rem;
+    height: 4rem;
 }
 
 main {
-  margin-top: 5rem;
+    margin-top: 5rem;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .layer {
-  margin: 1rem;
-  padding: 2rem 0;
-  border: 1px solid lightgray;
-  border-radius: 2rem;
-  box-shadow: -1rem 0 3rem -2rem #000;
+    margin: 1rem;
+    padding: 2rem 0 1rem 0;
+    border: 1px solid lightgray;
+    border-radius: 2rem;
+    box-shadow: -1rem 0 3rem -2rem #000;
 }
 
 .layer-articles {
-  margin-left: 1rem;
+    margin-left: 1rem;
 }
 
 .definition {
-  margin: 1rem 0;
-  border-bottom: 1px solid lightgrey;
-  padding-bottom: 1rem;
-}
-
-.definition__comment {
-  margin-left: 1rem;
+    margin: 1rem 0;
+    border-top: 1px solid lightgrey;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .definition__tags {
-  margin-left: 2.3rem;
+    margin-left: 1.3rem;
 }
 
 .definition__tags > li {
-  --color: green;
-  font-size: 0.7em;
-  display: inline-block;
-  border: 1px;
-  background-color: green;
-  color: white;
-  padding: 0.2em 0.5em;
-  border-radius: 2em;
+    font-size: 0.7em;
+    display: inline-block;
+    border: 1px;
+    background-color: green;
+    color: white;
+    padding: 0.2em 0.5em;
+    border-radius: 2em;
 }
 
