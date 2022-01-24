@@ -16,6 +16,7 @@ package com.stemlaur.anki.domain.catalog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -37,14 +38,16 @@ public class DeckShould {
 
     @Test
     public void notCreateDeck_when_titleIsNull() {
-        assertThrows(DeckTitleIsRequired.class,
+        final DeckTitleIsRequired exception = assertThrows(DeckTitleIsRequired.class,
                 () -> new Deck(DECK_ID, null));
+        assertThat(exception.getMessage()).isEqualTo("Deck title is required in a deck");
     }
 
     @Test
     public void notCreateDeck_when_idIsNull() {
-        assertThrows(DeckIdIsRequired.class,
+        final DeckIdIsRequired exception = assertThrows(DeckIdIsRequired.class,
                 () -> new Deck(null, new DeckTitle("a title")));
+        assertThat(exception.getMessage()).isEqualTo("Deck id is required in a deck");
     }
 
     @Test

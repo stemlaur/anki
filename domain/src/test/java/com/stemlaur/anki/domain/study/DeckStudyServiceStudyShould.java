@@ -28,6 +28,7 @@ import java.util.Collections;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.any;
@@ -66,8 +67,10 @@ public class DeckStudyServiceStudyShould {
     public void throwAnException_when_SessionDoesNotExist() {
         when(this.sessions.find(SESSION_ID)).thenReturn(empty());
 
-        assertThrows(SessionDoesNotExist.class,
+        final SessionDoesNotExist exception = assertThrows(SessionDoesNotExist.class,
                 () -> this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN));
+
+        assertThat(exception.getMessage()).isEqualTo("Session with id '" + SESSION_ID + "' does not exist");
     }
 
     @Test
@@ -75,8 +78,9 @@ public class DeckStudyServiceStudyShould {
         when(this.sessions.find(SESSION_ID)).thenReturn(
                 of(new Session(SESSION_ID, Collections.singleton(new CardToStudy(CARD_TO_STUDY_ID, A_QUESTION, AN_ANSWER)))));
 
-        assertThrows(CardDoesNotExistInTheSession.class,
+        final CardDoesNotExistInTheSession exception = assertThrows(CardDoesNotExistInTheSession.class,
                 () -> this.deckStudyService.study(SESSION_ID, SOME_CARD_TO_STUDY_ID, Opinion.GREEN));
+        assertThat(exception.getMessage()).isEqualTo("Card with id '" + SOME_CARD_TO_STUDY_ID + "' does not exist in the session '" + SESSION_ID + "'");
     }
 
     @Test
