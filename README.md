@@ -1,4 +1,4 @@
-# Anki [![Actions Status](https://github.com/stemlaur/anki/workflows/Build/badge.svg)](https://github.com/stemlaur/anki/actions)
+# Anki [![Actions Status](https://github.com/stemlaur/anki/workflows/Build/badge.svg)](https://github.com/stemlaur/anki/actions) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=stemlaur_anki&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=stemlaur_anki)
 
 ## Description
 
