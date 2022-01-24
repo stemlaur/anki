@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.times;
@@ -64,16 +65,18 @@ public class DeckStudyServiceStartStudySessionShould {
     public void throwAnException_when_theDeckDoesNotExist() {
         when(this.findDecks.byId(DECK_ID.getValue())).thenReturn(empty());
 
-        assertThrows(DeckDoesNotExist.class,
+        final DeckDoesNotExist exception = assertThrows(DeckDoesNotExist.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
+        assertThat(exception.getMessage()).isEqualTo("Deck with id '" + DECK_ID.getValue() + "' does not exist");
     }
 
     @Test
     public void throwAnException_when_deckDoesNotContainAnyCard() {
         when(this.findDecks.byId(DECK_ID.getValue())).thenReturn(of(aDeckSnapshot()));
 
-        assertThrows(DeckDoesNotContainAnyCards.class,
+        final DeckDoesNotContainAnyCards exception = assertThrows(DeckDoesNotContainAnyCards.class,
                 () -> this.deckStudyService.startStudySession(DECK_ID.getValue()));
+        assertThat(exception.getMessage()).isEqualTo("Deck with id '" + DECK_ID.getValue() + "' does not contain any card");
     }
 
     @Test
