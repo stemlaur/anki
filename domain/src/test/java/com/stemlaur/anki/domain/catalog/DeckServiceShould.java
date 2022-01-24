@@ -43,10 +43,7 @@ public final class DeckServiceShould {
     public void setUp() {
         this.dummyDeckIdFactory = new DumbDeckIdFactory("any id");
         this.decks = new InMemoryDecks();
-        this.deckService = new DeckService(
-                this.decks,
-                this.dummyDeckIdFactory,
-                this.fakeDomainEvents);
+        this.deckService = new DeckService(this.decks, this.dummyDeckIdFactory, this.fakeDomainEvents);
     }
 
     @AfterEach
@@ -77,8 +74,7 @@ public final class DeckServiceShould {
     public void publishDeckCreated() {
         this.deckService.create(DECK_TITLE);
 
-        assertThat(fakeDomainEvents.getEvents())
-                .containsExactly(new DeckCreated(DeckId.from("any id"), DECK_TITLE));
+        assertThat(fakeDomainEvents.getEvents()).containsExactly(new DeckCreated(DeckId.from("any id"), DECK_TITLE));
     }
 
     @Test
@@ -94,14 +90,14 @@ public final class DeckServiceShould {
 
     @Test
     public void throwAnException_when_deckDoesNotExist() {
-        assertThrows(DeckDoesNotExist.class,
-                () -> this.deckService.remove(NON_EXISTING_DECK_ID));
+        final DeckDoesNotExist exception = assertThrows(DeckDoesNotExist.class, () -> this.deckService.remove(NON_EXISTING_DECK_ID));
+        assertThat(exception.getMessage()).isEqualTo("Deck with id '" + NON_EXISTING_DECK_ID + "' does not exist");
     }
 
     @Test
     public void throwAnException_when_addingCardToANonExistingDeck() {
-        assertThrows(DeckDoesNotExist.class,
-                () -> this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail(A_QUESTION, A_ANSWER)));
+        final DeckDoesNotExist exception = assertThrows(DeckDoesNotExist.class, () -> this.deckService.addCard(NON_EXISTING_DECK_ID, new CardDetail(A_QUESTION, A_ANSWER)));
+        assertThat(exception.getMessage()).isEqualTo("Deck with id '" + NON_EXISTING_DECK_ID + "' does not exist");
     }
 
     @Test
@@ -110,8 +106,7 @@ public final class DeckServiceShould {
 
         this.deckService.addCard(DECK_ID.getValue(), new CardDetail(A_QUESTION, A_ANSWER));
 
-        assertThat(this.decks.find(DECK_ID.getValue()).orElseThrow().cards())
-                .hasSize(1);
+        assertThat(this.decks.find(DECK_ID.getValue()).orElseThrow().cards()).hasSize(1);
     }
 
     @Test
@@ -121,8 +116,7 @@ public final class DeckServiceShould {
 
         this.deckService.addCard(DECK_ID.getValue(), new CardDetail(A_QUESTION, A_ANSWER));
 
-        assertThat(fakeDomainEvents.getEvents())
-                .containsExactly(new CardAdded(DECK_ID, 1, A_QUESTION, A_ANSWER));
+        assertThat(fakeDomainEvents.getEvents()).containsExactly(new CardAdded(DECK_ID, 1, A_QUESTION, A_ANSWER));
     }
 
     @Test
