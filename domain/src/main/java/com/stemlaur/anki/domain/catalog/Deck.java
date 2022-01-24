@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.domain.catalog;
 
+import com.stemlaur.anki.domain.catalog.api.DeckCreated;
 import com.stemlaur.anki.domain.common.AggregateRoot;
 import com.stemlaur.anki.domain.common.DomainEvent;
 import com.stemlaur.livingdocumentation.annotation.Entity;

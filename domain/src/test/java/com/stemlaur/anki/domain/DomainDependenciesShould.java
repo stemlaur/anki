@@ -18,22 +18,44 @@ import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+import static com.stemlaur.anki.domain.DomainDependenciesShould.DOMAIN_PKG;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.type;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static java.lang.String.format;
 
-@AnalyzeClasses(packages = "com.stemlaur.anki.domain", importOptions = ImportOption.DoNotIncludeTests.class)
+@AnalyzeClasses(packages = DOMAIN_PKG, importOptions = ImportOption.DoNotIncludeTests.class)
 public class DomainDependenciesShould {
 
+    static final String DOMAIN_PKG = "com.stemlaur.anki.domain";
+
     @ArchTest
-    public static final ArchRule not_be_technical = classes()
-            .that().resideInAPackage("com.stemlaur.anki.domain..")
-            .should().onlyDependOnClassesThat(resideInAnyPackage(
-                    "java..",
-                    "org.apache.commons..",
-                    "com.stemlaur.livingdocumentation..",
-                    "com.stemlaur.anki.domain.."
-            ).or(type(int[].class))) // See https://github.com/TNG/ArchUnit/issues/570
-            .as("The domain should be independent of infrastructure")
-            .because("business rules evolve at a different rhythm");
+    public static final ArchRule enforce_catalog_depends_on_apis_only = not_be_technical_and_only_depend_upon_other_context_apis("catalog");
+    @ArchTest
+    public static final ArchRule enforce_study_depends_on_apis_only = not_be_technical_and_only_depend_upon_other_context_apis("study");
+    @ArchTest
+    public static final ArchRule enforce_stats_depends_on_apis_only = not_be_technical_and_only_depend_upon_other_context_apis("stats");
+
+    private static ArchRule not_be_technical_and_only_depend_upon_other_context_apis(final String catalog) {
+        return classes()
+                .that()
+                .resideInAPackage(DOMAIN_PKG + "." + catalog + "..")
+                .should()
+                .onlyDependOnClassesThat(resideInAnyPackage(
+                        only_apis(catalog)
+                ).or(type(int[].class))) // See https://github.com/TNG/ArchUnit/issues/570
+                .as("The domain should be independent of infrastructure and other context internal")
+                .because("business rules evolve at a different rhythm");
+    }
+
+    private static String[] only_apis(final String context) {
+        return new String[]{
+                "java..",
+                "org.apache.commons..",
+                "com.stemlaur.livingdocumentation..",
+                DOMAIN_PKG + ".common..",
+                format(DOMAIN_PKG + ".%s..", context),
+                DOMAIN_PKG + "..api..",
+        };
+    }
 }
