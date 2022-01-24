@@ -33,22 +33,22 @@ class DeckStatsServiceShould {
 
     @Test
     public void startWithNoDecks() {
-        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(0);
+        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(new TotalNumberOfCreatedDecks(0));
     }
 
     @Test
     public void incrementNumberOfDecks() {
         this.deckStatsService.incrementByOne(FIRST_DECK_CREATED);
-        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(1);
+        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(new TotalNumberOfCreatedDecks(1));
         this.deckStatsService.incrementByOne(SECOND_DECK_CREATED);
-        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(2);
+        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(new TotalNumberOfCreatedDecks(2));
     }
 
     @Test
     public void notCountTwoTimeTheSameDeck() {
         this.deckStatsService.incrementByOne(FIRST_DECK_CREATED);
-        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(1);
+        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(new TotalNumberOfCreatedDecks(1));
         this.deckStatsService.incrementByOne(FIRST_DECK_CREATED);
-        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(1);
+        assertThat(this.deckStatsService.numberOfDecks()).isEqualTo(new TotalNumberOfCreatedDecks(1));
     }
 }
