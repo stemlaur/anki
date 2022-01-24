@@ -20,6 +20,9 @@ import com.stemlaur.livingdocumentation.annotation.DomainService;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Service to compute statistics about decks.
+ */
 @DomainService
 public class DeckStatsService implements IncrementDeckNumber {
     private final Set<String> deckIds = new HashSet<>();
@@ -29,7 +32,7 @@ public class DeckStatsService implements IncrementDeckNumber {
         deckIds.add(event.getAggregateId());
     }
 
-    int numberOfDecks() {
-        return this.deckIds.size();
+    TotalNumberOfCreatedDecks numberOfDecks() {
+        return new TotalNumberOfCreatedDecks(this.deckIds.size());
     }
 }
