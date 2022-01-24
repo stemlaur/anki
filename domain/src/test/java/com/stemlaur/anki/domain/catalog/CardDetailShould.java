@@ -23,9 +23,10 @@ class CardDetailShould {
     @Test
     void beAValueObject() {
         CardDetail first = new CardDetail("q1", "a1");
+        CardDetail anotherSameAsFirst = new CardDetail("q1", "a1");
         CardDetail second = new CardDetail("q2", "a2");
 
-        assertEquals(first, first);
+        assertEquals(first, anotherSameAsFirst);
         assertNotEquals(first, second);
 
         assertEquals(first.hashCode(), first.hashCode());

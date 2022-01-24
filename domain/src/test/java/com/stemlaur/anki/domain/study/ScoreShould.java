@@ -22,13 +22,14 @@ class ScoreShould {
 
     @Test
     void beAValueObject() {
-        Score first = new Score(1);
+        Score one = new Score(1);
+        Score anotherOne = new Score(1);
         Score second = new Score(2);
 
-        assertEquals(first, first);
-        assertNotEquals(first, second);
+        assertEquals(one, anotherOne);
+        assertNotEquals(one, second);
 
-        assertEquals(first.hashCode(), first.hashCode());
-        assertNotEquals(first.hashCode(), second.hashCode());
+        assertEquals(one.hashCode(), one.hashCode());
+        assertNotEquals(one.hashCode(), second.hashCode());
     }
 }
