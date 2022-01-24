@@ -33,7 +33,7 @@ final class StudyMenu {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e);
         }
     }
 

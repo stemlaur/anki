@@ -26,9 +26,10 @@ class DeckTitleShould {
     @Test
     void beAValueObject() {
         DeckTitle firstDeckTitle = new DeckTitle("my first title");
+        DeckTitle anotherDeckTitleSameAsFirst = new DeckTitle("my first title");
         DeckTitle secondDeckTitle = new DeckTitle("my second title");
 
-        assertEquals(firstDeckTitle, firstDeckTitle);
+        assertEquals(firstDeckTitle, anotherDeckTitleSameAsFirst);
         assertNotEquals(firstDeckTitle, secondDeckTitle);
 
         assertEquals(firstDeckTitle.hashCode(), firstDeckTitle.hashCode());

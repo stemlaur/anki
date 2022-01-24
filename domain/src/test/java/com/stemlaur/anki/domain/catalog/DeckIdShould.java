@@ -23,9 +23,10 @@ class DeckIdShould {
     @Test
     void beAValueObject() {
         DeckId firstDeckId = DeckId.from("1234");
+        DeckId sameDeckIdAsFirst = DeckId.from("1234");
         DeckId secondDeckId = DeckId.from("7980");
 
-        assertEquals(firstDeckId, firstDeckId);
+        assertEquals(firstDeckId, sameDeckIdAsFirst);
         assertNotEquals(firstDeckId, secondDeckId);
 
         assertEquals(firstDeckId.hashCode(), firstDeckId.hashCode());
