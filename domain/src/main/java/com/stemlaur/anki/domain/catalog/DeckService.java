@@ -56,8 +56,10 @@ public class DeckService implements CreateDeck, RemoveDeck, AddCard, FindDecks {
 
     @Override
     public void remove(final String deckId) {
-        this.decks.find(deckId).orElseThrow(() -> new DeckDoesNotExist(deckId));
-        this.decks.delete(deckId);
+        this.decks.delete(
+                this.decks.find(deckId)
+                        .orElseThrow(() -> new DeckDoesNotExist(deckId))
+                        .idString());
     }
 
     @Override
