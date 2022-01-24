@@ -11,22 +11,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.stemlaur.anki.application.eventlisteners.stats;
+package com.livingdocumentation.example.domain.subpackage.innerpackage;
 
-import com.stemlaur.anki.domain.catalog.api.DeckCreated;
-import com.stemlaur.anki.domain.stats.DeckStatsService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Service;
+import com.stemlaur.livingdocumentation.annotation.DomainEvent;
 
-@RequiredArgsConstructor
-@Service
-public class StatsEventListener {
-
-    private final DeckStatsService deckStatsService;
-
-    @EventListener
-    public void on(final DeckCreated event) {
-        deckStatsService.incrementByOne(event);
-    }
+/**
+ * An inner domain event.
+ */
+@DomainEvent
+public class AnInnerPackageEvent {
 }

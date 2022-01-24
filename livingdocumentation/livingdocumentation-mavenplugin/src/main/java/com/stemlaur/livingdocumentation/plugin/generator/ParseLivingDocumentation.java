@@ -25,6 +25,7 @@ import com.thoughtworks.qdox.model.JavaPackage;
 import org.apache.maven.plugin.logging.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -92,7 +93,7 @@ public class ParseLivingDocumentation {
 
     private LivingDocumentation.Layer parseLayer(final JavaPackage pckge, final JavaAnnotation bc) {
         final LivingDocumentation.Layer layer = parseLayerDetails(pckge, bc);
-        List<JavaClass> sortedClasses = pckge.getClasses().stream()
+        List<JavaClass> sortedClasses = getAllClassesAndSubClasses(pckge).stream()
                 .sorted(Comparator.comparing(JavaClass::getName))
                 .collect(Collectors.toList());
         for (JavaClass clss : sortedClasses) {
@@ -102,6 +103,14 @@ public class ParseLivingDocumentation {
             }
         }
         return layer;
+    }
+
+    private Collection<JavaClass> getAllClassesAndSubClasses(final JavaPackage pckge) {
+        final Collection<JavaClass> allClasses = new ArrayList<>(pckge.getClasses());
+        for (JavaPackage subPackage : pckge.getSubPackages()) {
+            allClasses.addAll(subPackage.getClasses());
+        }
+        return allClasses;
     }
 
     private boolean isBusinessMeaningful(JavaClass doc) {

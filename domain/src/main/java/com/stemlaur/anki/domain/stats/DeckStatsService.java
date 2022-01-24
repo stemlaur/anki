@@ -13,7 +13,7 @@
  */
 package com.stemlaur.anki.domain.stats;
 
-import com.stemlaur.anki.domain.catalog.DeckCreated;
+import com.stemlaur.anki.domain.catalog.api.DeckCreated;
 import com.stemlaur.anki.domain.stats.api.IncrementDeckNumber;
 import com.stemlaur.livingdocumentation.annotation.DomainService;
 

@@ -62,6 +62,11 @@ public class ParseLivingDocumentationIntTest {
                                                         "AnEntity",
                                                         "An entity.",
                                                         singletonList(LivingDocumentation.Type.ENTITY)
+                                                ),
+                                                new Definition(
+                                                        "AnInnerPackageEvent",
+                                                        "An inner domain event.",
+                                                        singletonList(LivingDocumentation.Type.DOMAIN_EVENT)
                                                 )
                                         ))
                         )

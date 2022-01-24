@@ -13,8 +13,8 @@
  */
 package com.stemlaur.anki.application.eventlisteners.stats;
 
-import com.stemlaur.anki.domain.catalog.DeckCreated;
 import com.stemlaur.anki.domain.catalog.DeckId;
+import com.stemlaur.anki.domain.catalog.api.DeckCreated;
 import com.stemlaur.anki.domain.stats.DeckStatsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
