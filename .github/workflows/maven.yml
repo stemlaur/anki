@@ -14,16 +14,26 @@ jobs:
         with:
           java-version: 11
 
-      - name: Step that caches files
+      - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-      - name: Build with Maven
-        run: mvn -B verify -P owasp-check --file pom.xml
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify -P owasp-check org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=stemlaur_anki
+
 
       - name: Verify Changed files
         uses: tj-actions/verify-changed-files@v8.8
@@ -31,6 +41,7 @@ jobs:
         with:
           files: |
             .(java|xml|yml|md)$
+
       - name: Run step only when files change.
         if: steps.verify-changed-files.outputs.files_changed == 'true'
         run: |
