@@ -13,7 +13,7 @@
  */
 package com.stemlaur.anki.application.eventlisteners.stats;
 
-import com.stemlaur.anki.domain.catalog.DeckCreated;
+import com.stemlaur.anki.domain.catalog.api.DeckCreated;
 import com.stemlaur.anki.domain.stats.DeckStatsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;

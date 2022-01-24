@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.domain.catalog;
 
+import com.stemlaur.anki.domain.catalog.api.DeckCreated;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

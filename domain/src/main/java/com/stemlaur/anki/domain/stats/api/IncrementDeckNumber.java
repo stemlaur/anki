@@ -13,7 +13,7 @@
  */
 package com.stemlaur.anki.domain.stats.api;
 
-import com.stemlaur.anki.domain.catalog.DeckCreated;
+import com.stemlaur.anki.domain.catalog.api.DeckCreated;
 
 public interface IncrementDeckNumber {
     void incrementByOne(final DeckCreated event);

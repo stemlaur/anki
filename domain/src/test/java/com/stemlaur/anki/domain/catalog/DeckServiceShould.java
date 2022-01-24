@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.domain.catalog;
 
+import com.stemlaur.anki.domain.catalog.api.DeckCreated;
 import com.stemlaur.anki.domain.catalog.spi.Decks;
 import com.stemlaur.anki.domain.catalog.spi.fake.InMemoryDecks;
 import com.stemlaur.anki.domain.common.spi.fake.FakeDomainEvents;
