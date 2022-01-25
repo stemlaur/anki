@@ -13,6 +13,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
         </dependency>
@@ -46,9 +54,14 @@
                             <generatorName>spring</generatorName>
                             <apiPackage>com.stemlaur.anki.controllers.api</apiPackage>
                             <modelPackage>com.stemlaur.anki.controllers.model</modelPackage>
-                            <output>src/main/java</output>
+                            <output>${project.basedir}</output>
+                            <skipOverwrite>true</skipOverwrite>
                             <configOptions>
+                                <interfaceOnly>true</interfaceOnly>
                                 <delegatePattern>true</delegatePattern>
+                                <dateLibrary>java8</dateLibrary>
+                                <library>spring-boot</library>
+                                <documentationProvider>springfox</documentationProvider>
                             </configOptions>
                         </configuration>
                     </execution>
