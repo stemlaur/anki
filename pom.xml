@@ -17,6 +17,7 @@
     <modules>
         <module>livingdocumentation</module>
         <module>domain</module>
+        <module>api-specifications</module>
         <module>application</module>
         <module>demo</module>
     </modules>
