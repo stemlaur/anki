@@ -1,3 +1,4 @@
 .idea
 **.iml
 target
+api-specifications/.openapi-generator/**
