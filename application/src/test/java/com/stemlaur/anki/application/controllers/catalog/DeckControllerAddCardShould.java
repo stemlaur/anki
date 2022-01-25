@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.application.controllers.catalog;
 
+import com.stemlaur.anki.application.controllers.model.AddCardRequest;
 import com.stemlaur.anki.domain.catalog.CardDetail;
 import com.stemlaur.anki.domain.catalog.DeckDoesNotExist;
 import com.stemlaur.anki.domain.catalog.api.AddCard;
@@ -50,7 +51,7 @@ public class DeckControllerAddCardShould {
     @Test
     public void return200Code_when_DeckExists() {
         ResponseEntity<?> responseEntity =
-                deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
+                deckController.addCardToDeck(DECK_ID, new AddCardRequest().question("question").answer("answer"));
         verify(this.addCard, times(1)).addCard(DECK_ID, new CardDetail("question", "answer"));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
@@ -60,7 +61,7 @@ public class DeckControllerAddCardShould {
         doThrow(new DeckDoesNotExist(DECK_ID)).when(this.addCard)
                 .addCard(DECK_ID, new CardDetail("question", "answer"));
         ResponseEntity<?> responseEntity =
-                deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
+                deckController.addCardToDeck(DECK_ID, new AddCardRequest().question("question").answer("answer"));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
     }
 
@@ -69,7 +70,7 @@ public class DeckControllerAddCardShould {
         doThrow(new RuntimeException()).when(this.addCard)
                 .addCard(DECK_ID, new CardDetail("question", "answer"));
         ResponseEntity<?> responseEntity =
-                deckController.addCard(DECK_ID, new AddCardRequest("question", "answer"));
+                deckController.addCardToDeck(DECK_ID, new AddCardRequest().question("question").answer("answer"));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 }

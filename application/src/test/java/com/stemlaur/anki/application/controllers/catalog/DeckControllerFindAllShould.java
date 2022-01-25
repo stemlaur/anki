@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.application.controllers.catalog;
 
+import com.stemlaur.anki.application.controllers.model.DeckDTO;
 import com.stemlaur.anki.domain.catalog.DeckId;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,22 +50,22 @@ public class DeckControllerFindAllShould {
     @Test
     public void returnNoDecks_when_noneExists() {
         when(findDecks.all()).thenReturn(new ArrayList<>());
-        final List<DeckDTO> actualDecks = this.deckController.findAll().getBody();
+        final List<DeckDTO> actualDecks = this.deckController.listDecks().getBody();
         assertTrue(notNull(actualDecks).isEmpty());
     }
 
     @Test
     public void returnDecks_when_exists() {
         when(findDecks.all()).thenReturn(Collections.singleton(new FindDecks.DeckSnapshot(DECK_ID.getValue(), DECK_TITLE, new ArrayList<>())));
-        final List<DeckDTO> actualDecks = this.deckController.findAll().getBody();
+        final List<DeckDTO> actualDecks = this.deckController.listDecks().getBody();
         assertEquals(1, notNull(actualDecks).size());
-        assertEquals(new DeckDTO(DECK_ID.toString(), DECK_TITLE), actualDecks.get(0));
+        assertEquals(new DeckDTO().id(DECK_ID.toString()).title(DECK_TITLE), actualDecks.get(0));
     }
 
     @Test
     public void return500Code_when_ExceptionOccured() {
         when(findDecks.all()).thenThrow(new RuntimeException());
-        final ResponseEntity<List<DeckDTO>> responseEntity = this.deckController.findAll();
+        final ResponseEntity<List<DeckDTO>> responseEntity = this.deckController.listDecks();
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 }

@@ -163,6 +163,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>01-license</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>remove</goal>

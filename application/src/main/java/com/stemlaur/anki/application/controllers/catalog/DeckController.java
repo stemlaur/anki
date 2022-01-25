@@ -13,24 +13,19 @@
  */
 package com.stemlaur.anki.application.controllers.catalog;
 
+import com.stemlaur.anki.application.controllers.api.DecksApi;
+import com.stemlaur.anki.application.controllers.model.AddCardRequest;
+import com.stemlaur.anki.application.controllers.model.CreateDeckRequest;
+import com.stemlaur.anki.application.controllers.model.DeckDTO;
 import com.stemlaur.anki.domain.catalog.CardDetail;
-import com.stemlaur.anki.domain.catalog.Deck;
 import com.stemlaur.anki.domain.catalog.DeckDoesNotExist;
 import com.stemlaur.anki.domain.catalog.api.AddCard;
 import com.stemlaur.anki.domain.catalog.api.CreateDeck;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import com.stemlaur.anki.domain.catalog.api.FindDecks.DeckSnapshot;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -44,44 +39,25 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/api")
 @RequiredArgsConstructor
-class DeckController {
+class DeckController implements DecksApi {
     private final CreateDeck createDeck;
     private final AddCard addCard;
     private final FindDecks findDecks;
 
-    @ApiOperation(value = "Webservice to find all existing decks", response = List.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved list"),
-            @ApiResponse(code = 500, message = "An internal server error occured")
-    })
-    @GetMapping(path = "/decks", produces = "application/json")
-    ResponseEntity<List<DeckDTO>> findAll() {
+    @Override
+    public ResponseEntity<List<DeckDTO>> listDecks() {
         try {
-            return ResponseEntity.ok(
-                    this.findDecks.all().stream()
-                            .map(deck -> new DeckDTO(deck.getId(), deck.getTitle()))
-                            .collect(Collectors.toList())
-            );
+            return ResponseEntity.ok(this.findDecks.all().stream().map(deck -> new DeckDTO().id(deck.getId()).title(deck.getTitle())).collect(Collectors.toList()));
         } catch (Exception e) {
             return ResponseEntity.status(500).build();
         }
     }
 
-    @ApiOperation(value = "Webservice to create a deck", response = String.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successfully created and id returned"),
-            @ApiResponse(code = 500, message = "An internal server error occured")
-    })
-    @PostMapping(path = "/decks", consumes = "application/json", produces = "application/json")
-    ResponseEntity<String> createDeck(
-            @ApiParam(value = "Create deck request object", required = true)
-            @RequestBody final CreateDeckRequest request) {
+    @Override
+    public ResponseEntity<String> createDeck(final CreateDeckRequest request) {
         try {
             final String id = this.createDeck.create(request.getTitle());
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(id)
-                    .toUri();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
             return ResponseEntity.created(location).body(id);
         } catch (final Exception e) {
             log.error("An error occured while creating a deck", e);
@@ -89,16 +65,8 @@ class DeckController {
         }
     }
 
-    @ApiOperation(value = "Webservice to add a card to an existing deck", response = String.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully added the card"),
-            @ApiResponse(code = 404, message = "Deck not found"),
-            @ApiResponse(code = 500, message = "An internal server error occured")
-    })
-    @PostMapping(path = "/decks/{id}/card", consumes = "application/json", produces = "application/json")
-    ResponseEntity<?> addCard(
-            @ApiParam(value = "The id of the deck", required = true) @PathVariable("id") final String deckId,
-            @ApiParam(value = "Add card request object", required = true) @RequestBody final AddCardRequest addCardRequest) {
+    @Override
+    public ResponseEntity<Object> addCardToDeck(final String deckId, final AddCardRequest addCardRequest) {
         try {
             this.addCard.addCard(deckId, new CardDetail(addCardRequest.getQuestion(), addCardRequest.getAnswer()));
             return ResponseEntity.ok().build();
@@ -109,22 +77,15 @@ class DeckController {
         }
     }
 
-    @ApiOperation(value = "Webservice to find an existing deck by its id", response = Deck.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully found"),
-            @ApiResponse(code = 404, message = "Deck not found"),
-            @ApiResponse(code = 500, message = "An internal server error occured")
-    })
-    @GetMapping(path = "/decks/{id}", produces = "application/json")
-    ResponseEntity<?> findDeckById(
-            @ApiParam(value = "The id of the deck", required = true) @PathVariable("id") final String deckId) {
+    @Override
+    public ResponseEntity<DeckDTO> findDeckById(final String deckId) {
         try {
             final Optional<DeckSnapshot> optionalDeckById = this.findDecks.byId(deckId);
             if (optionalDeckById.isEmpty()) {
                 return ResponseEntity.notFound().build();
             } else {
                 final DeckSnapshot deck = optionalDeckById.orElseThrow();
-                return ResponseEntity.ok().body(new DeckDTO(deck.getId(), deck.getTitle()));
+                return ResponseEntity.ok().body(new DeckDTO().id(deck.getId()).title(deck.getTitle()));
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).build();

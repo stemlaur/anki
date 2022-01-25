@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.application.controllers.study;
 
+import com.stemlaur.anki.application.controllers.model.CreateStudySessionRequest;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ public class StudyControllerStartSessionShould {
     @Test
     public void createStudySession() {
         when(this.deckStudyService.startStudySession(DECK_ID)).thenReturn(SESSION_ID);
-        ResponseEntity<String> responseEntity = studyController.createStudySession(new CreateStudySessionRequest(DECK_ID));
+        ResponseEntity<String> responseEntity = studyController.createStudySession(new CreateStudySessionRequest().deckId(DECK_ID));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
         assertThat(responseEntity.getHeaders().getLocation().getPath()).isEqualTo("/" + SESSION_ID);
         assertThat(responseEntity.getBody()).isEqualTo(SESSION_ID);
@@ -58,7 +59,7 @@ public class StudyControllerStartSessionShould {
     @Test
     public void return500Code_when_ExceptionOccured() {
         when(this.deckStudyService.startStudySession(DECK_ID)).thenThrow(new RuntimeException());
-        ResponseEntity<String> responseEntity = studyController.createStudySession(new CreateStudySessionRequest(DECK_ID));
+        ResponseEntity<String> responseEntity = studyController.createStudySession(new CreateStudySessionRequest().deckId(DECK_ID));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 }

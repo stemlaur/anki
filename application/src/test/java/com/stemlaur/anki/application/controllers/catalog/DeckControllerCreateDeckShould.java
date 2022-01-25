@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.application.controllers.catalog;
 
+import com.stemlaur.anki.application.controllers.model.CreateDeckRequest;
 import com.stemlaur.anki.domain.catalog.api.CreateDeck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,16 +47,16 @@ public class DeckControllerCreateDeckShould {
     @Test
     public void createDeck() {
         when(this.createDeck.create(DECK_TITLE)).thenReturn(DECK_ID);
-        ResponseEntity<String> responseEntity = deckController.createDeck(new CreateDeckRequest(DECK_TITLE));
+        ResponseEntity<String> responseEntity = deckController.createDeck(new CreateDeckRequest().title(DECK_TITLE));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
         assertThat(responseEntity.getHeaders().getLocation().getPath()).isEqualTo("/" + DECK_ID);
         assertThat(responseEntity.getBody()).isEqualTo(DECK_ID);
     }
 
     @Test
-    public void return500Code_when_ExceptionOccured() {
+    public void return500Code_when_ExceptionOccurred() {
         when(this.createDeck.create(DECK_TITLE)).thenThrow(new RuntimeException());
-        ResponseEntity<String> responseEntity = deckController.createDeck(new CreateDeckRequest(DECK_TITLE));
+        ResponseEntity<String> responseEntity = deckController.createDeck(new CreateDeckRequest().title(DECK_TITLE));
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 }

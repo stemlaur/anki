@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.application.controllers.study;
 
+import com.stemlaur.anki.application.controllers.model.StudyCardRequest;
 import com.stemlaur.anki.domain.study.CardDoesNotExistInTheSession;
 import com.stemlaur.anki.domain.study.DeckStudyService;
 import com.stemlaur.anki.domain.study.Opinion;
@@ -33,7 +34,7 @@ import static org.mockito.Mockito.verify;
 public class StudyControllerStudyCardShould {
     private static final String SESSION_ID = "9b9dc6dd-18d3-45e4-92c1-399253ec954d";
     private static final String CARD_ID = "8e3760ec-013a-42b3-aa20-5b5f1506ca58";
-    private static final StudyCardRequest REQUEST = new StudyCardRequest(CARD_ID, Opinion.GREEN);
+    private static final StudyCardRequest REQUEST = new StudyCardRequest().cardId(CARD_ID).opinion(StudyCardRequest.OpinionEnum.GREEN);
 
     private StudyController studyController;
     @Mock

@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.application.controllers.study;
 
+import com.stemlaur.anki.application.controllers.model.NextCardToStudyResponse;
 import com.stemlaur.anki.domain.study.CardToStudy;
 import com.stemlaur.anki.domain.study.SessionDoesNotExist;
 import com.stemlaur.anki.domain.study.api.StudyDeck;
@@ -59,8 +60,8 @@ public class StudyControllerGetNextCardToStudyShould {
     public void returnCardToStudy_when_isPresent() {
         when(this.deckStudyService.nextCardToStudy(SESSION_ID)).thenReturn(of(CARD_TO_STUDY));
         NextCardToStudyResponse responseEntity =
-                (NextCardToStudyResponse) studyController.nextCardToStudy(SESSION_ID).getBody();
-        assertThat(responseEntity).isEqualTo(new NextCardToStudyResponse(CARD_ID, A_QUESTION, AN_ANSWER));
+                studyController.nextCardToStudy(SESSION_ID).getBody();
+        assertThat(responseEntity).isEqualTo(new NextCardToStudyResponse().id(CARD_ID).question(A_QUESTION).answer(AN_ANSWER));
     }
 
     @Test

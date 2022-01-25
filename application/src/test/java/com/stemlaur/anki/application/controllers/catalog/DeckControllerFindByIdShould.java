@@ -13,6 +13,7 @@
  */
 package com.stemlaur.anki.application.controllers.catalog;
 
+import com.stemlaur.anki.application.controllers.model.DeckDTO;
 import com.stemlaur.anki.domain.catalog.DeckId;
 import com.stemlaur.anki.domain.catalog.api.FindDecks;
 import com.stemlaur.anki.domain.catalog.api.FindDecks.DeckSnapshot;
@@ -61,8 +62,8 @@ public class DeckControllerFindByIdShould {
     @Test
     public void returnDeckDTO_when_deckExists() {
         when(findDecks.byId(DECK_ID.getValue())).thenReturn(of(new DeckSnapshot(DECK_ID.getValue(), DECK_TITLE, new ArrayList<>())));
-        final DeckDTO actual = (DeckDTO) this.deckController.findDeckById(DECK_ID.getValue()).getBody();
-        assertThat(actual).isEqualTo(new DeckDTO(DECK_ID.getValue(), DECK_TITLE));
+        final DeckDTO actual = this.deckController.findDeckById(DECK_ID.getValue()).getBody();
+        assertThat(actual).isEqualTo(new DeckDTO().id(DECK_ID.getValue()).title(DECK_TITLE));
     }
 
     @Test

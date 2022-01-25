@@ -1,15 +1,19 @@
 spring:
-  application:
-    name: anki
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+    application:
+        name: anki
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: password
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+#    data:
+#        rest:
+#            base-path: /api
 logging:
-  level:
-    root: INFO
-    com.stemlaur.anki: DEBUG
+    level:
+        root: DEBUG
+        com.stemlaur.anki: DEBUG
+

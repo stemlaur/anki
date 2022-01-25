@@ -27,7 +27,6 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
         </dependency>
         <dependency>
             <groupId>org.openapitools</groupId>
@@ -39,21 +38,36 @@
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}/src/main/java</directory>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>5.3.0</version>
                 <executions>
                     <execution>
-                        <id>create-api-specs</id>
-                        <phase>compile</phase>
+                        <id>001-api-generator</id>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/openapi.yml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>com.stemlaur.anki.controllers.api</apiPackage>
-                            <modelPackage>com.stemlaur.anki.controllers.model</modelPackage>
+                            <apiPackage>com.stemlaur.anki.application.controllers.api</apiPackage>
+                            <modelPackage>com.stemlaur.anki.application.controllers.model</modelPackage>
                             <output>${project.basedir}</output>
                             <skipOverwrite>true</skipOverwrite>
                             <configOptions>
