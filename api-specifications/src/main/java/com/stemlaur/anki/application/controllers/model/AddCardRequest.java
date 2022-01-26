@@ -25,7 +25,7 @@ import javax.validation.constraints.*;
 /**
  * AddCardRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-26T10:24:04.606221600+01:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-26T15:14:06.119987600+01:00[Europe/Paris]")
 public class AddCardRequest   {
   @JsonProperty("answer")
   private String answer;

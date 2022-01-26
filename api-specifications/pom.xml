@@ -76,6 +76,7 @@
                                 <dateLibrary>java8</dateLibrary>
                                 <library>spring-boot</library>
                                 <documentationProvider>springfox</documentationProvider>
+                                <generateSupportingFiles>false</generateSupportingFiles>
                             </configOptions>
                         </configuration>
                     </execution>
