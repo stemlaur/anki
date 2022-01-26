@@ -13,138 +13,143 @@
  */
 package com.stemlaur.anki.application.controllers.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * StudyCardRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-26T09:30:05.187773+01:00[Europe/Paris]")
-public class StudyCardRequest {
-    @JsonProperty("cardId")
-    private String cardId;
-    @JsonProperty("opinion")
-    private OpinionEnum opinion;
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-26T10:24:04.606221600+01:00[Europe/Paris]")
+public class StudyCardRequest   {
+  @JsonProperty("cardId")
+  private String cardId;
 
-    public StudyCardRequest cardId(String cardId) {
-        this.cardId = cardId;
-        return this;
+  /**
+   * Gets or Sets opinion
+   */
+  public enum OpinionEnum {
+    GREEN("GREEN"),
+    
+    ORANGE("ORANGE"),
+    
+    RED("RED");
+
+    private String value;
+
+    OpinionEnum(String value) {
+      this.value = value;
     }
 
-    /**
-     * Get cardId
-     *
-     * @return cardId
-     */
-    @ApiModelProperty(value = "")
-
-    public String getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
-    }
-
-    public StudyCardRequest opinion(OpinionEnum opinion) {
-        this.opinion = opinion;
-        return this;
-    }
-
-    /**
-     * Get opinion
-     *
-     * @return opinion
-     */
-    @ApiModelProperty(value = "")
-
-    public OpinionEnum getOpinion() {
-        return opinion;
-    }
-
-    public void setOpinion(OpinionEnum opinion) {
-        this.opinion = opinion;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        StudyCardRequest studyCardRequest = (StudyCardRequest) o;
-        return Objects.equals(this.cardId, studyCardRequest.cardId) &&
-                Objects.equals(this.opinion, studyCardRequest.opinion);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cardId, opinion);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class StudyCardRequest {\n");
-
-        sb.append("    cardId: ").append(toIndentedString(cardId)).append("\n");
-        sb.append("    opinion: ").append(toIndentedString(opinion)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static OpinionEnum fromValue(String value) {
+      for (OpinionEnum b : OpinionEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+  }
 
-    /**
-     * Gets or Sets opinion
-     */
-    public enum OpinionEnum {
-        GREEN("GREEN"),
+  @JsonProperty("opinion")
+  private OpinionEnum opinion;
 
-        ORANGE("ORANGE"),
+  public StudyCardRequest cardId(String cardId) {
+    this.cardId = cardId;
+    return this;
+  }
 
-        RED("RED");
+  /**
+   * Get cardId
+   * @return cardId
+  */
+  @ApiModelProperty(value = "")
 
-        private String value;
 
-        OpinionEnum(String value) {
-            this.value = value;
-        }
+  public String getCardId() {
+    return cardId;
+  }
 
-        @JsonCreator
-        public static OpinionEnum fromValue(String value) {
-            for (OpinionEnum b : OpinionEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+  public void setCardId(String cardId) {
+    this.cardId = cardId;
+  }
 
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
+  public StudyCardRequest opinion(OpinionEnum opinion) {
+    this.opinion = opinion;
+    return this;
+  }
 
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
+  /**
+   * Get opinion
+   * @return opinion
+  */
+  @ApiModelProperty(value = "")
+
+
+  public OpinionEnum getOpinion() {
+    return opinion;
+  }
+
+  public void setOpinion(OpinionEnum opinion) {
+    this.opinion = opinion;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    StudyCardRequest studyCardRequest = (StudyCardRequest) o;
+    return Objects.equals(this.cardId, studyCardRequest.cardId) &&
+        Objects.equals(this.opinion, studyCardRequest.opinion);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cardId, opinion);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class StudyCardRequest {\n");
+    
+    sb.append("    cardId: ").append(toIndentedString(cardId)).append("\n");
+    sb.append("    opinion: ").append(toIndentedString(opinion)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 

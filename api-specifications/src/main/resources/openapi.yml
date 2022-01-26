@@ -1,322 +1,322 @@
 openapi: 3.0.1
 info:
-  title: Anki open api documentation.
-  description: Anki open api documentation, written with API first mindset.
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0
-  version: "1.0"
+    title: Anki open api documentation.
+    description: Anki open api documentation, written with API first mindset.
+    license:
+        name: Apache 2.0
+        url: https://www.apache.org/licenses/LICENSE-2.0
+    version: "1.0"
 servers:
-  - url: http://localhost:8080/api
+    -   url: http://localhost:8080
 tags:
-  - name: deck
-    description: Deck context
-  - name: study
-    description: Study context
+    -   name: deck
+        description: Deck context
+    -   name: study
+        description: Study context
 paths:
-  /decks:
-    get:
-      tags:
-        - deck
-      summary: List all existing decks
-      operationId: listDecks
-      responses:
-        200:
-          description: Successfully retrieved list
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DeckDTO'
-        401:
-          description: Unauthorized
-          content: { }
-        403:
-          description: Forbidden
-          content: { }
-        404:
-          description: Not Found
-          content: { }
-        500:
-          description: An internal server error occured
-          content: { }
-    post:
-      tags:
-        - deck
-      summary: Create a deck
-      operationId: createDeck
-      requestBody:
-        description: Create deck request object
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateDeckRequest'
-        required: true
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-        201:
-          description: Successfully created and id returned
-          content:
-            application/json:
-              schema:
-                type: string
-        401:
-          description: Unauthorized
-          content: { }
-        403:
-          description: Forbidden
-          content: { }
-        404:
-          description: Not Found
-          content: { }
-        500:
-          description: An internal server error occured
-          content: { }
-      x-codegen-request-body-name: request
-  /decks/{id}:
-    get:
-      tags:
-        - deck
-      summary: Find an existing deck by its id
-      operationId: findDeckById
-      parameters:
-        - name: id
-          in: path
-          description: The id of the deck
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successfully found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeckDTO'
-        401:
-          description: Unauthorized
-          content: { }
-        403:
-          description: Forbidden
-          content: { }
-        404:
-          description: Deck not found
-          content: { }
-        500:
-          description: An internal server error occurred
-          content: { }
-  /decks/{id}/card:
-    post:
-      tags:
-        - deck
-      summary: Add a card to an existing deck
-      operationId: addCardToDeck
-      parameters:
-        - name: id
-          in: path
-          description: The id of the deck
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: Add card request object
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddCardRequest'
-        required: true
-      responses:
-        200:
-          description: Successfully added the card
-          content:
-            application/json:
-              schema:
-                type: object
-        201:
-          description: Created
-          content: { }
-        401:
-          description: Unauthorized
-          content: { }
-        403:
-          description: Forbidden
-          content: { }
-        404:
-          description: Deck not found
-          content: { }
-        500:
-          description: An internal server error occured
-          content: { }
-      x-codegen-request-body-name: addCardRequest
-  /sessions:
-    post:
-      tags:
-        - study
-      summary: Create a study session
-      operationId: createStudySession
-      requestBody:
-        description: request
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateStudySessionRequest'
-        required: true
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-        201:
-          description: Successfully created and id returned
-          content:
-            application/json:
-              schema:
-                type: string
-        401:
-          description: Unauthorized
-          content: { }
-        403:
-          description: Forbidden
-          content: { }
-        404:
-          description: Not Found
-          content: { }
-        500:
-          description: An internal server error occured
-          content: { }
-      x-codegen-request-body-name: request
-  /sessions/{id}/nextCard:
-    get:
-      tags:
-        - study
-      summary: Get next card to study
-      operationId: nextCardToStudy
-      parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NextCardToStudyResponse'
-        401:
-          description: Unauthorized
-          content: { }
-        403:
-          description: Forbidden
-          content: { }
-        404:
-          description: Session or deck not found
-          content: { }
-        500:
-          description: An internal server error occured
-          content: { }
-  /sessions/{id}/opinion:
-    post:
-      tags:
-        - study
-      summary: Give it's opinion about a card
-      operationId: studyCard
-      parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: request
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StudyCardRequest'
-        required: true
-      responses:
-        200:
-          description: Successfully gave opinion
-          content:
-            application/json:
-              schema:
-                type: object
-        201:
-          description: Created
-          content: { }
-        401:
-          description: Unauthorized
-          content: { }
-        403:
-          description: Forbidden
-          content: { }
-        404:
-          description: Session or card not found
-          content: { }
-        500:
-          description: An internal server error occured
-          content: { }
-      x-codegen-request-body-name: request
+    /decks:
+        get:
+            tags:
+                - deck
+            summary: List all existing decks
+            operationId: listDecks
+            responses:
+                200:
+                    description: Successfully retrieved list
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/DeckDTO'
+                401:
+                    description: Unauthorized
+                    content: { }
+                403:
+                    description: Forbidden
+                    content: { }
+                404:
+                    description: Not Found
+                    content: { }
+                500:
+                    description: An internal server error occured
+                    content: { }
+        post:
+            tags:
+                - deck
+            summary: Create a deck
+            operationId: createDeck
+            requestBody:
+                description: Create deck request object
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateDeckRequest'
+                required: true
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                201:
+                    description: Successfully created and id returned
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                401:
+                    description: Unauthorized
+                    content: { }
+                403:
+                    description: Forbidden
+                    content: { }
+                404:
+                    description: Not Found
+                    content: { }
+                500:
+                    description: An internal server error occured
+                    content: { }
+            x-codegen-request-body-name: request
+    /decks/{id}:
+        get:
+            tags:
+                - deck
+            summary: Find an existing deck by its id
+            operationId: findDeckById
+            parameters:
+                -   name: id
+                    in: path
+                    description: The id of the deck
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: Successfully found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeckDTO'
+                401:
+                    description: Unauthorized
+                    content: { }
+                403:
+                    description: Forbidden
+                    content: { }
+                404:
+                    description: Deck not found
+                    content: { }
+                500:
+                    description: An internal server error occurred
+                    content: { }
+    /decks/{id}/card:
+        post:
+            tags:
+                - deck
+            summary: Add a card to an existing deck
+            operationId: addCardToDeck
+            parameters:
+                -   name: id
+                    in: path
+                    description: The id of the deck
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                description: Add card request object
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/AddCardRequest'
+                required: true
+            responses:
+                200:
+                    description: Successfully added the card
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                201:
+                    description: Created
+                    content: { }
+                401:
+                    description: Unauthorized
+                    content: { }
+                403:
+                    description: Forbidden
+                    content: { }
+                404:
+                    description: Deck not found
+                    content: { }
+                500:
+                    description: An internal server error occured
+                    content: { }
+            x-codegen-request-body-name: addCardRequest
+    /sessions:
+        post:
+            tags:
+                - study
+            summary: Create a study session
+            operationId: createStudySession
+            requestBody:
+                description: request
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateStudySessionRequest'
+                required: true
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                201:
+                    description: Successfully created and id returned
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+                401:
+                    description: Unauthorized
+                    content: { }
+                403:
+                    description: Forbidden
+                    content: { }
+                404:
+                    description: Not Found
+                    content: { }
+                500:
+                    description: An internal server error occured
+                    content: { }
+            x-codegen-request-body-name: request
+    /sessions/{id}/nextCard:
+        get:
+            tags:
+                - study
+            summary: Get next card to study
+            operationId: nextCardToStudy
+            parameters:
+                -   name: id
+                    in: path
+                    description: id
+                    required: true
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: Successful
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/NextCardToStudyResponse'
+                401:
+                    description: Unauthorized
+                    content: { }
+                403:
+                    description: Forbidden
+                    content: { }
+                404:
+                    description: Session or deck not found
+                    content: { }
+                500:
+                    description: An internal server error occured
+                    content: { }
+    /sessions/{id}/opinion:
+        post:
+            tags:
+                - study
+            summary: Give it's opinion about a card
+            operationId: studyCard
+            parameters:
+                -   name: id
+                    in: path
+                    description: id
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                description: request
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/StudyCardRequest'
+                required: true
+            responses:
+                200:
+                    description: Successfully gave opinion
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                201:
+                    description: Created
+                    content: { }
+                401:
+                    description: Unauthorized
+                    content: { }
+                403:
+                    description: Forbidden
+                    content: { }
+                404:
+                    description: Session or card not found
+                    content: { }
+                500:
+                    description: An internal server error occured
+                    content: { }
+            x-codegen-request-body-name: request
 components:
-  schemas:
-    AddCardRequest:
-      title: AddCardRequest
-      type: object
-      properties:
-        answer:
-          type: string
-        question:
-          type: string
-    CreateDeckRequest:
-      title: CreateDeckRequest
-      type: object
-      properties:
-        title:
-          type: string
-    CreateStudySessionRequest:
-      title: CreateStudySessionRequest
-      type: object
-      properties:
-        deckId:
-          type: string
-    DeckDTO:
-      title: DeckDTO
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-    NextCardToStudyResponse:
-      title: NextCardToStudyResponse
-      type: object
-      properties:
-        answer:
-          type: string
-        id:
-          type: string
-        question:
-          type: string
-    StudyCardRequest:
-      title: StudyCardRequest
-      type: object
-      properties:
-        cardId:
-          type: string
-        opinion:
-          type: string
-          enum:
-            - GREEN
-            - ORANGE
-            - RED
+    schemas:
+        AddCardRequest:
+            title: AddCardRequest
+            type: object
+            properties:
+                answer:
+                    type: string
+                question:
+                    type: string
+        CreateDeckRequest:
+            title: CreateDeckRequest
+            type: object
+            properties:
+                title:
+                    type: string
+        CreateStudySessionRequest:
+            title: CreateStudySessionRequest
+            type: object
+            properties:
+                deckId:
+                    type: string
+        DeckDTO:
+            title: DeckDTO
+            type: object
+            properties:
+                id:
+                    type: string
+                title:
+                    type: string
+        NextCardToStudyResponse:
+            title: NextCardToStudyResponse
+            type: object
+            properties:
+                answer:
+                    type: string
+                id:
+                    type: string
+                question:
+                    type: string
+        StudyCardRequest:
+            title: StudyCardRequest
+            type: object
+            properties:
+                cardId:
+                    type: string
+                opinion:
+                    type: string
+                    enum:
+                        - GREEN
+                        - ORANGE
+                        - RED

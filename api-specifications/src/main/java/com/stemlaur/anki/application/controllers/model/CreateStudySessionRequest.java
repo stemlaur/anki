@@ -13,75 +13,80 @@
  */
 package com.stemlaur.anki.application.controllers.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * CreateStudySessionRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-26T09:30:05.187773+01:00[Europe/Paris]")
-public class CreateStudySessionRequest {
-    @JsonProperty("deckId")
-    private String deckId;
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-26T10:24:04.606221600+01:00[Europe/Paris]")
+public class CreateStudySessionRequest   {
+  @JsonProperty("deckId")
+  private String deckId;
 
-    public CreateStudySessionRequest deckId(String deckId) {
-        this.deckId = deckId;
-        return this;
+  public CreateStudySessionRequest deckId(String deckId) {
+    this.deckId = deckId;
+    return this;
+  }
+
+  /**
+   * Get deckId
+   * @return deckId
+  */
+  @ApiModelProperty(value = "")
+
+
+  public String getDeckId() {
+    return deckId;
+  }
+
+  public void setDeckId(String deckId) {
+    this.deckId = deckId;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Get deckId
-     *
-     * @return deckId
-     */
-    @ApiModelProperty(value = "")
-
-    public String getDeckId() {
-        return deckId;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    CreateStudySessionRequest createStudySessionRequest = (CreateStudySessionRequest) o;
+    return Objects.equals(this.deckId, createStudySessionRequest.deckId);
+  }
 
-    public void setDeckId(String deckId) {
-        this.deckId = deckId;
+  @Override
+  public int hashCode() {
+    return Objects.hash(deckId);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateStudySessionRequest {\n");
+    
+    sb.append("    deckId: ").append(toIndentedString(deckId)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        CreateStudySessionRequest createStudySessionRequest = (CreateStudySessionRequest) o;
-        return Objects.equals(this.deckId, createStudySessionRequest.deckId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(deckId);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class CreateStudySessionRequest {\n");
-
-        sb.append("    deckId: ").append(toIndentedString(deckId)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 
