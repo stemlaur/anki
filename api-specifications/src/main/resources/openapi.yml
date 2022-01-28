@@ -22,7 +22,7 @@ paths:
       operationId: listDecks
       responses:
         200:
-          description: Successfully retrieved list of decks
+          description: Successfully retrieved list of all the decks
           content:
             application/json:
               schema:

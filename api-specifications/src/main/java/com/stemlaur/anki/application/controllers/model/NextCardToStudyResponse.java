@@ -25,7 +25,7 @@ import javax.validation.constraints.*;
 /**
  * NextCardToStudyResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-28T14:10:51.521718400+01:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-28T15:43:42.537836400+01:00[Europe/Paris]")
 public class NextCardToStudyResponse   {
   @JsonProperty("answer")
   private String answer;

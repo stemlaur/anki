@@ -73,7 +73,7 @@
                             <output>${maven.multiModuleProjectDirectory}/api-specifications</output>
                             <skipOverwrite>false</skipOverwrite>
                             <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
-                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <generateSupportingFiles>false</generateSupportingFiles>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
                                 <delegatePattern>true</delegatePattern>

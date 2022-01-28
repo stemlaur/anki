@@ -35,7 +35,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-28T14:10:51.521718400+01:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-28T15:43:42.537836400+01:00[Europe/Paris]")
 @Validated
 @Api(value = "decks", description = "the decks API")
 public interface DecksApi {
@@ -162,7 +162,7 @@ public interface DecksApi {
     /**
      * GET /decks : List all existing decks
      *
-     * @return Successfully retrieved list of decks (status code 200)
+     * @return Successfully retrieved list of all the decks (status code 200)
      *         or Unauthorized (status code 401)
      *         or Forbidden (status code 403)
      *         or Not Found (status code 404)
@@ -170,7 +170,7 @@ public interface DecksApi {
      */
     @ApiOperation(value = "List all existing decks", nickname = "listDecks", notes = "", response = DeckDTO.class, responseContainer = "List", tags={ "deck", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successfully retrieved list of decks", response = DeckDTO.class, responseContainer = "List"),
+        @ApiResponse(code = 200, message = "Successfully retrieved list of all the decks", response = DeckDTO.class, responseContainer = "List"),
         @ApiResponse(code = 401, message = "Unauthorized"),
         @ApiResponse(code = 403, message = "Forbidden"),
         @ApiResponse(code = 404, message = "Not Found"),
