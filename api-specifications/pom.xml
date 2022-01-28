@@ -71,7 +71,8 @@
                             <apiPackage>com.stemlaur.anki.application.controllers.api</apiPackage>
                             <modelPackage>com.stemlaur.anki.application.controllers.model</modelPackage>
                             <output>${maven.multiModuleProjectDirectory}/api-specifications</output>
-                            <skipOverwrite>true</skipOverwrite>
+                            <skipOverwrite>false</skipOverwrite>
+                            <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
                                 <delegatePattern>true</delegatePattern>
