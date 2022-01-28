@@ -25,7 +25,7 @@ import javax.validation.constraints.*;
 /**
  * CreateDeckRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-26T15:16:15.808817700+01:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-28T14:10:51.521718400+01:00[Europe/Paris]")
 public class CreateDeckRequest   {
   @JsonProperty("title")
   private String title;

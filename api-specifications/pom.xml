@@ -73,13 +73,13 @@
                             <output>${maven.multiModuleProjectDirectory}/api-specifications</output>
                             <skipOverwrite>false</skipOverwrite>
                             <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+                            <generateSupportingFiles>true</generateSupportingFiles>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
                                 <delegatePattern>true</delegatePattern>
                                 <dateLibrary>java8</dateLibrary>
                                 <library>spring-boot</library>
                                 <documentationProvider>springfox</documentationProvider>
-                                <generateSupportingFiles>false</generateSupportingFiles>
                             </configOptions>
                         </configuration>
                     </execution>
@@ -98,3 +98,4 @@
         </plugins>
     </build>
 </project>
+
