@@ -65,8 +65,9 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <sourceDirectories>${project.basedir}/src/main/java</sourceDirectories>
-                            <targetDirectory>${project.basedir}/../doc/glossary</targetDirectory>
+                            <sourceDirectories>${maven.multiModuleProjectDirectory}/domain/src/main/java
+                            </sourceDirectories>
+                            <targetDirectory>${maven.multiModuleProjectDirectory}/doc/glossary</targetDirectory>
                         </configuration>
                     </execution>
                 </executions>

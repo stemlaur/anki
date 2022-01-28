@@ -64,11 +64,13 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/openapi.yml</inputSpec>
+                            <inputSpec>
+                                ${maven.multiModuleProjectDirectory}/api-specifications/src/main/resources/openapi.yml
+                            </inputSpec>
                             <generatorName>spring</generatorName>
                             <apiPackage>com.stemlaur.anki.application.controllers.api</apiPackage>
                             <modelPackage>com.stemlaur.anki.application.controllers.model</modelPackage>
-                            <output>${project.basedir}</output>
+                            <output>${maven.multiModuleProjectDirectory}/api-specifications</output>
                             <skipOverwrite>true</skipOverwrite>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
