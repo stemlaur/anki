@@ -26,6 +26,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <maven.version>3.6.3</maven.version>
+        <maven.version.enforced>[${maven.version},)</maven.version.enforced>
         <sonar.organization>stemlaur</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
@@ -109,6 +111,9 @@
                         <artifactId>maven-enforcer-plugin</artifactId>
                         <configuration>
                             <rules>
+                                <requireMavenVersion>
+                                    <version>${maven.version.enforced}</version>
+                                </requireMavenVersion>
                                 <bannedDependencies>
                                     <excludes>
                                         <!-- exclude junit 4 from project -->
