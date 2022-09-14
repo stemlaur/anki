@@ -2,7 +2,7 @@
 
 ## Context
 
-NexusOne has several very explicit goals that make the practice and
+Anki has several very explicit goals that make the practice and
 discipline of architecture very important:
 
 - We want to think deeply about all our architectural decisions,
@@ -22,7 +22,7 @@ discipline of architecture very important:
 
 ## Decision
 
-We will document every architecture-level decision for NexusOne and its
+We will document every architecture-level decision for Anki and its
 core modules with an
 [Architecture Decision Record](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions). These
 are a well structured, relatively lightweight way to capture
@@ -57,7 +57,7 @@ Accepted
 
 1. Developers must write an ADR and submit it for review before
    selecting an approach to any architectural decision -- that is, any
-   decision that affects the way NexusOne or an NexusOne application is
+   decision that affects the way Anki application is
    put together at a high level.
 2. We will have a concrete artifact around which to focus discussion,
    before finalizing decisions.
