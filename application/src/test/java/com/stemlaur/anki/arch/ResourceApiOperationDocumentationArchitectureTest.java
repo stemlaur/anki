@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods;
 
 @Tag("Architecture")
-@AnalyzeClasses(packages = "fr.edf.nexusone", importOptions = {ImportOption.DoNotIncludeTests.class})
+@AnalyzeClasses(packages = "com.stemlaur.anki", importOptions = {ImportOption.DoNotIncludeTests.class})
 public class ResourceApiOperationDocumentationArchitectureTest {
 
     /**
