@@ -32,7 +32,7 @@
         <mockito-core.version>3.2.4</mockito-core.version>
         <spring-boot.version>2.7.3</spring-boot.version>
         <springfox.version>3.0.0</springfox.version>
-        <cucumber.version>7.7.0</cucumber.version>
+        <cucumber.version>7.8.0</cucumber.version>
         <archunit.version>0.23.1</archunit.version>
     </properties>
 
