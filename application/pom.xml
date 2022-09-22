@@ -83,7 +83,7 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>messages</artifactId>
-            <version>19.1.2</version>
+            <version>19.1.4</version>
         </dependency>
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
