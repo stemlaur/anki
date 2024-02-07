@@ -33,25 +33,28 @@ public final class SQLDecks implements Decks {
 
     @Override
     public void save(final Deck deck) {
-        this.dslContext.insertInto(DECK,
-                        DECK.ID,
-                        DECK.TITLE)
-                .values(deck.idString(), deck.titleString())
-                .execute();
+        try (var insertion = this.dslContext.insertInto(DECK, DECK.ID, DECK.TITLE)) {
+            insertion.values(deck.idString(), deck.titleString())
+                    .execute();
+        }
     }
 
     @Override
     public void delete(final String id) {
-        this.dslContext.delete(DECK).where(DECK.ID.eq(id));
+        try (final var deletion = this.dslContext.delete(DECK)) {
+            deletion.where(DECK.ID.eq(id));
+        }
     }
 
     @Override
     public Optional<Deck> find(final String id) {
-        return this.dslContext.select(DECK.ID, DECK.TITLE)
-                .from(DECK)
-                .where(DECK.ID.eq(id))
-                .stream().findFirst()
-                .map(record -> new Deck(DeckId.from(record.get(DECK.ID)), new DeckTitle(record.get(DECK.TITLE))));
+        try (final var selection = this.dslContext.select(DECK.ID, DECK.TITLE)) {
+            return selection
+                    .from(DECK)
+                    .where(DECK.ID.eq(id))
+                    .stream().findFirst()
+                    .map(record -> new Deck(DeckId.from(record.get(DECK.ID)), new DeckTitle(record.get(DECK.TITLE))));
+        }
     }
 
     @Override
