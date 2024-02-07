@@ -58,6 +58,7 @@ class Demo implements BiConsumer<TextIO, RunnerData> {
 
     public static void main(String[] args) throws IOException {
         TextIO textIO = TextIoFactory.getTextIO();
+        textIO.getTextTerminal().getProperties().setPromptColor("white");
 
         final DeckService deckService = new DeckService(new InMemoryDecks(), new SimpleDeckIdFactory(), new FakeDomainEvents());
         DeckStudyService deckStudyService = new DeckStudyService(deckService, new CardProgressService(new InMemoryCardProgresses()), new SessionIdFactory(), new InMemorySessions(), Clock.systemUTC());

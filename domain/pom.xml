@@ -11,6 +11,10 @@
 
     <artifactId>domain</artifactId>
 
+<properties>
+    <logback.version>1.2.12</logback.version>
+</properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -49,29 +53,16 @@
             <version>${archunit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.stemlaur.anki</groupId>
-                <artifactId>livingdocumentation-mavenplugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <executions>
-                    <execution>
-                        <id>create-living-doc</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirectories>${project.basedir}/src/main/java</sourceDirectories>
-                            <targetDirectory>${project.basedir}/../doc/glossary</targetDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
