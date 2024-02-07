@@ -63,15 +63,15 @@ public class DeckStudyService implements StudyDeck {
 
     private DeckSnapshot findDeck(final String deckId) {
         final DeckSnapshot deckSnapshot = this.findDecks.byId(deckId).orElseThrow(() -> new DeckDoesNotExist(deckId));
-        if (deckSnapshot.getCards().isEmpty()) {
+        if (deckSnapshot.cards().isEmpty()) {
             throw new DeckDoesNotContainAnyCards(deckId);
         }
         return deckSnapshot;
     }
 
     private Set<CardToStudy> convertCardsToCardsToStudy(final DeckSnapshot deckSnapshot) {
-        return deckSnapshot.getCards().stream()
-                .map(c -> new CardToStudy(UUID.randomUUID().toString(), c.getQuestion(), c.getAnswer()))
+        return deckSnapshot.cards().stream()
+                .map(c -> new CardToStudy(UUID.randomUUID().toString(), c.question(), c.answer()))
                 .collect(Collectors.toSet());
     }
 
@@ -91,7 +91,7 @@ public class DeckStudyService implements StudyDeck {
             return empty();
         }
         return Optional.of(this.findRandomCardProgressWithScore(cardProgressesSortedByScoreAsc,
-                cardProgressesSortedByScoreAsc.get(0).score()));
+                cardProgressesSortedByScoreAsc.getFirst().score()));
     }
 
     private Optional<CardToStudy> getCardToStudyById(final Set<CardToStudy> cardsToStudy,

@@ -71,15 +71,15 @@ public final class CatalogMenu {
                         terminal.println("========== The deck not exist ==========");
                     } else {
                         final DeckSnapshot deckToView = optionalDeck.orElseThrow();
-                        terminal.println("Deck with title '" + deckToView.getTitle() + "'");
-                        deckToView.getCards().forEach(card -> terminal.println("  >  " + card.getQuestion() + " -> " + card.getAnswer()));
+                        terminal.println("Deck with title '" + deckToView.title() + "'");
+                        deckToView.cards().forEach(card -> terminal.println("  >  " + card.question() + " -> " + card.answer()));
                         terminal.println("========================================");
                     }
                     break;
                 case LIST_ALL_DECKS:
                     terminal.println("========== You want to list all decks ==========");
                     this.deckService.all()
-                            .forEach(deck -> terminal.println("Deck with title '" + deck.getTitle() + "' and id " + deck.getId()));
+                            .forEach(deck -> terminal.println("Deck with title '" + deck.title() + "' and id " + deck.id()));
                 case EXIT:
                     return;
                 default:

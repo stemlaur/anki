@@ -58,7 +58,7 @@ public class DeckControllerFindAllShould {
         when(findDecks.all()).thenReturn(Collections.singleton(new FindDecks.DeckSnapshot(DECK_ID.getValue(), DECK_TITLE, new ArrayList<>())));
         final List<DeckDTO> actualDecks = this.deckController.findAll().getBody();
         assertEquals(1, notNull(actualDecks).size());
-        assertEquals(new DeckDTO(DECK_ID.toString(), DECK_TITLE), actualDecks.get(0));
+        assertEquals(new DeckDTO(DECK_ID.toString(), DECK_TITLE), actualDecks.getFirst());
     }
 
     @Test

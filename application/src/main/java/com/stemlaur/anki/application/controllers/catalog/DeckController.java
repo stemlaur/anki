@@ -59,7 +59,7 @@ class DeckController {
         try {
             return ResponseEntity.ok(
                     this.findDecks.all().stream()
-                            .map(deck -> new DeckDTO(deck.getId(), deck.getTitle()))
+                            .map(deck -> new DeckDTO(deck.id(), deck.title()))
                             .collect(Collectors.toList())
             );
         } catch (Exception e) {
@@ -77,7 +77,7 @@ class DeckController {
             @ApiParam(value = "Create deck request object", required = true)
             @RequestBody final CreateDeckRequest request) {
         try {
-            final String id = this.createDeck.create(request.getTitle());
+            final String id = this.createDeck.create(request.title());
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(id)
@@ -100,7 +100,7 @@ class DeckController {
             @ApiParam(value = "The id of the deck", required = true) @PathVariable("id") final String deckId,
             @ApiParam(value = "Add card request object", required = true) @RequestBody final AddCardRequest addCardRequest) {
         try {
-            this.addCard.addCard(deckId, new CardDetail(addCardRequest.getQuestion(), addCardRequest.getAnswer()));
+            this.addCard.addCard(deckId, new CardDetail(addCardRequest.question(), addCardRequest.answer()));
             return ResponseEntity.ok().build();
         } catch (DeckDoesNotExist deckDoesNotExist) {
             return ResponseEntity.notFound().build();
@@ -124,7 +124,7 @@ class DeckController {
                 return ResponseEntity.notFound().build();
             } else {
                 final DeckSnapshot deck = optionalDeckById.orElseThrow();
-                return ResponseEntity.ok().body(new DeckDTO(deck.getId(), deck.getTitle()));
+                return ResponseEntity.ok().body(new DeckDTO(deck.id(), deck.title()));
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).build();
