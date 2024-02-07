@@ -13,9 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>example</module>
         <module>livingdocumentation-annotations</module>
-        <module>livingdocumentation-mavenplugin</module>
     </modules>
 
 </project>

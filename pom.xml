@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.7.3</version>
+        <version>2.7.18</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -23,7 +23,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <sonar.organization>stemlaur</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -33,7 +33,7 @@
         <spring-boot.version>2.7.3</spring-boot.version>
         <springfox.version>3.0.0</springfox.version>
         <cucumber.version>7.7.0</cucumber.version>
-        <archunit.version>0.23.1</archunit.version>
+        <archunit.version>1.2.1</archunit.version>
     </properties>
 
     <dependencyManagement>
@@ -132,58 +132,7 @@
     </profiles>
 
     <build>
-        <!-- fix formatting issues with mvn editorconfig:format -->
         <plugins>
-            <plugin>
-                <groupId>org.ec4j.maven</groupId>
-                <artifactId>editorconfig-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>check</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- See http://ec4j.github.io/editorconfig-maven-plugin/ for full configuration reference -->
-                    <excludes>
-                        <!-- Note that maven submodule directories and many non-source file patterns are excluded by default -->
-                        <!-- see https://github.com/ec4j/editorconfig-linters/blob/master/editorconfig-lint-api/src/main/java/org/ec4j/lint/api/Constants.java#L37 -->
-                        <!-- You can exclude further files from processing: -->
-                        <exclude>doc/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>remove</goal>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <quiet>true</quiet>
-                    <header>${user.dir}/style/copyright</header>
-                    <includes>
-                        <include>**/src/main/java/**</include>
-                        <include>**/src/test/java/**</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/generated/**</exclude>
-                    </excludes>
-                    <strictCheck>true</strictCheck>
-                    <mapping>
-                        <java>SLASHSTAR_STYLE</java>
-                    </mapping>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -299,29 +248,14 @@
                 <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>4.1</version>
+                    <version>4.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jooq</groupId>
                     <artifactId>jooq-codegen-maven</artifactId>
                     <version>${jooq.version}</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.ec4j.maven</groupId>
-                    <artifactId>editorconfig-maven-plugin</artifactId>
-                    <version>0.1.1</version>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>3.3.0</version>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>
