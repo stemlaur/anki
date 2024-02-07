@@ -53,10 +53,10 @@ final class StudyMenu {
                     terminal.println("========== You want to next card to study ==========");
                     final CardToStudy cardToStudy = this.deckStudyService.nextCardToStudy(currentSessionId).orElseThrow();
                     terminal.println("==================================================");
-                    terminal.println(cardToStudy.question());
+                    terminal.println("Question : %s".formatted(cardToStudy.question()));
                     terminal.println("Answer in 5 seconds");
                     wait5Seconds();
-                    terminal.println(cardToStudy.answer());
+                    terminal.println("Answer : %s".formatted(cardToStudy.answer()));
                     terminal.println("==================================================");
                     final Opinion opinion = textIO.newEnumInputReader(Opinion.class)
                             .withValueFormatter(Enum::name).read("");
