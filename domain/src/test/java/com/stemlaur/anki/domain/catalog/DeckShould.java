@@ -63,7 +63,7 @@ public class DeckShould {
     @Test
     public void addACardToAnEmptyDeck() {
         this.deck.addCard(new CardDetail(QUESTION, "The answer"));
-        assertEquals(new CardDetail(QUESTION, "The answer"), this.deck.cards().get(0).detail());
+        assertEquals(new CardDetail(QUESTION, "The answer"), this.deck.cards().getFirst().detail());
     }
 
     @Test

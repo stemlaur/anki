@@ -49,7 +49,7 @@ class StudyController {
     @PostMapping(path = "/sessions", consumes = "application/json", produces = "application/json")
     ResponseEntity<String> createStudySession(@RequestBody final CreateStudySessionRequest request) {
         try {
-            final String id = this.deckStudyService.startStudySession(request.getDeckId());
+            final String id = this.deckStudyService.startStudySession(request.deckId());
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(id)
@@ -92,7 +92,7 @@ class StudyController {
     @PostMapping(path = "/sessions/{id}/opinion", consumes = "application/json", produces = "application/json")
     ResponseEntity<?> studyCard(@PathVariable("id") final String sessionId, @RequestBody final StudyCardRequest request) {
         try {
-            this.deckStudyService.study(sessionId, request.getCardId(), request.getOpinion());
+            this.deckStudyService.study(sessionId, request.cardId(), request.opinion());
             return ResponseEntity.ok().build();
         } catch (SessionDoesNotExist | CardDoesNotExistInTheSession e) {
             return ResponseEntity.notFound().build();

@@ -22,45 +22,9 @@ public interface FindDecks {
 
     Collection<DeckSnapshot> all();
 
-    class DeckSnapshot {
-        private final String id;
-        private final String title;
-        private final List<CardSnapshot> cards;
-
-        public DeckSnapshot(final String id, final String title, final List<CardSnapshot> cards) {
-            this.id = id;
-            this.title = title;
-            this.cards = cards;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public List<CardSnapshot> getCards() {
-            return cards;
-        }
+    record DeckSnapshot(String id, String title, List<CardSnapshot> cards) {
     }
 
-    class CardSnapshot {
-        private final String question;
-        private final String answer;
-
-        public CardSnapshot(final String question, final String answer) {
-            this.question = question;
-            this.answer = answer;
-        }
-
-        public String getQuestion() {
-            return question;
-        }
-
-        public String getAnswer() {
-            return answer;
-        }
+    record CardSnapshot(String question, String answer) {
     }
 }
